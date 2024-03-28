@@ -10,6 +10,7 @@ import { initializeActiveSlot} from './TurnZero.js'
 import { damagePhase, getAttackString, getBenchPokes, forceSwap } from './AttackPhase.js'
 import { placeCardtoSlot } from './PlaceCardtoSlot.js'
 import { v4 as uuidv4 } from 'uuid';
+import { createLog } from './databaseManager.js'
 
 let gameId = uuidv4()
 
@@ -22,8 +23,10 @@ export function initializeGame(){
     var player2 = new Player(5678, new PlayerField(), new Turn(5678, 'draw', true))
     currentGame.setPlayer1(player1)
     currentGame.setPlayer2(player2)
+    createLog(currentGame)
     initPlayerFields(player1)
     initPlayerFields(player2)
+
     let returnString = introduction()
     return returnString
 }
@@ -36,8 +39,8 @@ export function runTurnZeroPlayerOne(){
     // returnString = returnString.concat(turnZeroPlayerOne(player1))
     // return returnString
     let playerHandArr = turnZeroPlayerOne(player1)
-    console.log(`Player ${player1.playerID}'s hand:`)
-    console.log(playerHandArr)
+    //console.log(`Player ${player1.playerID}'s hand:`)
+    //console.log(playerHandArr)
     // for (let eachCard in playerHandArr)
     //     console.log(eachCard.name)
     return playerHandArr
@@ -45,12 +48,12 @@ export function runTurnZeroPlayerOne(){
 export function runTurnZeroPlayerTwo(){
     let returnString = ""
     let player2 = currentGame.player2
-    console.log(`Player 2: ${player2.playerID}\n`)
+    //console.log(`Player 2: ${player2.playerID}\n`)
     // returnString = returnString.concat(turnZeroPlayerOne(player1))
     // return returnString
     let playerHandArr = turnZeroPlayerTwo(player2)
-    console.log(`Player ${player2.playerID}'s hand:`)
-    console.log(playerHandArr)
+    //console.log(`Player ${player2.playerID}'s hand:`)
+    //console.log(playerHandArr)
     // for (let eachCard in playerHandArr)
     //     console.log(`${eachCard.name}`)
     return playerHandArr

@@ -24,6 +24,10 @@ class Game {
         return this.isGameOver
     }
 
+    getWinner(){
+        return this.winner
+    }
+
     setPlayer1(player){
         this.player1 = player
     }
@@ -38,6 +42,10 @@ class Game {
 
     setIsGameOver(isGameOver){
         this.isGameOver = isGameOver
+    }
+
+    setWinner(winner){
+        this.winner = winner
     }
 
     incrementTurnsElapsed(){
