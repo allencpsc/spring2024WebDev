@@ -23,7 +23,7 @@ export const Card = function Card(props) {
     alert("I can call an API endpoint here to perform an action!")
   }
   const [show, setShow] = useState(false);
-
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
@@ -42,11 +42,13 @@ export const Card = function Card(props) {
               <Row>
                 <Col>
                   <div className='d-grid gap-5'>
+                    {console.log(props.playerId)}
                       <CardButtons supertype={props.supertype} location={props.location} name={props.name} playerId={props.playerId} index={props.index}/>
                     </div>
                 </Col>
                 <Col className='col-9'>
-                <img src={props.url} className='h-75 d-inline modalImg'></img>
+                <img src={ props.flippedOver == true ? "https://vignette.wikia.nocookie.net/cardgame/images/a/ac/Pokemon-card-back.jpg/revision/latest/scale-to-width-down/342?cb=20131228023927" :props.url} 
+          className='h-75 d-inline modalImg'></img>
                 </Col>
               </Row>
             </Container>

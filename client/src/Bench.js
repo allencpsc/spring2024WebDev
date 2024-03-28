@@ -17,17 +17,19 @@ const style = {
 }
 
 
-export const Bench = ({cards}) => {
-    const[bench, setBench] = useState([])
-
-    useEffect(() => {
-        setBench(cards);
-    }, [cards]);
+export const Bench = ({cards, playerId}) => {
 
     return(
         <React.Fragment>
+            {console.log("Got to bench")}
             <div style={style} className="Bench">
-                {bench.map(pokemon => <Card  key={pokemon.id} name = {pokemon.name} url={pokemon.url} flippedOver = {pokemon.flippedOver} supertype= {pokemon.supertype} location={pokemon.location}/>)}
+                {cards.length > 0 && cards.map(pokemon => 
+                    <Card  key={pokemon.id} 
+                    name = {pokemon.name} 
+                    url={pokemon.url} 
+                    flippedOver = {pokemon.flippedOver}
+                    supertype= {pokemon.supertype} 
+                    location={pokemon.location}/>)}
             </div>
         </React.Fragment>
     )

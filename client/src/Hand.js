@@ -13,7 +13,9 @@ const style = {
     justifyContent: 'center'
 }
 
-export const Hand = ({cards}, flippedOver) => {
+export const Hand = ({cards, flippedOver, playerId}) => {
+    console.log(playerId)
+    console.log(flippedOver)
     return(
         <React.Fragment>
             <div className="Hand" style={style}>
@@ -24,7 +26,8 @@ export const Hand = ({cards}, flippedOver) => {
                         url={pokemon.images?.large}
                         flippedOver = {flippedOver}
                         supertype= {pokemon.supertype}
-                        location={"hand"} />
+                        location={"hand"}
+                        playerId={playerId} />
                     )}
             </div>
         </React.Fragment>

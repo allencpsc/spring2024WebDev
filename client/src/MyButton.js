@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import axios from 'axios';
 import { paths } from './const.js'
-
+import { useStore } from "./resources/store.js";
 const style = {
     color: 'white',
     backgroundColor: '#3f51b5',
@@ -10,11 +10,12 @@ const style = {
     border: '1px white'
 }
 export const MyButton = (props) => {
+    const moveToBench = useStore((state) => state.moveToBench)
     const handleClick = () => {
         if(props.textValue == "Place on Bench"){
             alert("You chose place on bench!")
-            //state.callPlaceBench()
-            //console.log(`${props.name}`)
+            console.log(props)
+            moveToBench(props.playerID, props.index)
         }
         else if(props.textValue == "Make Active"){
             alert("You chose make active!")

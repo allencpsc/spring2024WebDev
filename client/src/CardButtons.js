@@ -10,8 +10,10 @@ export const CardButtons = ({supertype, location, name, playerId, index}) => {
     if(supertype === "Pokémon" && location === "hand") {
         return (
             <div>
+                {console.log(playerId)}
+                {console.log(index)}
                 {/* instead of just returning null, call the zustand function that corresponds to place on bnech */}
-                <MyButton className="Button" textValue="Place on Bench" name={name} onClick={moveToBench(playerId, index)}/>
+                <MyButton className="Button" textValue="Place on Bench" name={name} playerID={playerId} index={index}/>
                 <MyButton className="Button" textValue="Make Active" name={name}/>
             </div>
         )

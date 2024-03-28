@@ -3,7 +3,6 @@ import { Card } from './Card';
 import  { Bench } from './Bench';
 import Active from './Active';
 import { Hand } from './Hand';
-import { MyButton }  from './MyButton';
 import axios from 'axios';
 import { paths } from './const.js'
 import { create } from "zustand";
@@ -65,13 +64,13 @@ export const Container = memo(function Container() {
                 <div className='col'>
                 </div>
                 <div className='playerBench'>
-                    <Bench cards={player2.bench}/>
+                    <Bench cards={player1.bench}/>
                 </div>
                 <div className='col'>
                 </div>
             </div>
             <div className="playerHand">
-                <Hand cards={player1.hand} flippedOver = {false} playerID = "1"/>
+                <Hand cards={player1.hand} flippedOver = {false} playerId = {1}/>
             </div>
             </div>
     )

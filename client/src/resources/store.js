@@ -34,12 +34,13 @@ export const useStore = create((set) => ({
         }
     },
 
-    moveToBench: (playerId, index) => {
+    moveToBench: async (playerId, index) => {
         console.log("Here's the moveToBench function.")
         console.log(playerId)
         console.log(index)
         set((state) => {
             if(playerId === 1) {
+                console.log(state.player1.bench)
                 return {...state, player1: {...state.player1, bench: [...state.player1.bench, state.player1.hand[index]], hand: state.player1.hand.filter((card, i) => i !== index)}}
             }
             else {
