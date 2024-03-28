@@ -5,23 +5,21 @@ import { useStore } from "./resources/store";
 
 export const CardButtons = ({supertype, location, name, playerId, index}) => {
     const moveToBench = useStore((state) => state.moveToBench)
-    //const placeOnBench = zustand.placeOnBench
     //const placeOnActive = zustand.placeOnActive
     if(supertype === "Pokémon" && location === "hand") {
         return (
             <div>
                 {console.log(playerId)}
                 {console.log(index)}
-                {/* instead of just returning null, call the zustand function that corresponds to place on bnech */}
-                <MyButton className="Button" textValue="Place on Bench" name={name} playerID={playerId} index={index}/>
-                <MyButton className="Button" textValue="Make Active" name={name}/>
+                <MyButton className="Button" textValue="Place on Bench" name={name} playerId={playerId} index={index}/>
+                <MyButton className="Button" textValue="Make Active" name={name} playerId={playerId} location={location} index={index}/>
             </div>
         )
     }
     else if(supertype === "Pokémon" && location === "Bench") {
         return (
             <div>
-                <MyButton textValue="Make Active" />
+                <MyButton textValue="Make Active" playerId={playerId} location={location} index={index}/>
             </div>
         )
     }

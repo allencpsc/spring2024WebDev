@@ -47,7 +47,25 @@ export const useStore = create((set) => ({
                 return {...state, player2: {...state.player2, bench: [...state.player2.bench, state.player2.hand[index]], hand: state.player2.hand.filter((card, i) => i !== index)}}
             }
         });
+    },
+
+    makeActive: async (playerId, location, index) => {
+        console.log("Here's the makeActive function")
         
+        set((state) => {
+            if(playerId === 1) {
+                if(location === "hand") {
+                    console.log("makeactive hand")
+                    return {...state, player1: {...state.player1, active: [state.player1.hand[index]], hand: state.player1.hand.filter((card, i) => i !== index)}}
+                    
+                }
+                else if(location === "bench") {
+                    console.log("makeactivebench")
+                    return {...state, player1: {...state.player1, active: [state.player1.bench[index]], bench: state.player1.bench.filter((card, i) => i !== index)}}
+                }
+                return {...state, player1: {...state.player1, active: [state.player1.bench[index]], bench: state.player1.bench.filter((card, i) => i !== index)}}
+            }
+        });
     }
 
 
