@@ -11,15 +11,14 @@ const style = {
 }
 export const MyButton = (props) => {
     const moveToBench = useStore((state) => state.moveToBench)
+    const makeActive = useStore((state) => state.makeActive)
     const handleClick = () => {
         if(props.textValue == "Place on Bench"){
-            alert("You chose place on bench!")
             console.log(props)
-            moveToBench(props.playerID, props.index)
+            moveToBench(props.playerId, props.index)
         }
         else if(props.textValue == "Make Active"){
-            alert("You chose make active!")
-            //console.log(`${props.name}`)
+            makeActive(props.playerId, props.location, props.index)
         }
         else{
             alert("I could call the API from here!")

@@ -50,11 +50,11 @@ export const Container = memo(function Container() {
                 <div className='col-4'>
                 </div>
                 <div className='col-3'>
-                    <Active />
+                    <Active pokemon={player2.active}  playerId={2}/>
                 </div>
 
                 <div className='col-3'>
-                    <Active />
+                    <Active pokemon={player1.active} playerId={1}/>
                     <button onClick={getStartHands}>Start</button>
                 </div>
                 <div className='col'>

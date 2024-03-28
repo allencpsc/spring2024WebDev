@@ -19,9 +19,6 @@ const style = {
 
 export const Card = function Card(props) {
 
-  const handleClick = () => {
-    alert("I can call an API endpoint here to perform an action!")
-  }
   const [show, setShow] = useState(false);
   
   const handleClose = () => setShow(false);
@@ -42,7 +39,6 @@ export const Card = function Card(props) {
               <Row>
                 <Col>
                   <div className='d-grid gap-5'>
-                    {console.log(props.playerId)}
                       <CardButtons supertype={props.supertype} location={props.location} name={props.name} playerId={props.playerId} index={props.index}/>
                     </div>
                 </Col>

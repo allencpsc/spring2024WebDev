@@ -1,19 +1,29 @@
+import { Card } from "./Card";
 import { CardSlot } from "./CardSlot";
 const style = {
     height: '12.4rem',
-    width: 'fit-content',
-    backgroundColor: 'rgb(0 0 0 / 0%)',
+    backgroundColor: 'rgb(256 230 34 / 90%)',
     borderRadius: '15px',
     color: 'white',
+    width: '8rem',
+    margin: '0.2rem 0rem 0.2rem 0rem',
+    padding: '5rem 0rem',
+    textAlign: 'center',
+    fontSize: '1rem',
+    lineHeight: 'normal',
+    borderRadius: '15px'
     
 }
-const Active = () => {
+const Active = ({pokemon, playerId}) => {
     return (
     <div style={{...style}} className="position-relative">
         <div className="position-absolute top-100 start-100 title translate-middle-y">ACTIVE</div>
-    <CardSlot />
+        {pokemon[0] ? <Card
+                        name = {pokemon.name}
+                        url={pokemon.images?.large}
+                        location={"active"}
+                        playerId={playerId} /> : null}
     </div>
     )
 }
-
 export default Active;

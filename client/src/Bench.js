@@ -27,11 +27,12 @@ export const Bench = ({cards, playerId}) => {
                 {cards.map((pokemon,index) => 
                     
                     <Card  key={pokemon.id} 
+                    index={index}
                     name = {pokemon.name} 
                     url={pokemon.images?.large} 
                     flippedOver = {pokemon.flippedOver}
                     supertype= {pokemon.supertype} 
-                    location={pokemon.location}
+                    location={"Bench"}
                     playerId = {playerId}/>)}
             </div>
         </React.Fragment>
