@@ -26,7 +26,6 @@ export function initializeGame(){
     createLog(currentGame)
     initPlayerFields(player1)
     initPlayerFields(player2)
-
     let returnString = introduction()
     return returnString
 }
