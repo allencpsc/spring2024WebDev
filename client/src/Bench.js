@@ -23,13 +23,16 @@ export const Bench = ({cards, playerId}) => {
         <React.Fragment>
             {console.log("Got to bench")}
             <div style={style} className="Bench">
-                {cards.length > 0 && cards.map(pokemon => 
+                {console.log(cards)}
+                {cards.map((pokemon,index) => 
+                    
                     <Card  key={pokemon.id} 
                     name = {pokemon.name} 
-                    url={pokemon.url} 
+                    url={pokemon.images?.large} 
                     flippedOver = {pokemon.flippedOver}
                     supertype= {pokemon.supertype} 
-                    location={pokemon.location}/>)}
+                    location={pokemon.location}
+                    playerId = {playerId}/>)}
             </div>
         </React.Fragment>
     )
