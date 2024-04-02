@@ -26,7 +26,9 @@ export const Hand = ({cards, flippedOver, playerId}) => {
                         flippedOver = {flippedOver}
                         supertype= {pokemon.supertype}
                         location={"hand"}
-                        playerId={playerId} />
+                        playerId={playerId}
+                        currentHp={Number(pokemon.currentHp)}
+                        maxHp={Number(pokemon.hp)} />
                     )}
             </div>
         </React.Fragment>

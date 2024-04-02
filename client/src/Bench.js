@@ -33,7 +33,10 @@ export const Bench = ({cards, playerId}) => {
                     flippedOver = {pokemon.flippedOver}
                     supertype= {pokemon.supertype} 
                     location={"Bench"}
-                    playerId = {playerId}/>)}
+                    playerId = {playerId}
+                    currentHp={pokemon.currentHp}
+                    maxHp={pokemon.hp}/>)}
+
             </div>
         </React.Fragment>
     )

@@ -10,7 +10,7 @@ import { initializeActiveSlot} from './TurnZero.js'
 import { damagePhase, getAttackString, getBenchPokes, forceSwap } from './AttackPhase.js'
 import { placeCardtoSlot } from './PlaceCardtoSlot.js'
 import { v4 as uuidv4 } from 'uuid';
-import { createLog } from './databaseManager.js'
+import { createLog } from './DatabaseManager.js'
 
 let gameId = uuidv4()
 

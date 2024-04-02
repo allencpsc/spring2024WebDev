@@ -3,6 +3,7 @@ import  Modal  from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import pokemon from 'pokemontcgsdk';
 import { CardButtons } from './CardButtons';
 import {useStore} from './resources/store';
@@ -23,6 +24,19 @@ export const Card = function Card(props) {
   
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const progressHp = props.currentHp && props.maxHp ? Number(props.currentHp)/Number(props.maxHp) * 100 : 100
+  var color;
+  switch (progressHp) {
+    case 0 < progressHp < 30:
+      color = 'danger';
+      break;
+    case 31 < progressHp < 60:
+      color = 'warning';
+      break;
+    default:
+      color='success';
+      break;
+  }
   return (
     <div style={{...style}} data-testid={`box`}>
         <img 
@@ -30,6 +44,9 @@ export const Card = function Card(props) {
           height={161} 
           style={{borderRadius: 'inherit'}} 
           onClick={handleShow}></img>
+          {props.supertype == 'Pokémon' && 
+            <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
+}
 
         <Modal show={show} onHide={handleClose} className='cardModal'>
           <Modal.Header closeButton>
