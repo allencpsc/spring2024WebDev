@@ -4,8 +4,11 @@ import { MyButton } from "./MyButton";
 import { useStore } from "./resources/store";
 
 export const CardButtons = ({supertype, location, name, playerId, index}) => {
+<<<<<<< HEAD
     const moveToBench = useStore((state) => state.moveToBench)
     const moveToActive = useStore((state) => state.moveToActive)
+=======
+>>>>>>> cee9a7caad19849e151989aed47776bc059bf534
     //const placeOnActive = zustand.placeOnActive
     if(supertype === "Pokémon" && location === "hand") {
         return (
