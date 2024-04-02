@@ -12,17 +12,17 @@ const style = {
     fontSize: '1rem',
     lineHeight: 'normal',
     borderRadius: '15px'
-    
+
 }
 const Active = ({pokemon, playerId}) => {
     return (
     <div style={{...style}} className="position-relative">
         <div className="position-absolute top-100 start-100 title translate-middle-y">ACTIVE</div>
-        {pokemon[0] ? <Card
-                        name = {pokemon.name}
-                        url={pokemon.images?.large}
+        {pokemon[0] && <Card
+                        name = {pokemon[0].name}
+                        url={pokemon[0].images?.large}
                         location={"active"}
-                        playerId={playerId} /> : null}
+                        playerId={playerId} />}
     </div>
     )
 }
