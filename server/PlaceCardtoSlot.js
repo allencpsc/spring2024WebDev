@@ -44,6 +44,7 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
             placePokeCardtoActive(cardChosen, activePlayer)
             returnString = returnString.concat(`${cardChosen.name} has been placed in the active slot`)
         }
+        console.log(returnString)
         return returnString
     }
 
