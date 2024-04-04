@@ -18,7 +18,6 @@ const Active = ({pokemon, playerId}) => {
     return (
     <div style={{...style}} className="position-relative">
         <div className="position-absolute top-100 start-100 title translate-middle-y">ACTIVE</div>
-        
         <div className="position-absolute top-0 start-0 ">{pokemon[0] && <Card
                         name = {pokemon[0].name}
                         url={pokemon[0].images?.large}

@@ -75,6 +75,7 @@ export function initializeActiveSlot(player, command){
             //console.log("invalid choice!");
         }
     }
+    console.log(returnString)
     return returnString
 }
 
