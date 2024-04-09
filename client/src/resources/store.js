@@ -7,6 +7,7 @@ export const useStore = create((set) => ({
     player1: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
     player2: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
     text: "Hello World!",
+    status: null,
 
     start: async () => {
         try {
