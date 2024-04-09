@@ -8,6 +8,7 @@ import { getDrawPhase, getTurnCommands, initializeGame, getTurnLoopCommands,
     getPlayerHand, sendPlaceCardtoSlot, performForceSwap } from './GameEngine.js'
 import { runTurnZeroPlayerOne, runTurnZeroPlayerTwo } from './GameEngine.js'
 import { turnZeroActiveSlotPlayerOne, turnZeroActiveSlotPlayerTwo } from './GameEngine.js'
+import { runCpuHandler } from './GameEngine.js';
 
 //connect to mongoDB
 const dbURI = 'mongodb+srv://cox_james:xocsemaj@pokemon0.wlcuscp.mongodb.net/?retryWrites=true&w=majority&appName=Pokemon0'
@@ -129,6 +130,13 @@ app.post('/place-card', (req, res) => {
     console.log(req.body.cardName, req.body.location, req.body.benchSlot)
     let gamePrompt = sendPlaceCardtoSlot(req.body.cardName, req.body.location, req.body.benchSlot)
     res.render('place-card.ejs', {"gamePrompt": gamePrompt})
+})
+
+app.get('cpu-turn', (req,res) => {
+    //call function to run cpu function
+    let returnArr = runCpuHandler()
+    //returnArr will have [activeCardObject, benchCardObject, attackObject]
+    res.send(returnArr)
 })
 
 

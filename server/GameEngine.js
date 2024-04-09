@@ -11,6 +11,7 @@ import { damagePhase, getAttackString, getBenchPokes, forceSwap } from './Attack
 import { placeCardtoSlot } from './PlaceCardtoSlot.js'
 import { v4 as uuidv4 } from 'uuid';
 import { createLog } from './DatabaseManager.js'
+import { cpuHandler } from './cpuController.js'
 
 let gameId = uuidv4()
 
@@ -173,6 +174,13 @@ export function sendPlaceCardtoSlot(cardName, location, benchSlot){
     let player = getActivePlayer()
     returnString = returnString.concat(placeCardtoSlot(player, cardName, location, benchSlot))
     return returnString
+}
+
+export function runCpuHandler(){
+    //return arr will have [activeCard, benchCard, attackChosen]
+    let returnArr = cpuHandler(currentGame)
+    console.log(`runCpuHandler reached... return arr: ${returnArr}`)
+    return returnArr
 }
 
 

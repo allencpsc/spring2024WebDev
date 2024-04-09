@@ -107,7 +107,8 @@ export function damagePhase(attackName, currentGame){
         knockOut = false
         returnArr[1] = knockOut
     }
-    returnArr[0] = returnString
+    //returnArr[0] = returnString
+    returnArr[0] = attack
     return returnArr
 }
 
