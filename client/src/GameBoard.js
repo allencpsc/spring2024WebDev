@@ -90,7 +90,7 @@ export const GameBoard = memo(function GameBoard() {
                     </div>
                 </div>
                 <div className='col'></div>
-           
+
             </div>
             </div>
     )
