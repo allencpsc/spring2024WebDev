@@ -13,7 +13,9 @@ export const useStore = create((set) => ({
                 console.log("Here's the start function.")
                 console.log(response)
                 console.log(response.data)
-                set((state) => ({...state, player1: {...state.player1, hand: response.data}}))
+                const cardsWithEnergies = response.data.map(card => 
+                    card.supertype === 'Pokémon' ? {...card, energies: []}: card)
+                set((state) => ({...state, player1: {...state.player1, hand: cardsWithEnergies}}))
             })
             .catch(function (error) {
             // handle error
@@ -64,6 +66,29 @@ export const useStore = create((set) => ({
                     return {...state, player1: {...state.player1, active: [state.player1.bench[index]], bench: state.player1.bench.filter((card, i) => i !== index)}}
                 }
                 return {...state, player1: {...state.player1, active: [state.player1.bench[index]], bench: state.player1.bench.filter((card, i) => i !== index)}}
+            }
+        });
+    },
+
+    attachEnergy: async (playerId, energyIndexInHand, pokemonLocation, pokemonIndexInLocation) => {
+        console.log("Here's the attachEnergy function")
+        console.log(playerId + " " + energyIndexInHand + " " + pokemonLocation + " " + pokemonIndexInLocation)
+        set((state) => {
+            if(playerId === 1) {
+                if(pokemonLocation === "active") {
+                    console.log("attachEnergy active")
+                    return {...state, player1: {
+                                ...state.player1, 
+                                active: state.player1.active.map((card, i) =>
+                                    i === 0 
+                                    ? {...card, energies: [...card.energies, state.player1.hand[energyIndexInHand]]} 
+                                    : card ), 
+                                    hand: state.player1.hand.filter((card, i) => i !== energyIndexInHand)}}
+                }
+                else if(pokemonLocation === "bench") {
+                    return {...state, player1: {...state.player1, active: [state.player1.bench[pokemonIndexInLocation]], bench: state.player1.bench.filter((card, i) => i !== pokemonIndexInLocation)}}
+                }
+                return {...state, player1: {...state.player1, active: [state.player1.bench[pokemonIndexInLocation]], bench: state.player1.bench.filter((card, i) => i !== pokemonIndexInLocation)}}
             }
         });
     }

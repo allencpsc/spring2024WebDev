@@ -19,8 +19,9 @@ export const Hand = ({cards, flippedOver, playerId}) => {
         <React.Fragment>
             <div className="Hand" style={style}>
                     {cards && cards.map((pokemon, index) =>
-                        <Card  key={pokemon.id}
-                        index={index}
+                        <Card 
+                        key={index}
+                        id = {pokemon.id}
                         name = {pokemon.name}
                         url={pokemon.images?.large}
                         flippedOver = {flippedOver}
@@ -28,7 +29,8 @@ export const Hand = ({cards, flippedOver, playerId}) => {
                         location={"hand"}
                         playerId={playerId}
                         currentHp={Number(pokemon.currentHp)}
-                        maxHp={Number(pokemon.hp)} />
+                        maxHp={Number(pokemon.hp)}
+                        energies={pokemon.energies} />
                     )}
             </div>
         </React.Fragment>

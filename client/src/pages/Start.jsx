@@ -5,17 +5,28 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import axios from 'axios'
 import { paths } from '../const.js'
-
+import { useStore } from "../resources/store.js";
 
 
 function Start (props) {
-    
+    const start = useStore((state) => state.start)
+    const player1 = useStore((state) => state.player1)
+    const player2 = useStore((state) => state.player2)
+    const getStartHands = async (e) => {
+        e.preventDefault()
+        try {
+            await start()
+        } catch (error) {
+            console.log(error)
+        }
+    }
     useEffect(()=> {
         console.log(props)
         axios.get(paths.root + '/introduction')
         .then(function (response) {
             // handle success
             console.log(response);
+            start()
         })
         .catch(function (error) {
             // handle error

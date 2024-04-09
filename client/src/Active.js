@@ -15,6 +15,7 @@ const style = {
 
 }
 const Active = ({pokemon, playerId}) => {
+    pokemon[0] ? console.log(pokemon[0].energies) : console.log()
     return (
     <div style={{...style}} className="position-relative">
         <div className="position-absolute top-100 start-100 title translate-middle-y">ACTIVE</div>
@@ -25,7 +26,8 @@ const Active = ({pokemon, playerId}) => {
                         supertype= {pokemon[0].supertype}
                         playerId={playerId}
                         currentHp={pokemon[0].currentHp}
-                        maxHp={pokemon[0].hp} />}</div>
+                        maxHp={pokemon[0].hp}
+                        energies={pokemon[0].energies} />}</div>
     </div>
     )
 }

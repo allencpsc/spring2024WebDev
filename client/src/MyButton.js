@@ -12,6 +12,7 @@ const style = {
 export const MyButton = (props) => {
     const moveToBench = useStore((state) => state.moveToBench)
     const makeActive = useStore((state) => state.makeActive)
+    const attachEnergy = useStore((state) => state.attachEnergy)
     const benchArr = useStore((state) => state.player1.bench)
     const handleClick = () => {
         if(props.textValue == "Place on Bench"){
@@ -53,9 +54,15 @@ export const MyButton = (props) => {
                 console.log(error);
             })
         }
+        else if (props.textValue == "Attach") {
+            console.log(props.playerId)
+            console.log("Attaching energy from MyButton")
+            attachEnergy(props.playerId, props.index, "active", "0")
+        }
         else{
             alert("I could call the API from here!")
         }
+        props.handleClose();
     }
     return (
         <Button className="btn-primary btn" size="lg" variant="primary" onClick={handleClick} style={style}>

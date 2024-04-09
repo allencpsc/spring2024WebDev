@@ -26,16 +26,17 @@ export const Bench = ({cards, playerId}) => {
                 {console.log(cards)}
                 {cards.map((pokemon,index) => 
                     
-                    <Card  key={pokemon.id} 
-                    index={index}
+                    <Card  id={pokemon.id} 
+                    key={index}
                     name = {pokemon.name} 
                     url={pokemon.images?.large} 
                     flippedOver = {pokemon.flippedOver}
                     supertype= {pokemon.supertype} 
-                    location={"Bench"}
+                    location={"bench"}
                     playerId = {playerId}
                     currentHp={pokemon.currentHp}
-                    maxHp={pokemon.hp}/>)}
+                    maxHp={pokemon.hp}
+                    energies={pokemon.energies}/>)}
 
             </div>
         </React.Fragment>
