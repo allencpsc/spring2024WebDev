@@ -9,6 +9,7 @@ const style = {
     padding: '10px',
     fontFamily: 'Arial',
 }
+//TODO: Pick a better font to match Bangers
 export const TextBox = ({text}) => {
     return(
         <div style={style}>
