@@ -111,9 +111,15 @@ export const useStore = create((set) => ({
     CPUTurn: async (active, bench, attackChosen) => {
         console.log("Here's the CPUTurn function")
         set((state) => {
+            if(state.player2.active.name == null){
+                return
+            }
             state.player2.hand.forEach(pokemon => {
                 if(active.name === pokemon.name) {
                     state.makeActive(2, "hand", active.index)
+                }
+                if(bench.name === pokemon.name) {
+                    state.moveToBench(2, "bench", bench.index)
                 }
             })
         })

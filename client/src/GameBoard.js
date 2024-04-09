@@ -16,11 +16,21 @@ export const GameBoard = memo(function GameBoard() {
     const player1 = useStore((state) => state.player1)
     const player2 = useStore((state) => state.player2)
     const text = useStore((state) => state.text)
+    const CPUTurn = useStore((state) => state.CPUTurn)
 
     const getStartHands = async (e) => {
         e.preventDefault()
         try {
             await start()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const runCPUTurn = async(e) => {
+        e.preventDefault()
+        try {
+            await CPUTurn()
         } catch (error) {
             console.log(error)
         }
@@ -57,7 +67,7 @@ export const GameBoard = memo(function GameBoard() {
                         <TextBox text={text} />
                         <div className='col'>
                         <MyButton onClick={getStartHands} textValue={"Start"}>Start</MyButton>
-                        <MyButton onClick={getStartHands} textValue={"End Turn"}>End Turn</MyButton>
+                        <MyButton onClick={runCPUTurn} textValue={"End Turn"}>End Turn</MyButton>
                         </div>
                     </div>
                 </div>
