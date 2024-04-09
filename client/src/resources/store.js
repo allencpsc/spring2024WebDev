@@ -131,4 +131,5 @@ export const useStore = create((set) => ({
             })
         } catch (error) {
         }
-}
+},
+}))
