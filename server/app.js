@@ -132,7 +132,7 @@ app.post('/place-card', (req, res) => {
     res.render('place-card.ejs', {"gamePrompt": gamePrompt})
 })
 
-app.get('cpu-turn', (req,res) => {
+app.get('/cpu-turn', (req,res) => {
     //call function to run cpu function
     let returnArr = runCpuHandler()
     //returnArr will have [activeCardObject, benchCardObject, attackObject]

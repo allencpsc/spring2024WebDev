@@ -13,6 +13,7 @@ export function cpuHandler(currentGame){
     //index 0 is attack, index 1 is knockout bool
     let attackReturnArray = useRandomAttack(player2active, currentGame)
     if (attackReturnArray[1] == true){
+        console.log(returnArr)
         returnArr.append(placeRandomCardtoActive(player2hand))
     }
     returnArr.append(attackReturnArray[0])
