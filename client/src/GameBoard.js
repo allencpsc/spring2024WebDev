@@ -12,6 +12,7 @@ import { TextBox } from './TextBox.js';
 
 //add api calls here
 export const GameBoard = memo(function GameBoard() {
+    const CPUTurn = useStore((state) => state.CPUTurn)
     const start = useStore((state) => state.start)
     const player1 = useStore((state) => state.player1)
     const player2 = useStore((state) => state.player2)
@@ -56,8 +57,8 @@ export const GameBoard = memo(function GameBoard() {
                     <div className='row' >
                         <TextBox text={text} />
                         <div className='col'>
-                        <MyButton onClick={getStartHands} textValue={"Start"}>Start</MyButton>
-                        <MyButton onClick={getStartHands} textValue={"End Turn"}>End Turn</MyButton>
+                        <button onClick={getStartHands} textValue={"Start"}>Start</button>
+                        <button onClick={CPUTurn} >End Turn</button>
                         </div>
                     </div>
                 </div>

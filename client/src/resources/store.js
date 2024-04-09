@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 import { paths } from "../const";
+//TODO: add state for initial load - bool, use to see if we need to start
 
 export const useStore = create((set) => ({
     player1: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
@@ -110,13 +111,16 @@ export const useStore = create((set) => ({
 
     CPUTurn: async (active, bench, attackChosen) => {
         console.log("Here's the CPUTurn function")
-        set((state) => {
-            state.player2.hand.forEach(pokemon => {
-                if(active.name === pokemon.name) {
-                    state.makeActive(2, "hand", active.index)
-                }
+        try {
+            axios.get(paths.root + '/cpu-turn')
+            .then(function(response) {
+                console.log(response)
+                console.log(response.data)
             })
-        })
+        } catch (error) {
+            
+        }
+
 
     }
 
