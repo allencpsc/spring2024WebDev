@@ -62,7 +62,7 @@ export const Container = memo(function Container() {
                         <button onClick={getStartHands}>End Turn</button>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div className='col-3'>
                     <Active pokemon={player2.active}  playerId={2}/>
@@ -72,14 +72,6 @@ export const Container = memo(function Container() {
                     <Active pokemon={player1.active} playerId={1}/>
                 </div>
                 <div className='col-2'>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
                 </div>
             </div>
             <div className='row'>
@@ -99,7 +91,7 @@ export const Container = memo(function Container() {
                     </div>
                 </div>
                 <div className='col'></div>
-           
+
             </div>
             </div>
     )
