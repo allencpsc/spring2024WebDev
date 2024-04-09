@@ -55,7 +55,7 @@ export const Card = function Card(props) {
           </img>
           {props.supertype == 'Pokémon' && props.energies && props.energies.length > 0 &&
           <EnergyIcons energies={props.energies}/>}
-          {props.supertype == 'Pokémon' &&
+          {props.supertype == 'Pokémon' && props.playerId == 1 &&
           <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
 }
 

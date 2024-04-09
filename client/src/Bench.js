@@ -11,8 +11,6 @@ const style = {
     backgroundColor: 'rgb(11 100 200 / 100%)',
     borderRadius: '15px',
     justifyItems: 'space-between',
-    minHeight: '12.4rem',
-    minWidth:'640px',
     color: 'white'
 }
 

@@ -5,6 +5,7 @@ import { paths } from "../const";
 export const useStore = create((set) => ({
     player1: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
     player2: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
+    text: "Hello World!",
     start: async () => {
         try {
             axios.get(paths.root + '/turn-zero/player1')
@@ -91,7 +92,9 @@ export const useStore = create((set) => ({
                 return {...state, player1: {...state.player1, active: [state.player1.bench[pokemonIndexInLocation]], bench: state.player1.bench.filter((card, i) => i !== pokemonIndexInLocation)}}
             }
         });
-    }
+    },
+
+    setText: async (text) => set((state) => ({...state, text}))
 
 
 }));
