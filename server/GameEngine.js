@@ -202,6 +202,10 @@ export function usePotion(){
     return useItemEffect(activePlayer)
 }
 
+export function getTheTurnsElapsed(){
+    return currentGame.turnsElapsed
+}
+
 function initPlayerFields(player){
     player.playerField.setPlayerID(player.getPlayerID())
     player.playerField.setBench([])
