@@ -7,7 +7,8 @@ import { getDrawPhase, getTurnCommands, initializeGame, getTurnLoopCommands,
     getAttackStringPrompt, getAttackResultsPrompt, getForceSwapPrompt, skipPlayerTurn,
     getPlayerHand, sendPlaceCardtoSlot, performForceSwap, getActivePlayer,
     getPlayer1Hand, getPlayer1Active, getPlayer2Hand, getPlayer2Active, getPlayer2Bench,
-    getPlayer1Bench} from './GameEngine.js'
+    getPlayer1Bench,
+    usePotion} from './GameEngine.js'
 import { runTurnZeroPlayerOne, runTurnZeroPlayerTwo } from './GameEngine.js'
 import { turnZeroActiveSlotPlayerOne, turnZeroActiveSlotPlayerTwo } from './GameEngine.js'
 import { runCpuHandler } from './GameEngine.js';
@@ -175,6 +176,11 @@ app.get('/player2-bench', (req, res) => {
 app.get('/player2-active', (req, res) => {
     let player2Active = getPlayer2Active()
     res.send(player2Active)
+})
+
+app.get('use-item-card-potion', (req,res) => {
+    let newCardHp = usePotion()
+    res.send(newCardHp)
 })
 
 app.listen(port, () => {

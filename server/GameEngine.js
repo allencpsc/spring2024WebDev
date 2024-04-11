@@ -12,6 +12,7 @@ import { placeCardtoSlot } from './PlaceCardtoSlot.js'
 import { v4 as uuidv4 } from 'uuid';
 import { createLog } from './DatabaseManager.js'
 import { cpuHandler } from './cpuController.js'
+import { useItemEffect } from './ItemEffects.js'
 
 let gameId = uuidv4()
 
@@ -216,6 +217,11 @@ export function getPlayer2Active(){
 
 export function getPlayer2Bench(){
     return currentGame.player2.playerField.bench
+}
+
+export function usePotion(){
+    let activePlayer = getActivePlayer()
+    return useItemEffect(activePlayer)
 }
 
 function initPlayerFields(player){
