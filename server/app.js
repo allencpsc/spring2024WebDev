@@ -5,7 +5,9 @@ const port = 3000
 import  bodyParser from 'body-parser'
 import { getDrawPhase, getTurnCommands, initializeGame, getTurnLoopCommands,
     getAttackStringPrompt, getAttackResultsPrompt, getForceSwapPrompt, skipPlayerTurn,
-    getPlayerHand, sendPlaceCardtoSlot, performForceSwap } from './GameEngine.js'
+    getPlayerHand, sendPlaceCardtoSlot, performForceSwap, getActivePlayer,
+    getPlayer1Hand, getPlayer1Active, getPlayer2Hand, getPlayer2Active, getPlayer2Bench,
+    getPlayer1Bench} from './GameEngine.js'
 import { runTurnZeroPlayerOne, runTurnZeroPlayerTwo } from './GameEngine.js'
 import { turnZeroActiveSlotPlayerOne, turnZeroActiveSlotPlayerTwo } from './GameEngine.js'
 import { runCpuHandler } from './GameEngine.js';
@@ -24,10 +26,6 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-
-app.get('/', (req, res) => {
-    res.render('home.ejs')
-})
 
 app.get('/introduction', (req, res) => {
     let gamePrompt = initializeGame()
@@ -140,6 +138,44 @@ app.get('/cpu-turn', (req,res) => {
     res.send(returnArr)
 })
 
+app.get('/get-player', (req, res) => {
+    let activePlayer = getActivePlayer()
+    res.send(activePlayer)
+})
+
+//endpoints for simply retrieving player game state (hand, bench active)
+
+//player 1
+app.get('/player1-hand', (req, res) => {
+    let player1Hand = getPlayer1Hand()
+    res.send(player1Hand)
+})
+
+app.get('/player1-bench', (req, res) => {
+    let player1bench = getPlayer1Bench()
+    res.send(player1bench)
+})
+
+app.get('/player1-active', (req, res) => {
+    let player1active = getPlayer1Active()
+    res.send(player1active)
+})
+
+//player 2
+app.get('/player2-hand', (req, res) => {
+    let player2Hand = getPlayer2Hand()
+    res.send(player2Hand)
+})
+
+app.get('/player2-bench', (req, res) => {
+    let player2Bench = getPlayer2Bench()
+    res.send(player2Bench)
+})
+
+app.get('/player2-active', (req, res) => {
+    let player2Active = getPlayer2Active()
+    res.send(player2Active)
+})
 
 app.listen(port, () => {
     console.log(`Pokemon TCG app listening on port ${port}`)

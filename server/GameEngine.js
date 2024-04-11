@@ -184,7 +184,7 @@ export function runCpuHandler(){
 }
 
 
-function getActivePlayer(){
+export function getActivePlayer(){
     if (currentGame.turnsElapsed % 2 == 0){
         var player = currentGame.player1
     }
@@ -192,6 +192,30 @@ function getActivePlayer(){
         var player = currentGame.player2
     }
     return player
+}
+
+export function getPlayer1Hand(){
+    return currentGame.player1.playerField.hand
+}
+
+export function getPlayer1Active(){
+    return currentGame.player1.playerField.active
+}
+
+export function getPlayer1Bench(){
+    return currentGame.player1.playerField.bench
+}
+
+export function getPlayer2Hand(){
+    return currentGame.player2.playerField.hand
+}
+
+export function getPlayer2Active(){
+    return currentGame.player2.playerField.active
+}
+
+export function getPlayer2Bench(){
+    return currentGame.player2.playerField.bench
 }
 
 function initPlayerFields(player){
@@ -235,9 +259,9 @@ function initPlayerFields(player){
 function introduction(){
     let returnString = ""
     returnString = returnString.concat("Welcome to PokeTCG Prototype...\n")
-    returnString = returnString.concat("This is a text based version of the game...\n")
+    returnString = returnString.concat("Important prompts will appear here...\n")
     returnString = returnString.concat("The initial draw phase will now begin...\n")
-    returnString = returnString.concat("Press Continue to start...\n")
+    returnString = returnString.concat("Press 'Draw' to start...\n")
     //console.log(`return string from intro func ${returnString}`)
     return returnString
 }
