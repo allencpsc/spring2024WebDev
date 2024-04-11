@@ -33,7 +33,7 @@ export const Bench = ({cards, playerId}) => {
                     supertype= {pokemon.supertype} 
                     location={"bench"}
                     playerId = {playerId}
-                    currentHp={pokemon.currentHp}
+                    currentHp={pokemon.hp}
                     maxHp={pokemon.hp}
                     energies={pokemon.energies}/>)}
 

@@ -12,7 +12,7 @@ import Start from './pages/Start';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Start/>,
+    element: <Main/>,
   },
   {
     path: "/main",

@@ -52,7 +52,7 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
         //check to see if bench is full
         let benchArr = activePlayer.playerField.getBench()
         let sizeBenchArr = benchArr.length
-        if (benchArr < 5){
+        if (sizeBenchArr < 5){
             benchArr.push([cardChosen, []])
             console.log(`${cardChosen.name} has been placed on your bench`)
         }

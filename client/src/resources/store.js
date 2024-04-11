@@ -9,6 +9,18 @@ export const useStore = create((set) => ({
     text: "Hello World!",
     status: null,
 
+    introduction: async () => {
+        try {
+            axios.get(paths.root + '/introduction')
+            .then(function (response) {
+                set((state) => ({...state, text: response.data}))
+            })
+        }
+        catch (error) {
+            console.log(error)
+        }
+    },
+
     start: async () => {
         try {
             axios.get(paths.root + '/turn-zero/player1')
@@ -133,6 +145,7 @@ export const useStore = create((set) => ({
             .then(function(response) {
                 console.log(response)
                 console.log(response.data)
+                
             })
         } catch (error) {
         }

@@ -27,7 +27,7 @@ const Active = ({pokemon, playerId}) => {
                         location={"active"}
                         supertype= {pokemon[0].supertype}
                         playerId={playerId}
-                        currentHp={pokemon[0].currentHp}
+                        currentHp={pokemon[0].hp}
                         maxHp={pokemon[0].hp}
                         energies={pokemon[0].energies} />}</div>
     </div>

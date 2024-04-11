@@ -28,7 +28,7 @@ export const Hand = ({cards, flippedOver, playerId}) => {
                         supertype= {pokemon.supertype}
                         location={"hand"}
                         playerId={playerId}
-                        currentHp={Number(pokemon.currentHp)}
+                        currentHp={Number(pokemon.hp)}
                         maxHp={Number(pokemon.hp)}
                         energies={pokemon.energies} />
                     )}
