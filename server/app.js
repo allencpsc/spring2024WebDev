@@ -134,6 +134,7 @@ app.post('/place-card', (req, res) => {
 
 app.get('/cpu-turn', (req,res) => {
     //call function to run cpu function
+    skipPlayerTurn()
     let returnArr = runCpuHandler()
     //returnArr will have [activeCardObject, benchCardObject, attackObject]
     res.send(returnArr)

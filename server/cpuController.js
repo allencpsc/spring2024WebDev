@@ -6,17 +6,17 @@ export function cpuHandler(currentGame){
     let returnArr = []
     let player2 = currentGame.player2
     let player2hand = player2.playerField.hand
-    returnArr.append(placeRandomCardtoActive(player2))
-    returnArr.append(placeRandomCardtoBench(player2hand))
+    returnArr.push(placeRandomCardtoActive(player2))
+    returnArr.push(placeRandomCardtoBench(player2))
     let player2active = player2.playerField.active
     //random attack returns an array, needs to be handled as such
     //index 0 is attack, index 1 is knockout bool
     let attackReturnArray = useRandomAttack(player2active, currentGame)
     if (attackReturnArray[1] == true){
         console.log(returnArr)
-        returnArr.append(placeRandomCardtoActive(player2hand))
+        returnArr.push(placeRandomCardtoActive(player2))
     }
-    returnArr.append(attackReturnArray[0])
+    returnArr.push(attackReturnArray[0])
     //return arr will have [active, bench, attackChosen]
     return returnArr
 }
@@ -45,10 +45,14 @@ function useRandomAttack(player2active, currentGame){
     //remember, slots are arrays
     //attackerActive[0].attacks
     let attacksAvailable = player2active[0].attacks
-    for (attack in attacksAvailable){
+    console.log(`attacks available: ${attacksAvailable}`)
+    for (let attack of attacksAvailable){
+        console.log(`attack damage: ${attack.damage}`)
         if (attack.damage > 0){
             let selectedAttack = attack
-            let returnArr = damagePhase(selectedAttack, currentGame)
+            console.log(`selected attack name: ${selectedAttack.name}`)
+            let returnArr = damagePhase(selectedAttack.name, currentGame)
+            console.log(`return arr for random attack: ${returnArr[0]}, ${returnArr[1]}`)
             return returnArr
         }
     }
