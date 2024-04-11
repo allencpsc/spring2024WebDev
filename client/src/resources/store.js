@@ -6,10 +6,13 @@ import { paths } from "../const";
 export const useStore = create((set) => ({
     player1: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
     player2: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
-    text: "Hello World!",
-    status: null,
+    text: "Welcome to Pokemon TCG Online!",
+    started: null,
+    attack: [],
+    
 
     introduction: async () => {
+        
         try {
             axios.get(paths.root + '/introduction')
             .then(function (response) {
@@ -25,9 +28,7 @@ export const useStore = create((set) => ({
         try {
             axios.get(paths.root + '/turn-zero/player1')
             .then(function (response) {
-                console.log("Here's the start function.")
-                console.log(response)
-                console.log(response.data)
+                set((state)=> ({...state, text: "First turn in progress... Select your active and benched Pokémon!"}))
                 const cardsWithEnergies = response.data.map(card =>
                     card.supertype === 'Pokémon' ? {...card, energies: []}: card)
                 set((state) => ({...state, player1: {...state.player1, hand: cardsWithEnergies}}))
@@ -128,7 +129,7 @@ export const useStore = create((set) => ({
     setText: async (text) => set((state) => ({...state, text})),
 
     CPUTurn: async (active, bench, attackChosen) => {
-        console.log("Here's the CPUTurn function")
+        set(state => ({...state, text: "CPU's turn in progress..."}))
         // set((state) => {
         //     if(state.player2.active.name == null){
         //         return
@@ -143,11 +144,24 @@ export const useStore = create((set) => ({
         try {
             axios.get(paths.root + '/cpu-turn')
             .then(function(response) {
-                console.log(response)
-                console.log(response.data)
-                
+                console.log(response.data[0])
+                console.log(response.data[1])
+                console.log(response.data[2])
+                set((state) => ({...state, text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench slot. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage!`}))
+                set((state) => ({...state, player2: {...state.player2, active: [state.player2.hand.find(card => card.name === response.data[0].name)], hand: state.player2.hand.filter(card => card.name !== response.data[0].name)}}))
+                try {
+                    axios.get(paths.root + '/player2-bench')
+                    .then(function(response) {
+                        set((state) => ({...state, player2: {...state.player2, bench: response.data[1]}}))
+                    })
+                } catch (error) {
+                    console.log(error)
+                }
+                //set({player1: active.currentHp -= response.data[2].calculatedDamage})
             })
         } catch (error) {
         }
     },
 }))
+
+//TODO: API endpoint to return current game state?

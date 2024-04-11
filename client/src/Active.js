@@ -1,13 +1,13 @@
 import { Card } from "./Card";
 import { CardSlot } from "./CardSlot";
 const style = {
-    height: '12.4rem',
+    height: '13.4rem',
     backgroundColor: 'rgb(256 230 34 / 90%)',
     borderRadius: '15px',
     color: 'white',
-    width: '8rem',
+    width: '10rem',
     margin: '0.2rem 0rem 0.2rem 0rem',
-    padding: '5rem 0rem',
+    padding: '1rem',
     textAlign: 'center',
     fontSize: '1rem',
     lineHeight: 'normal',
@@ -15,11 +15,11 @@ const style = {
 
 }
 const Active = ({pokemon, playerId}) => {
-    pokemon[0] ? console.log(pokemon[0].energies) : console.log()
+    //pokemon[0] ? console.log(pokemon[0].energies) : console.log()
     return (
     <div style={{...style}} className="position-relative">
-        <div className="position-absolute top-100 start-100 title translate-middle-y">ACTIVE</div>
-        <div className="position-absolute top-0 start-0 ">{pokemon[0] && 
+        <div className="position-absolute top-100 start-100 title translate-middle-y">PLAYER {playerId} ACTIVE</div>
+        <div className="">{pokemon[0] && 
                         <Card
                         index={0}
                         name = {pokemon[0].name}

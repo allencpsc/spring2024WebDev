@@ -14,7 +14,6 @@ const style = {
 }
 
 export const Hand = ({cards, flippedOver, playerId}) => {
-    console.log(cards)
     return(
         <React.Fragment>
             <div className="Hand" style={style}>

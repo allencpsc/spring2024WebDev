@@ -8,6 +8,7 @@ const style = {
     minHeight: '12.4rem',
     minWidth: '640px',
     margin: '1rem',
+    padding: '1rem',
     backgroundColor: 'rgb(11 100 200 / 100%)',
     borderRadius: '15px',
     justifyItems: 'space-between',
@@ -19,7 +20,7 @@ export const Bench = ({cards, playerId}) => {
 
     return(
         <React.Fragment>
-            {console.log("Got to bench")}
+            {console.log(`playerId: ${playerId} Bench`)}
             <div style={style} className="Bench">
                 {console.log(cards)}
                 {cards.map((pokemon,index) => 

@@ -37,15 +37,14 @@ export const Card = function Card(props) {
       color='success';
       break;
   }
-  console.log(props)
 
-  if (props.supertype == 'Pokémon') {
+/*   if (props.supertype == 'Pokémon') {
     console.log(props.name + " " + props.location + " " )
     if (props.energies && props.energies.length > 0) {
       console.log(props.name + props.energies[0])
     }
   }
-
+ */
   return (
     <div style={{...style}} data-testid={`box`}>
         <img
@@ -54,11 +53,17 @@ export const Card = function Card(props) {
           style={{borderRadius: 'inherit'}}
           onClick={handleShow}>
           </img>
-          {props.supertype == 'Pokémon' && props.energies && props.energies.length > 0 &&
-          <EnergyIcons energies={props.energies}/>}
+          
           {props.supertype == 'Pokémon' && props.playerId == 1 &&
           <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
-}
+          }
+          {props.supertype == 'Pokémon' && props.playerId == 2 && props.location == 'active' &&
+          <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
+          }
+          <div style={{}}>
+          {props.supertype == 'Pokémon' && props.energies && props.energies.length > 0 &&
+          <EnergyIcons energies={props.energies}/>}
+          </div>
 
         <Modal show={show} onHide={handleClose} className='cardModal'>
           <Modal.Header closeButton={true} closeVariant='white' >

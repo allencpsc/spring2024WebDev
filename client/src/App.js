@@ -1,9 +1,9 @@
 import React from "react";
-import {Outlet} from 'react-router';
+import { GameBoard } from "./GameBoard";
 
 function App(){
     return (
-        <Outlet/>
+        <GameBoard/>
     )
 }
 
