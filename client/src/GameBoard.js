@@ -17,8 +17,6 @@ export const GameBoard = memo(function GameBoard() {
     const player1 = useStore((state) => state.player1)
     const player2 = useStore((state) => state.player2)
     const text = useStore((state) => state.text)
-    const CPUTurn = useStore((state) => state.CPUTurn)
-
     const getStartHands = async (e) => {
         e.preventDefault()
         try {
