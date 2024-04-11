@@ -24,8 +24,9 @@ export const Bench = ({cards, playerId}) => {
                 {console.log(cards)}
                 {cards.map((pokemon,index) => 
                     
-                    <Card  id={pokemon.id} 
-                    key={index}
+                    <Card  
+                    id={pokemon.id+playerId+index+"bench"} 
+                    index={index}
                     name = {pokemon.name} 
                     url={pokemon.images?.large} 
                     flippedOver = {pokemon.flippedOver}

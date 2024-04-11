@@ -37,6 +37,7 @@ export const Card = function Card(props) {
       color='success';
       break;
   }
+  console.log(props)
 
   if (props.supertype == 'Pokémon') {
     console.log(props.name + " " + props.location + " " )

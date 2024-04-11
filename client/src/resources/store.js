@@ -13,7 +13,6 @@ export const useStore = create((set) => ({
         try {
             axios.get(paths.root + '/turn-zero/player1')
             .then(function (response) {
-            // handle success
                 console.log("Here's the start function.")
                 console.log(response)
                 console.log(response.data)
@@ -22,17 +21,14 @@ export const useStore = create((set) => ({
                 set((state) => ({...state, player1: {...state.player1, hand: cardsWithEnergies}}))
             })
             .catch(function (error) {
-            // handle error
                 console.log(error);
             })
             axios.get(paths.root + '/turn-zero/player2')
             .then(function (response) {
-            // handle success
                 console.log(response.data)
                 set((state) => ({...state, player2: {...state.player2, hand: response.data}}))
             })
             .catch(function (error) {
-            // handle error
                 console.log(error);
             })
         } catch (error) {
@@ -62,6 +58,15 @@ export const useStore = create((set) => ({
             if(playerId === 1) {
                 if(location === "hand") {
                     console.log("makeactive hand")
+                    try {
+                        axios.get(paths.root + '/turn-zero/player1')
+                        .then(function (response) {
+                            console.log(response)
+                        })
+                    }
+                    catch(error){
+                        console.log(error)
+                    }
                     return {...state, player1: {...state.player1, active: [state.player1.hand[index]], hand: state.player1.hand.filter((card, i) => i !== index)}}
                 }
                 else if(location === "bench") {

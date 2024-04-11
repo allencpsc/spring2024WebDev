@@ -15,7 +15,7 @@ export const MyButton = (props) => {
     const attachEnergy = useStore((state) => state.attachEnergy)
     const benchArr = useStore((state) => state.player1.bench)
     const handleClick = () => {
-        if(props.textValue == "Place on Bench"){
+        if(props.textValue === "Place on Bench"){
             console.log(props)
             moveToBench(props.playerId, props.index)
             axios.post(paths.root + '/place-card', {
@@ -27,17 +27,13 @@ export const MyButton = (props) => {
 
             })
             .then(function (response) {
-            // handle success
-                console.log("Backend api call successful - place active")
-                console.log(response)
-                console.log(response.data)
+                console.log("Backend api call successful - placed active")
             })
             .catch(function (error) {
-            // handle error
                 console.log(error);
             })
         }
-        else if(props.textValue == "Make Active"){
+        else if(props.textValue === "Make Active"){
             makeActive(props.playerId, props.location, props.index)
             //need to eventually change to have playerId tell what endpoint to go to
             axios.post(paths.root + '/turn-zero/player1', {
@@ -46,15 +42,13 @@ export const MyButton = (props) => {
             .then(function (response) {
             // handle success
                 console.log("Backend api call successful - place active")
-                console.log(response)
-                console.log(response.data)
             })
             .catch(function (error) {
             // handle error
                 console.log(error);
             })
         }
-        else if (props.textValue == "Attach") {
+        else if (props.textValue === "Attach") {
             console.log(props.playerId)
             console.log("Attaching energy from MyButton")
             attachEnergy(props.playerId, props.index, "active", "0")

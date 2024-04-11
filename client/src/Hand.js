@@ -19,9 +19,9 @@ export const Hand = ({cards, flippedOver, playerId}) => {
         <React.Fragment>
             <div className="Hand" style={style}>
                     {cards && cards.map((pokemon, index) =>
-                        <Card 
-                        key={index}
-                        id = {pokemon.id}
+                        <Card
+                        index={index}
+                        id = {pokemon.id+playerId+index+"hand"}
                         name = {pokemon.name}
                         url={pokemon.images?.large}
                         flippedOver = {flippedOver}
