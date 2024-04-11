@@ -9,20 +9,16 @@ export function cpuHandler(currentGame){
     returnArr.push(placeRandomCardtoActive(player2))
     returnArr.push(placeRandomCardtoBench(player2))
     let player2active = player2.playerField.active
-    //random attack returns an array, needs to be handled as such
-    //index 0 is attack, index 1 is knockout bool
     let attackReturnArray = useRandomAttack(player2active, currentGame)
     if (attackReturnArray[1] == true){
         console.log(returnArr)
         returnArr.push(placeRandomCardtoActive(player2))
     }
     returnArr.push(attackReturnArray[0])
-    //return arr will have [active, bench, attackChosen]
     return returnArr
 }
 
 function placeRandomCardtoActive(player2){
-    //placeCard function looks like this placeCardtoSlot(player, cardName, location, benchSlot)
     for(let eachCard of player2.playerField.hand){
         if (eachCard.supertype == 'Pokémon'){
             placeCardtoSlot(player2, eachCard.name, "Active", 0)
@@ -42,8 +38,6 @@ function placeRandomCardtoBench(player2){
 }
 
 function useRandomAttack(player2active, currentGame){
-    //remember, slots are arrays
-    //attackerActive[0].attacks
     let attacksAvailable = player2active[0].attacks
     console.log(`attacks available: ${attacksAvailable}`)
     for (let attack of attacksAvailable){

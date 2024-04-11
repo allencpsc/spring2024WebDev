@@ -3,11 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { MongoClient } from "mongodb"
 
 
-
-//connect to mongoDB
 const dbURI = 'mongodb+srv://cox_james:xocsemaj@pokemon0.wlcuscp.mongodb.net/DeckList?retryWrites=true&w=majority&appName=Pokemon0'
 
-//mongodb quickstart
 const client = new MongoClient(dbURI);
 
 export async function createLog(currentGame) {
@@ -17,8 +14,7 @@ export async function createLog(currentGame) {
       await coll.insertOne({ gameId: currentGame.gameId, turnsElapsed : currentGame.turnsElapsed,
                                 iGameOver: currentGame.isGameOver, winner: currentGame.winner });
     } finally {
-      // Ensures that the client will close when you finish/error
-      //await client.close();
+
     }
   }
 

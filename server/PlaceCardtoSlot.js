@@ -10,13 +10,9 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
         returnString = returnString.concat(placePokemontoSlot(activePlayer, cardChosen, location))
     }
     else if (cardType == "Energy"){
-        //console.log("Energy type check cleared")
         returnString = returnString.concat(placeEnergytoSlot(activePlayer, cardChosen, location, benchSlot))
-        //returnString = returnString.concat("You chose a Energy Card")
     }
     else if (cardType == "Trainer"){
-        //useItemEffect(currentGame, activePlayer)
-        //returnString = returnString.concat("You chose a Trainer Card")
     }
     return returnString
     }
@@ -35,7 +31,6 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
 
     function placePokemontoSlot(activePlayer, cardChosen, location){
         let returnString = ''
-        //whereToPlace = readline.question(`Where would you like to place your Pokemon? Active or Bench?\n`)
         if (location == "Bench"){
             placePokeCardtoBench(cardChosen, activePlayer)
             returnString = returnString.concat(`${cardChosen.name} has been placed on the bench`)
@@ -49,7 +44,6 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
     }
 
     function placePokeCardtoBench(cardChosen, activePlayer){
-        //check to see if bench is full
         let benchArr = activePlayer.playerField.getBench()
         let sizeBenchArr = benchArr.length
         if (sizeBenchArr < 5){
@@ -64,8 +58,6 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
     }
 
     function placePokeCardtoActive(cardChosen, activePlayer){
-        //swap active with cardChosen
-        //check to see if bench is full
         let benchArr = activePlayer.playerField.getBench()
         let sizeBenchArr = benchArr.length
         if (benchArr < 5){

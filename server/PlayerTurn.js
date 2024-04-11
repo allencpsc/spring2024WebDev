@@ -1,10 +1,7 @@
 class PlayerTurn {
     constructor(playerID, turnPhase, isOver) {
         this.playerID = playerID
-        // THERE ARE 4 PHASES OF A TURN IN POKETCG
-        // DRAW, MAIN, ATTACK, END
         this.turnPhase = turnPhase
-        // ISOVER IS BOOLEAN
         this.isOver = isOver
     }
 

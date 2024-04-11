@@ -20,7 +20,6 @@ let currentGame = new Game(gameId, null, null, 0 , false, null)
 
 export function initializeGame(){
     console.log(`Game has been started`)
-    //add uuid functionality, right now just uses base values
     var player1 = new Player(1234, new PlayerField(), new Turn(1234, 'draw', false))
     var player2 = new Player(5678, new PlayerField(), new Turn(5678, 'draw', true))
     currentGame.setPlayer1(player1)
@@ -32,31 +31,16 @@ export function initializeGame(){
     return returnString
 }
 
-//handlers for turnZero.js
 export function runTurnZeroPlayerOne(){
     let returnString = ""
     let player1 = currentGame.player1
-    console.log(`Player 1: ${player1.playerID}\n`)
-    // returnString = returnString.concat(turnZeroPlayerOne(player1))
-    // return returnString
     let playerHandArr = turnZeroPlayerOne(player1)
-    //console.log(`Player ${player1.playerID}'s hand:`)
-    //console.log(playerHandArr)
-    // for (let eachCard in playerHandArr)
-    //     console.log(eachCard.name)
     return playerHandArr
 }
 export function runTurnZeroPlayerTwo(){
     let returnString = ""
     let player2 = currentGame.player2
-    //console.log(`Player 2: ${player2.playerID}\n`)
-    // returnString = returnString.concat(turnZeroPlayerOne(player1))
-    // return returnString
     let playerHandArr = turnZeroPlayerTwo(player2)
-    //console.log(`Player ${player2.playerID}'s hand:`)
-    //console.log(playerHandArr)
-    // for (let eachCard in playerHandArr)
-    //     console.log(`${eachCard.name}`)
     return playerHandArr
 }
 
@@ -135,10 +119,7 @@ export function getAttackStringPrompt(){
 }
 
 export function getAttackResultsPrompt(attackName){
-    //game prompt at [0], knockout bool at [1]
     let returnArr = []
-    let returnString = ''
-    let knockout = false
     returnArr = damagePhase(attackName, currentGame)
     currentGame.incrementTurnsElapsed()
     return returnArr
@@ -159,7 +140,6 @@ export function getForceSwapPrompt(){
 }
 
 export function performForceSwap(activeChoice){
-    //activeChoice is a string of a card name
     let returnString = ''
     returnString = returnString.concat(forceSwap(currentGame, activeChoice))
     return returnString
@@ -170,7 +150,6 @@ export function skipPlayerTurn(){
 }
 
 export function sendPlaceCardtoSlot(cardName, location, benchSlot){
-    //we are getting three params here, cardName, location (active or bench), and benchSlot (1-5)
     let returnString = ''
     let player = getActivePlayer()
     returnString = returnString.concat(placeCardtoSlot(player, cardName, location, benchSlot))
@@ -178,7 +157,6 @@ export function sendPlaceCardtoSlot(cardName, location, benchSlot){
 }
 
 export function runCpuHandler(){
-    //return arr will have [activeCard, benchCard, attackChosen]
     let returnArr = cpuHandler(currentGame)
     updateLog(currentGame)
     return returnArr
@@ -226,7 +204,6 @@ export function usePotion(){
 
 function initPlayerFields(player){
     player.playerField.setPlayerID(player.getPlayerID())
-    //bench example: [[squirtle, energy, energy], [charmander, energy], [pidgey]]
     player.playerField.setBench([])
     player.playerField.setHand([])
     player.playerField.setDeck(new Deck())
@@ -234,42 +211,12 @@ function initPlayerFields(player){
     player.playerField.setActive([[]])
 }
 
-// function gameLoop(currentGame){
-//     //console.log("Welcome to PokeTCG Prototype")
-//     //console.log("This is a text based version of the game")
-//     //console.log("\n")
-//     //console.log("The initial draw phase will now begin")
-//     //turnZero(currentGame.player1, currentGame.player2);
-//     //console.log(currentGame.player1.turn.isOver)
-//     while(currentGame.isGameOver != true){
-//         console.log("Available commands are 'play turn', 'skip', and 'quit'")
-//         var command = readline.question('What would you like to do?\n')
-//         if (command == 'play turn'){
-//             turnLoop(currentGame)
-//         }
-//         if (command == 'skip'){
-//             currentGame.incrementTurnsElapsed()
-//         }
-//         if (command == 'quit'){
-//                 currentGame.incrementTurnsElapsed()
-//                 currentGame.setIsGameOver(true)
-//         }
-//     }
-//     console.log("The Game is now over!!!")
-//     console.log("This is just a proof of concept, so the game will now close")
-// }
-
-
-
-//practice refactoring
 function introduction(){
     let returnString = ""
     returnString = returnString.concat("Welcome to PokeTCG Prototype...\n")
     returnString = returnString.concat("Important prompts will appear here...\n")
     returnString = returnString.concat("The initial draw phase will now begin...\n")
     returnString = returnString.concat("Press 'Draw' to start...\n")
-    //console.log(`return string from intro func ${returnString}`)
     return returnString
 }
 
-//let start = initializeGame()

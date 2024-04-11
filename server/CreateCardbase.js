@@ -5,18 +5,6 @@ var testDict = new Object();
 
 pokemon.configure({apiKey: 'c3d4b99e-95ef-4abc-8ed9-8ea192164fbf'})
 
-
-//bulbasaur id for testing - base1-44
-//charmander id for testing - base1-46
-//squirtle id for testing - base1-63
-//pidgey id for testing - base1-57
-//energy id for testing:
-//96/102 	Double Colorless Energy 	Colorless
-//98/102 	Fire Energy
-//99/102 	Grass Energy
-//102/102   Water Energy
-//potion id for testing base1-94
-
 const testSetPopulate={
     startPopulate() {
         jsonFormat.start()
@@ -42,8 +30,6 @@ const testSetPopulate={
 const baseSetPopulate= {
     startPopulate() {
         jsonFormat.start();
-        //base set has 102 cards, count starts from 1
-        //set to < 5 for testing and readability
         for (let i = 1; i < 103; i++) {
             var setID = 'base1-';
             var cardID =setID.concat(i.toString());
@@ -83,9 +69,6 @@ const jsonFormat = {
             }
         })
     },
-    //CANT GET THIS TO WORK RIGHT -----
-    //NO MATTER WHERE IT IS PLACED, [] OCCURS AT THE BEGINNING OF THE FILE BEFORE THE API CALLS OCCUR
-    //MANUAL WORK AROUND - AFTER SCRIPT IS RAN, GO INTO FILE AND DELETE LAST COMMA, PLACE CLOSING BRACKET
     stop(){
         fs.appendFile('cardbase.json', ']', 'utf8', (err) => {
             if (err)
@@ -96,5 +79,4 @@ const jsonFormat = {
     }
 }
 
-//let start = baseSetPopulate.startPopulate();
 let start = testSetPopulate.startPopulate();

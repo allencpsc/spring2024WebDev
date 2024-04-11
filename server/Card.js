@@ -1,26 +1,14 @@
 class Card {
-    //all data types are named from the Pokemon TCG API
     constructor(id, name, supertype, hp, attacks, weaknesses, retreatCost, images){
-        //string ""xy1-1""
         this.id = id
-        //string "Venusaur"
         this.name = name
-        //string "Pokemon"
         this.supertype = supertype
-        //int "180"
         this.hp = hp
-        //multidimensional array
-        //[[name, cost[], damage, text], [name, cost[], damage, text]]
         this.attacks = attacks
-        //array - [type, value]
         this.weaknesses = weaknesses
-        //array - ["colorless", "colorless"]
         this.retreatCost = retreatCost
-        //array - [small png, large png]
         this.images = images
     }
-
-    //Get Card Values
 
     getCardId(){
         return this.id;
@@ -46,8 +34,6 @@ class Card {
     getCardImages(){
         return this.images;
     }
-
-    //Set Card Values... should not be needed as cards are not intended to be changed by gameplay
 
     setCardId(id){
         this.id = id
