@@ -10,7 +10,7 @@ import { initializeActiveSlot} from './TurnZero.js'
 import { damagePhase, getAttackString, getBenchPokes, forceSwap } from './AttackPhase.js'
 import { placeCardtoSlot } from './PlaceCardtoSlot.js'
 import { v4 as uuidv4 } from 'uuid';
-import { createLog } from './DatabaseManager.js'
+import { createLog, updateLog } from './DatabaseManager.js'
 import { cpuHandler } from './cpuController.js'
 import { useItemEffect } from './ItemEffects.js'
 
@@ -180,7 +180,7 @@ export function sendPlaceCardtoSlot(cardName, location, benchSlot){
 export function runCpuHandler(){
     //return arr will have [activeCard, benchCard, attackChosen]
     let returnArr = cpuHandler(currentGame)
-    console.log(`runCpuHandler reached... return arr: ${returnArr}`)
+    updateLog(currentGame)
     return returnArr
 }
 

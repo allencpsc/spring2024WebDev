@@ -18,46 +18,34 @@ export async function createLog(currentGame) {
                                 iGameOver: currentGame.isGameOver, winner: currentGame.winner });
     } finally {
       // Ensures that the client will close when you finish/error
-      await client.close();
+      //await client.close();
     }
   }
-  //runDB().catch(console.dir);
 
-//mongoose stuff
-// mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true})
-//     .then((result) => console.log('connected to DB'))
-//     .catch((err) => console.log(err))
+  export async function updateLog(currentGame) {
+    try{
+      const database = client.db('GameLogs');
+      const coll = database.collection('MatchResults');
 
-// const logSchema = new mongoose.Schema({
-//     GameId: String,
-//     TurnsElapsed: String,
-//     isOver: String,
-//     Winner: String
-// })
+      const filter = { gameId: currentGame.gameId };
 
-// const Log = mongoose.model("Log", logSchema)
+      const options = { upsert: true };
 
-// export function createLog(currentGame){
-//     console.log(`current game: ${currentGame.isGameOver}`)
-//     const gameLog = new Log(
-//         {GameID: currentGame.gameId},
-//         {TurnsElapsed: currentGame.turnsElapsed},
-//         {isOver: currentGame.isGameOver},
-//         {Winner: currentGame.winner}
-//     )
-//     console.log(`${gameLog.TurnsElapsed}`)
-//     console.log(`document: ${gameLog.isOver}`)
-//     // gameLog.markModified('_id')
-//     // gameLog.markModified('GameID')
-//     // gameLog.markModified('TurnsElapsed')
-//     // gameLog.markModified('isOver')
-//     // gameLog.markModified('Winner')
-//     gameLog.save()
-//         // .then((result) => console.log('saved log'))
-//         // .catch((err) => console.log(err))
-// }
+      const updateDoc = {
+        $set: {
+          turnsElapsed : currentGame.turnsElapsed,
+          iGameOver: currentGame.isGameOver,
+          winner: currentGame.winner
+        },
+      };
 
+      const result = await coll.updateOne(filter, updateDoc, options)
 
-// export function updateLog(currentGame){
+      console.log(
+        `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+      );
 
-// }
+    } finally {
+      await client.close()
+    }
+  }

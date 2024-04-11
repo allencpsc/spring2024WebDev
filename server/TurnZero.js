@@ -46,9 +46,7 @@ function initDrawPhaseRandomizer(player){
             //return drawString;
             return player.playerField.getHand()
         }
-    else{
-        currPlayerDeck.push((player.playerField.getHand()))
-    }
+    currPlayerDeck.push((player.playerField.getHand()))
     }
 }
 
