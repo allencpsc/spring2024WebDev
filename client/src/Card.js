@@ -48,20 +48,20 @@ export const Card = function Card(props) {
   return (
     <div style={{...style}} data-testid={`box`}>
         <img
-          src={ props.flippedOver == true ? "https://vignette.wikia.nocookie.net/cardgame/images/a/ac/Pokemon-card-back.jpg/revision/latest/scale-to-width-down/342?cb=20131228023927" :props.url}
+          src={ props.flippedOver === true ? "https://vignette.wikia.nocookie.net/cardgame/images/a/ac/Pokemon-card-back.jpg/revision/latest/scale-to-width-down/342?cb=20131228023927" :props.url}
           height={161}
           style={{borderRadius: 'inherit'}}
           onClick={handleShow}>
           </img>
           
-          {props.supertype == 'Pokémon' && props.playerId == 1 &&
+          {props.supertype === 'Pokémon' && props.playerId === 1 &&
           <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
           }
-          {props.supertype == 'Pokémon' && props.playerId == 2 && props.location == 'active' &&
+          {props.supertype === 'Pokémon' && props.playerId === 2 && props.location === 'Active' &&
           <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
           }
           <div style={{}}>
-          {props.supertype == 'Pokémon' && props.energies && props.energies.length > 0 &&
+          {props.supertype === 'Pokémon' && props.energies && props.energies.length > 0 &&
           <EnergyIcons energies={props.energies}/>}
           </div>
 
@@ -77,7 +77,7 @@ export const Card = function Card(props) {
                     </div>
                 </Col>
                 <Col className='col-9'>
-                <img src={ props.flippedOver == true ? "https://vignette.wikia.nocookie.net/cardgame/images/a/ac/Pokemon-card-back.jpg/revision/latest/scale-to-width-down/342?cb=20131228023927" :props.url}
+                <img src={ props.flippedOver === true ? "https://vignette.wikia.nocookie.net/cardgame/images/a/ac/Pokemon-card-back.jpg/revision/latest/scale-to-width-down/342?cb=20131228023927" :props.url}
           className='h-75 d-inline modalImg'></img>
                 </Col>
               </Row>

@@ -10,13 +10,11 @@ export const useStore = create((set) => ({
     started: null,
     attack: [],
     
-
     introduction: async () => {
-        
         try {
             axios.get(paths.root + '/introduction')
             .then(function (response) {
-                set((state) => ({...state, text: response.data}))
+                set((state) => ({...state, text: response.data, started: true}))
             })
         }
         catch (error) {

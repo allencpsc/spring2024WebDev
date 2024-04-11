@@ -24,7 +24,7 @@ const Active = ({pokemon, playerId}) => {
                         index={0}
                         name = {pokemon[0].name}
                         url={pokemon[0].images?.large}
-                        location={"active"}
+                        location={"Active"}
                         supertype= {pokemon[0].supertype}
                         playerId={playerId}
                         currentHp={pokemon[0].hp}
