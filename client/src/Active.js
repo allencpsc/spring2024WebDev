@@ -15,7 +15,6 @@ const style = {
 
 }
 const Active = ({pokemon, playerId}) => {
-    //pokemon[0] ? console.log(pokemon[0].energies) : console.log()
     return (
     <div style={{...style}} className="position-relative">
         <div className="position-absolute top-100 start-100 title translate-middle-y">PLAYER {playerId} ACTIVE</div>

@@ -1,19 +1,13 @@
-import React, {memo, useEffect, useState} from 'react';
-import { Card } from './Card.js';
+import React, {memo} from 'react';
 import  { Bench } from './Bench.js';
 import Active from './Active.js';
 import { Hand } from './Hand.js';
-import axios from 'axios';
-import { paths } from './const.js'
-import { create } from "zustand";
-import { MyButton } from './MyButton.js';
 import { useStore } from "./resources/store.js";
 import { TextBox } from './TextBox.js';
 
-//add api calls here
 export const GameBoard = memo(function GameBoard() {
     const CPUTurn = useStore((state) => state.CPUTurn)
-    const start = useStore((state) => state.start)
+    const firstTurn = useStore((state) => state.firstTurn)
     const player1 = useStore((state) => state.player1)
     const player2 = useStore((state) => state.player2)
     const text = useStore((state) => state.text)
@@ -22,7 +16,7 @@ export const GameBoard = memo(function GameBoard() {
     const getStartHands = async (e) => {
         e.preventDefault()
         try {
-            await start()
+            await firstTurn()
         } catch (error) {
             console.log(error)
         }

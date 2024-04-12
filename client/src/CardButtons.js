@@ -1,5 +1,5 @@
 import React from "react";
-import { MyButton } from "./MyButton";
+import { MyButton } from "./ActionButton";
 
 export const CardButtons = ({supertype, location, name, playerId, index, handleClose}) => {
 

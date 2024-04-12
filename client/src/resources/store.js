@@ -22,7 +22,7 @@ export const useStore = create((set) => ({
         }
     },
 
-    start: async () => {
+    firstTurn: async () => {
         try {
             axios.get(paths.root + '/turn-zero/player1')
             .then(function (response) {
@@ -128,17 +128,6 @@ export const useStore = create((set) => ({
 
     CPUTurn: async (active, bench, attackChosen) => {
         set(state => ({...state, text: "CPU's turn in progress..."}))
-        // set((state) => {
-        //     if(state.player2.active.name == null){
-        //         return
-        //     }
-        //     state.player2.hand.forEach(pokemon => {
-        //         if(active.name === pokemon.name) {
-        //             state.makeActive(2, "hand", active.index)
-        //         }
-        //         if(bench.name === pokemon.name) {
-        //             state.moveToBench(2, "bench", bench.index)
-        //         }
         try {
             axios.get(paths.root + '/cpu-turn')
             .then(function(response) {
