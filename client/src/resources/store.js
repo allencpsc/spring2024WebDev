@@ -9,7 +9,10 @@ export const useStore = create((set) => ({
     text: "Welcome to Pokemon TCG Online!",
     started: null,
     attack: [],
-    
+    attachingEnergy: false,
+    switchingCards: false,
+    switchTarget: null,
+
     introduction: async () => {
         try {
             axios.get(paths.root + '/introduction')
@@ -104,7 +107,11 @@ export const useStore = create((set) => ({
     attachEnergy: async (playerId, energyIndexInHand, pokemonLocation, pokemonIndexInLocation) => {
         console.log("Here's the attachEnergy function")
         console.log(playerId + " " + energyIndexInHand + " " + pokemonLocation + " " + pokemonIndexInLocation)
+        // Set state to attachingEnergy = true
+        // Listener in Card maybe to check if attachingEnergy is true, if so, onClick will change to attach energy ?
+        // When attachingEnergy=true, click on target card to attach energy
         set((state) => {
+            state.attachingEnergy = true;
             if(playerId === 1) {
                 if(pokemonLocation === "active") {
                     console.log("attachEnergy active")
@@ -124,6 +131,34 @@ export const useStore = create((set) => ({
         });
     },
 
+    selectSwitchCard: async (playerId, card2Location, card2LocationIndex) => {
+        console.log("Here's the selectSwitchCard function")
+        set((state) => ({...state, switchTarget: {playerId, card2Location, card2LocationIndex}}))
+    },
+
+    switchCard: async (playerId, card1Location, card1LocationIndex, card2Location, card2LocationIndex) => {
+        console.log("Here's the switchCard function")
+        set((state) => ({...state, text: "Switching cards... Select the card you want to switch with.", switchingCards: true}))
+        /* if(playerId === 1) {
+            if(card1Location === "active" && card2Location === "bench") {
+                return {...state, player1: {...state.player1, active: [state.player1.bench[card2LocationIndex]], bench: state.player1.bench.map((card, i) => i === card2LocationIndex ? state.player1.active[0] : card)}}
+            }
+            else if(card1Location === "bench" && card2Location === "active") {
+                return {...state, player1: {...state.player1, active: [state.player1.bench[card1LocationIndex]], bench: state.player1.bench.map((card, i) => i === card1LocationIndex ? state.player1.active[0] : card)}}
+            }
+        }
+        else if(playerId === 2) {
+            if(card1Location === "active" && card2Location === "bench") {
+                return {...state, player2: {...state.player2, active: [state.player2.bench[card2LocationIndex]], bench: state.player2.bench.map((card, i) => i === card2LocationIndex ? state.player2.active[0] : card)}}
+            }
+            else if(card1Location === "bench" && card2Location === "active") {
+                return {...state, player2: {...state.player2, active: [state.player2.bench[card1LocationIndex]], bench: state.player2.bench.map((card, i) => i === card1LocationIndex ? state.player2.active[0] : card)}}
+            }
+        })) */
+    },
+
+    //bench swap with active independently 
+    //energies attach to active
     setText: async (text) => set((state) => ({...state, text})),
 
     CPUTurn: async (active, bench, attackChosen) => {
@@ -136,15 +171,31 @@ export const useStore = create((set) => ({
                 console.log(response.data[2])
                 set((state) => ({...state, text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench slot. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage!`}))
                 set((state) => ({...state, player2: {...state.player2, active: [state.player2.hand.find(card => card.name === response.data[0].name)], hand: state.player2.hand.filter(card => card.name !== response.data[0].name)}}))
-                try {
+                 try {
                     axios.get(paths.root + '/player2-bench')
                     .then(function(response) {
+                        console.log(response)
                         set((state) => ({...state, player2: {...state.player2, bench: response.data[1]}}))
                     })
                 } catch (error) {
                     console.log(error)
-                }
-                //set({player1: active.currentHp -= response.data[2].calculatedDamage})
+                } 
+                console.log(response.data[2].damage)
+                set((state) => {
+                    console.log('help me');
+                    console.log(state.player1.active[0].hp);
+                    return {...state,
+                                player1: {
+                                    ...state.player1,
+                                    active: [
+                                        {
+                                            ...state.player1.active[0],
+                                            hp: Number(state.player1.active[0].hp) - response.data[2].damage,
+                                        },
+                                    ],
+                                },
+                            };
+                });
             })
         } catch (error) {
         }

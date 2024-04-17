@@ -48,7 +48,7 @@ export const GameBoard = memo(function GameBoard() {
                 </div>
                 <div className='col-6'>
                     <div className='opponent-bench'>
-                        <Bench cards={player2.bench} />
+                        <Bench cards={player2.bench} playerId={2}/>
                     </div>
                 </div>
                 <div className='col'>
@@ -82,7 +82,7 @@ export const GameBoard = memo(function GameBoard() {
                 <div className='col'>
                 </div>
                 <div className='col-6'>
-                    <Bench cards={player1.bench}/>
+                    <Bench cards={player1.bench} playerId={1}/>
                 </div>
                 <div className='col'>
                 </div>

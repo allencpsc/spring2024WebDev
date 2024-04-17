@@ -1,4 +1,3 @@
-import { CardSlot } from "./CardSlot";
 import React, { useEffect, useState } from "react";
 import { Card } from './Card'
 
@@ -20,9 +19,7 @@ export const Bench = ({cards, playerId}) => {
 
     return(
         <React.Fragment>
-            {console.log(`playerId: ${playerId} Bench`)}
             <div style={style} className="Bench">
-                {console.log(cards)}
                 {cards.map((pokemon,index) => 
                     
                     <Card  

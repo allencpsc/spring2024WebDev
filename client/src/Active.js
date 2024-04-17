@@ -1,5 +1,4 @@
 import { Card } from "./Card";
-import { CardSlot } from "./CardSlot";
 const style = {
     height: '13.4rem',
     backgroundColor: 'rgb(256 230 34 / 90%)',

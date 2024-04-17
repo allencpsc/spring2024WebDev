@@ -8,6 +8,7 @@ import pokemon from 'pokemontcgsdk';
 import { CardButtons } from './CardButtons';
 import {useStore} from './resources/store';
 import { EnergyIcons } from './EnergyIcons';
+import { Button } from 'react-bootstrap';
 pokemon.configure({apiKey: '0d524a9e-011f-4f8e-a972-ad3a71503346'})
 const style = {
   borderRadius: '10px',
@@ -20,7 +21,8 @@ const style = {
 
 
 export const Card = function Card(props) {
-
+  const switching = useStore(state => state.switchingCards);
+  const switchTarget =  useStore(state => state.switchTarget);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -38,13 +40,6 @@ export const Card = function Card(props) {
       break;
   }
 
-/*   if (props.supertype == 'Pokémon') {
-    console.log(props.name + " " + props.location + " " )
-    if (props.energies && props.energies.length > 0) {
-      console.log(props.name + props.energies[0])
-    }
-  }
- */
   return (
     <div style={{...style}} data-testid={`box`}>
         <img
@@ -60,13 +55,14 @@ export const Card = function Card(props) {
           {props.supertype === 'Pokémon' && props.playerId === 2 && props.location === 'Active' &&
           <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
           }
+          {switching && <Button onClick={() => switchTarget(props.playerId, props.location, props.index)}>Switch</Button>}
           <div style={{}}>
           {props.supertype === 'Pokémon' && props.energies && props.energies.length > 0 &&
           <EnergyIcons energies={props.energies}/>}
           </div>
 
         <Modal show={show} onHide={handleClose} className='cardModal'>
-          <Modal.Header closeButton={true} closeVariant='white' >
+          <Modal.Header closeButton={true} closeVariant='white'>
           </Modal.Header>
           <Modal.Body>
             <Container fluid>
