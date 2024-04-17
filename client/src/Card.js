@@ -50,13 +50,13 @@ export const Card = function Card(props) {
           </img>
           
           {props.supertype === 'Pokémon' && props.playerId === 1 &&
-          <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
+          <ProgressBar now={progressHp} variant={color} label={`${props.currentHp}`}/>
           }
           {props.supertype === 'Pokémon' && props.playerId === 2 && props.location === 'Active' &&
-          <ProgressBar now={progressHp} variant={color} label={`${props.maxHp}`}/>
+          <ProgressBar now={progressHp} variant={color} label={`${props.currentHp}`}/>
           }
           {switching && <Button onClick={() => switchTarget(props.playerId, props.location, props.index)}>Switch</Button>}
-          <div style={{}}>
+          <div>
           {props.supertype === 'Pokémon' && props.energies && props.energies.length > 0 &&
           <EnergyIcons energies={props.energies}/>}
           </div>

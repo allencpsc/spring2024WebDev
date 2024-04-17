@@ -12,6 +12,19 @@ export const useStore = create((set) => ({
     attachingEnergy: false,
     switchingCards: false,
     switchTarget: null,
+    currentTurn: 0,
+
+    nextTurn: async () => {
+        set((state) => {
+            state.currentTurn += 1;
+            console.log(state.currentTurn)
+            if (state.currentTurn % 2 === 0) {
+                return {...state, text: "Your turn! You can switch your active Pokémon, attach energy, and use trainer cards. Attack or click Next Turn to end your turn."}
+            } else {
+                this.CPUTurn();
+            }
+        })
+    },
 
     introduction: async () => {
         try {
@@ -39,7 +52,6 @@ export const useStore = create((set) => ({
             })
             axios.get(paths.root + '/turn-zero/player2')
             .then(function (response) {
-                console.log(response.data)
                 set((state) => ({...state, player2: {...state.player2, hand: response.data}}))
             })
             .catch(function (error) {
@@ -71,7 +83,6 @@ export const useStore = create((set) => ({
         set((state) => {
             if(playerId === 1) {
                 if(location === "hand") {
-                    console.log("makeactive hand")
                     try {
                         axios.get(paths.root + '/turn-zero/player1')
                         .then(function (response) {
@@ -166,15 +177,11 @@ export const useStore = create((set) => ({
         try {
             axios.get(paths.root + '/cpu-turn')
             .then(function(response) {
-                console.log(response.data[0])
-                console.log(response.data[1])
-                console.log(response.data[2])
                 set((state) => ({...state, text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench slot. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage!`}))
                 set((state) => ({...state, player2: {...state.player2, active: [state.player2.hand.find(card => card.name === response.data[0].name)], hand: state.player2.hand.filter(card => card.name !== response.data[0].name)}}))
                  try {
                     axios.get(paths.root + '/player2-bench')
                     .then(function(response) {
-                        console.log(response)
                         set((state) => ({...state, player2: {...state.player2, bench: response.data[1]}}))
                     })
                 } catch (error) {
@@ -182,7 +189,6 @@ export const useStore = create((set) => ({
                 } 
                 console.log(response.data[2].damage)
                 set((state) => {
-                    console.log('help me');
                     console.log(state.player1.active[0].hp);
                     return {...state,
                                 player1: {
@@ -199,6 +205,18 @@ export const useStore = create((set) => ({
             })
         } catch (error) {
         }
+    },
+
+    reset: async () => {
+        set((state) => ({...state, player1: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
+        player2: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
+        text: "Welcome to Pokemon TCG Online!",
+        started: null,
+        attack: [],
+        attachingEnergy: false,
+        switchingCards: false,
+        switchTarget: null,
+        currentTurn: 0}))
     },
 }))
 

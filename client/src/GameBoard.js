@@ -6,28 +6,31 @@ import { useStore } from "./resources/store.js";
 import { TextBox } from './TextBox.js';
 
 export const GameBoard = memo(function GameBoard() {
-    const CPUTurn = useStore((state) => state.CPUTurn)
-    const firstTurn = useStore((state) => state.firstTurn)
-    const player1 = useStore((state) => state.player1)
-    const player2 = useStore((state) => state.player2)
-    const text = useStore((state) => state.text)
-    const introduction = useStore((state) => state.introduction)
+    const CPUTurn = useStore((state) => state.CPUTurn);
+    const firstTurn = useStore((state) => state.firstTurn);
+    const player1 = useStore((state) => state.player1);
+    const player2 = useStore((state) => state.player2);
+    const text = useStore((state) => state.text);
+    const introduction = useStore((state) => state.introduction);
+    const nextTurn = useStore((state) => state.nextTurn);
+    const currentTurn = useStore((state) => state.currentTurn);
+    const reset = useStore((state) => state.reset);
 
     const getStartHands = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            await firstTurn()
+            await firstTurn();
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
     const runCPUTurn = async(e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            await CPUTurn()
+            await CPUTurn();
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -36,7 +39,7 @@ export const GameBoard = memo(function GameBoard() {
             <div className='row'>
                 <div className='col'></div>
                 <div className='col'>
-                    <div className="opponentHand" >
+                    <div className="opponentHand">
                         <Hand cards={player2.hand} flippedOver = {true} playerId = {2}/>
                     </div>
                 </div>
@@ -59,17 +62,18 @@ export const GameBoard = memo(function GameBoard() {
                 <div className='col-1'></div>
                 <div className='col-2'>
                     <div className='row' >
-                        <TextBox text={text} />
+                        <TextBox text={text}/>
                         <div className='col'>
                         <button onClick={introduction}>Begin</button>
                         <button onClick={getStartHands}>Draw</button>
-                        <button onClick={CPUTurn} >End Turn</button>
+                        <button onClick={currentTurn % 2 === 0 ? runCPUTurn : nextTurn}>Next Turn</button>
+                        <button onClick={reset}>Reset</button>
                         </div>
                     </div>
                 </div>
                 <div className='col-1'></div>
                 <div className='col-3'>
-                    <Active pokemon={player2.active}  playerId={2}/>
+                    <Active pokemon={player2.active} playerId={2}/>
                 </div>
 
                 <div className='col-3'>
