@@ -22,12 +22,13 @@ const Active = ({pokemon, playerId}) => {
                         index={0}
                         name = {pokemon[0].name}
                         url={pokemon[0].images?.large}
-                        location={"Active"}
+                        location={"active"}
                         supertype= {pokemon[0].supertype}
                         playerId={playerId}
                         currentHp={pokemon[0].hp}
                         maxHp={pokemon[0].maxHp}
-                        energies={pokemon[0].energies} />}</div>
+                        energies={pokemon[0].energies}
+                        attacks={pokemon[0].attacks} />}</div>
     </div>
     )
 }

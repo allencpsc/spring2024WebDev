@@ -8,20 +8,22 @@ export const useStore = create((set) => ({
     player2: { hand: [], bench: [], active: [], prize: [], discard: [], deck: [] },
     text: "Welcome to Pokemon TCG Online!",
     started: null,
-    attack: [],
+    attackArray: [],
     attachingEnergy: false,
     switchingCards: false,
     switchTarget: null,
     currentTurn: 0,
+    isCPUTurn: false,
 
     nextTurn: async () => {
         set((state) => {
             state.currentTurn += 1;
-            console.log(state.currentTurn)
+            console.log(state.currentTurn);
             if (state.currentTurn % 2 === 0) {
-                return {...state, text: "Your turn! You can switch your active Pokémon, attach energy, and use trainer cards. Attack or click Next Turn to end your turn."}
+                console.log("turn");
+                return {...state, isCPUTurn: false, text: "Your turn! You can switch your active Pokémon, attach energy, and use trainer cards. Attack or click Next Turn to end your turn."}
             } else {
-                this.CPUTurn();
+                return {...state, isCPUTurn: true}
             }
         })
     },
@@ -38,10 +40,20 @@ export const useStore = create((set) => ({
         }
     },
 
+    drawCard: async (playerId) => {
+
+        if (playerId === 1) {
+            console.log(useStore.getState.player1.deck)
+        } else {
+            
+        }
+    },
+
     firstTurn: async () => {
         try {
             axios.get(paths.root + '/turn-zero/player1')
             .then(function (response) {
+                console.log(response.data)
                 set((state)=> ({...state, text: "First turn in progress... Select your active and benched Pokémon!"}))
                 const cardsWithEnergies = response.data.map(card =>
                     card.supertype === 'Pokémon' ? {...card, energies: []}: card)
@@ -172,12 +184,13 @@ export const useStore = create((set) => ({
     //energies attach to active
     setText: async (text) => set((state) => ({...state, text})),
 
-    CPUTurn: async (active, bench, attackChosen) => {
-        set(state => ({...state, text: "CPU's turn in progress..."}))
-        try {
+    CPUTurn: async () => {
+            
+            set(state => ({...state, text: "CPU's turn in progress..."}))
+            try {
             axios.get(paths.root + '/cpu-turn')
             .then(function(response) {
-                set((state) => ({...state, text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench slot. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage!`}))
+                set((state) => ({...state, text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`}))
                 set((state) => ({...state, player2: {...state.player2, active: [state.player2.hand.find(card => card.name === response.data[0].name)], hand: state.player2.hand.filter(card => card.name !== response.data[0].name)}}))
                  try {
                     axios.get(paths.root + '/player2-bench')
@@ -204,7 +217,32 @@ export const useStore = create((set) => ({
                 });
             })
         } catch (error) {
-        }
+        }        
+    },
+
+    attack: async (playerId, attackName) => {
+        console.log("attackkkkkkk")
+    },
+
+    usePotion: async (index) => {
+        console.log("use potion")
+        set((state) => {
+            console.log(state.player1.active[0].hp);
+            return {...state,
+                        player1: {
+                            ...state.player1,
+                            active: [
+                                {
+                                    ...state.player1.active[0],
+                                    hp: (Number(state.player1.active[0].hp) + 20) > state.player1.active[0].maxHp ? 
+                                            state.player1.active[0].maxHp : 
+                                            (Number(state.player1.active[0].hp) + 20),
+                                },
+                            ],
+                            hand: state.player1.hand.filter((card, i) => i !== index),
+                        },
+                    };
+        });
     },
 
     reset: async () => {
@@ -216,7 +254,7 @@ export const useStore = create((set) => ({
         attachingEnergy: false,
         switchingCards: false,
         switchTarget: null,
-        currentTurn: 0}))
+        currentTurn: 0}));        
     },
 }))
 

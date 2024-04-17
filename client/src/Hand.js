@@ -29,7 +29,8 @@ export const Hand = ({cards, flippedOver, playerId}) => {
                         playerId={playerId}
                         currentHp={Number(pokemon.hp)}
                         maxHp={Number(pokemon.hp)}
-                        energies={pokemon.energies} />
+                        energies={pokemon.energies} 
+                        attacks={pokemon.attacks}/>
                     )}
             </div>
         </React.Fragment>

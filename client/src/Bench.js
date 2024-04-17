@@ -23,17 +23,19 @@ export const Bench = ({cards, playerId}) => {
                 {cards.map((pokemon,index) => 
                     
                     <Card  
-                    id={pokemon.id+playerId+index+"bench"} 
-                    index={index}
-                    name = {pokemon.name} 
-                    url={pokemon.images?.large} 
-                    flippedOver = {pokemon.flippedOver}
-                    supertype= {pokemon.supertype} 
-                    location={"bench"}
-                    playerId = {playerId}
-                    currentHp={pokemon.hp}
-                    maxHp={pokemon.hp}
-                    energies={pokemon.energies}/>)}
+                        id={pokemon.id+playerId+index+"bench"} 
+                        index={index}
+                        name = {pokemon.name} 
+                        url={pokemon.images?.large} 
+                        flippedOver = {pokemon.flippedOver}
+                        supertype= {pokemon.supertype} 
+                        location={"bench"}
+                        playerId = {playerId}
+                        currentHp={pokemon.hp}
+                        maxHp={pokemon.hp}
+                        energies={pokemon.energies}
+                        attacks={pokemon.attacks}
+                    />)}
 
             </div>
         </React.Fragment>

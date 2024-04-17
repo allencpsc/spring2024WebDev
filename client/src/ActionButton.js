@@ -3,28 +3,32 @@ import { Button } from "react-bootstrap";
 import axios from 'axios';
 import { paths } from './const.js'
 import { useStore } from "./resources/store.js";
-const style = {
+var style = {
     color: 'white',
-    backgroundColor: '#3f51b5',
     padding: '5px 15px',
-    border: '1px white'
+    border: '1px white',
+    backgroundColor: 'rgb(256 230 34 / 90%)'
 }
-export const MyButton = (props) => {
-    const moveToBench = useStore((state) => state.moveToBench)
-    const makeActive = useStore((state) => state.makeActive)
-    const attachEnergy = useStore((state) => state.attachEnergy)
-    const benchArr = useStore((state) => state.player1.bench)
+export const ActionButton = (props) => {
+    const moveToBench = useStore((state) => state.moveToBench);
+    const makeActive = useStore((state) => state.makeActive);
+    const attachEnergy = useStore((state) => state.attachEnergy);
+    const benchArr = useStore((state) => state.player1.bench);
+    const utilizePotion = useStore((state) => state.usePotion);
+
+    const backgroundColor = props.backgroundColor || "#3f51b";
+    const updatedStyle = {
+        ...style,
+        backgroundColor: backgroundColor
+    };
+    
     const handleClick = () => {
         if(props.textValue === "Place on Bench"){
-            console.log(props)
             moveToBench(props.playerId, props.index)
             axios.post(paths.root + '/place-card', {
-                //endpoint needs cardName, location, and what bench slot
-                //for pokes, we will jsut push to last slot in the bench
                 cardName: props.name,
                 location: "Bench",
                 benchSlot : benchArr.length
-
             })
             .then(function (response) {
                 console.log("Backend api call successful - placed active")
@@ -48,10 +52,18 @@ export const MyButton = (props) => {
                 console.log(error);
             })
         }
+        else if (props.textValue === "Use") {
+            console.log("Using trainer card");
+            utilizePotion(props.index);
+        }
         else if (props.textValue === "Attach") {
-            console.log(props.playerId)
-            console.log("Attaching energy from MyButton")
-            attachEnergy(props.playerId, props.index, "active", "0")
+            console.log(props.playerId);
+            console.log("Attaching energy from MyButton");
+            attachEnergy(props.playerId, props.index, "active", "0");
+        }
+        else if(props.isAttack === true){
+            console.log("Attack name:" + props.textValue);
+            //TODO: attack api call
         }
         else{
             alert("I could call the API from here!")
@@ -59,7 +71,7 @@ export const MyButton = (props) => {
         props.handleClose();
     }
     return (
-        <Button className="btn-primary btn" size="lg" variant="primary" onClick={handleClick} style={style}>
+        <Button className="flex-fill" onClick={handleClick} style={updatedStyle}>
             {props.textValue}
         </Button>
     );

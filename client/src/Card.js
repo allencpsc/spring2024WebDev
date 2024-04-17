@@ -6,9 +6,8 @@ import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import pokemon from 'pokemontcgsdk';
 import { CardButtons } from './CardButtons';
-import {useStore} from './resources/store';
 import { EnergyIcons } from './EnergyIcons';
-import { Button } from 'react-bootstrap';
+import { AttackButtons } from './AttackButtons';
 pokemon.configure({apiKey: '0d524a9e-011f-4f8e-a972-ad3a71503346'})
 const style = {
   borderRadius: '10px',
@@ -21,23 +20,17 @@ const style = {
 
 
 export const Card = function Card(props) {
-  const switching = useStore(state => state.switchingCards);
-  const switchTarget =  useStore(state => state.switchTarget);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
   const progressHp = props.currentHp && props.maxHp ? Number(props.currentHp)/Number(props.maxHp) * 100 : 100
   var color;
-  switch (progressHp) {
-    case 0 < progressHp < 30:
-      color = 'danger';
-      break;
-    case 31 < progressHp < 60:
-      color = 'warning';
-      break;
-    default:
-      color='success';
-      break;
+
+  if (progressHp <= 50) {
+    color = 'danger';
+  } else {
+    color = 'success';
   }
 
   return (
@@ -52,10 +45,9 @@ export const Card = function Card(props) {
           {props.supertype === 'Pokémon' && props.playerId === 1 &&
           <ProgressBar now={progressHp} variant={color} label={`${props.currentHp}`}/>
           }
-          {props.supertype === 'Pokémon' && props.playerId === 2 && props.location === 'Active' &&
+          {props.supertype === 'Pokémon' && props.playerId === 2 && props.location === 'active' &&
           <ProgressBar now={progressHp} variant={color} label={`${props.currentHp}`}/>
           }
-          {switching && <Button onClick={() => switchTarget(props.playerId, props.location, props.index)}>Switch</Button>}
           <div>
           {props.supertype === 'Pokémon' && props.energies && props.energies.length > 0 &&
           <EnergyIcons energies={props.energies}/>}
@@ -68,13 +60,21 @@ export const Card = function Card(props) {
             <Container fluid>
               <Row>
                 <Col>
-                  <div className='d-grid gap-5'>
-                      <CardButtons supertype={props.supertype} location={props.location} name={props.name} playerId={props.playerId} index={props.index} handleClose={handleClose}/>
+                  <div className='d-grid gap-1'>
+                    {props.flippedOver === true ? null : 
+                    <div>
+                    <CardButtons supertype={props.supertype} attacks={props.attacks} location={props.location} name={props.name} playerId={props.playerId} index={props.index} handleClose={handleClose}/>
+                    
                     </div>
+                    }
+                  </div>
                 </Col>
                 <Col className='col-9'>
                 <img src={ props.flippedOver === true ? "https://vignette.wikia.nocookie.net/cardgame/images/a/ac/Pokemon-card-back.jpg/revision/latest/scale-to-width-down/342?cb=20131228023927" :props.url}
-          className='h-75 d-inline modalImg'></img>
+                  className='h-75 d-inline modalImg'></img>
+                  <div className='d-flex justify-content-between'>
+                  <AttackButtons attacks={props.attacks} location={props.location} handleClose={handleClose}/>
+                  </div>
                 </Col>
               </Row>
             </Container>
