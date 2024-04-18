@@ -1,11 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import Main from './pages/Main';
-//TODO: remove router
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <Main />
-);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);

@@ -1,10 +1,8 @@
 import React from "react";
-import { GameBoard } from "./GameBoard";
+import { GameBoard } from "./components/GameBoard";
 
-function App(){
-    return (
-        <GameBoard/>
-    )
+function App() {
+  return <GameBoard />;
 }
 
 export default App;
