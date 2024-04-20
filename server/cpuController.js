@@ -35,6 +35,7 @@ function placeRandomCardtoBench(player2){
             return eachCard
         }
     }
+    return null
 }
 
 function useRandomAttack(player2active, currentGame){
