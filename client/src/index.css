@@ -1,11 +1,11 @@
 body {
   margin: 0;
-  font-family: 'Bangers', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Bangers", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #141B41;
+  background-color: #141b41;
   /* background: url('https://product-images.tcgplayer.com/520352.jpg') no-repeat center center fixed; */
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -13,7 +13,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -36,7 +36,7 @@ code {
   flex-wrap: nowrap;
   line-content: center;
 }
-.opponent-bench{
+.opponent-bench {
   transform: translate(0px, -8vh);
 }
 
@@ -46,8 +46,6 @@ code {
 .title {
   font-size: xx-large;
 }
-
-
 
 .btn {
   font-size: xx-large;
@@ -90,12 +88,11 @@ code {
   -webkit-text-stroke: 5px #0072bb;
 }
 
-
 .start-button-text:hover {
   font-size: 10rem;
   color: #ffd634;
   text-decoration-line: none;
-  transform:translate(100px 0px 0px 0px);
+  transform: translate(100px 0px 0px 0px);
   -webkit-text-stroke: 5px #0072bb;
 }
 

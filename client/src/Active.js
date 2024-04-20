@@ -33,3 +33,4 @@ const Active = ({pokemon, playerId}) => {
     )
 }
 export default Active;
+

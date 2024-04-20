@@ -4,6 +4,7 @@ class Card {
         this.name = name
         this.supertype = supertype
         this.hp = hp
+        this.maxHp = hp
         this.attacks = attacks
         this.weaknesses = weaknesses
         this.retreatCost = retreatCost
@@ -21,6 +22,9 @@ class Card {
     }
     getCardHp(){
         return this.hp;
+    }
+    getCardMaxHp(){
+        return this.maxHp;
     }
     getCardAttacks(){
         return this.attacks;
@@ -49,6 +53,10 @@ class Card {
 
     setCardHp(hp){
         this.hp = hp
+    }
+
+    setCardMaxHp(maxHp){
+        this.maxHp = maxHp
     }
 
     setCardAttacks(attacks){
