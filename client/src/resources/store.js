@@ -71,7 +71,7 @@ export const useStore = create((set) => ({
           console.log(response.data);
           set((state) => ({
             ...state,
-            text: "First turn in progress... Select your active and benched Pokémon!",
+            text: "First turn in progress... Select your active and benched Pokémon!", 
           }));
           const cardsWithEnergies = response.data.map((card) =>
             card.supertype === "Pokémon" ? { ...card, energies: [] } : card
@@ -106,7 +106,6 @@ export const useStore = create((set) => ({
     console.log(index);
     set((state) => {
       if (playerId === 1) {
-        console.log(state.player1.bench);
         return {
           ...state,
           player1: {
@@ -318,11 +317,13 @@ export const useStore = create((set) => ({
   setText: async (text) => set((state) => ({ ...state, text })),
 
   CPUTurn: async () => {
+    if (useStore.getState.player1.active[0] !== null) {
     set((state) => ({ ...state, text: "CPU's turn in progress..." }));
     try {
       axios.get(paths.root + "/cpu-turn").then(function (response) {
         set((state) => ({
           ...state,
+          currentTurn: state.currentTurn + 1,
           text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
         }));
         set((state) => ({
@@ -349,7 +350,7 @@ export const useStore = create((set) => ({
         } catch (error) {
           console.log(error);
         }
-        console.log(response.data[2].damage);
+        console.log(response.data[2]);
         set((state) => {
           console.log(state.player1.active[0].hp);
           return {
@@ -369,10 +370,20 @@ export const useStore = create((set) => ({
         });
       });
     } catch (error) {}
+  } else {
+    set((state) => ({ ...state, text: "You must select an active Pokemon to continue!" }));
+  }
   },
 
   attack: async (playerId, attackName) => {
-    console.log("attackkkkkkk");
+    set((state) => {
+      if (playerId === 1) {
+        console.log(attackName)
+        state.text = "1";
+      } else {
+        state.text = "2"
+      }  
+    });
   },
 
   usePotion: async (index) => {

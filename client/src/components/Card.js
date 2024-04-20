@@ -5,9 +5,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import pokemon from "pokemontcgsdk";
-import { CardButtons } from "./controls/CardButtons";
+import { CardButtons } from "./CardButtons";
 import { EnergyIcons } from "./EnergyIcons";
-import { AttackButtons } from "./controls/AttackButtons";
+import { AttackButtons } from "./AttackButtons";
 pokemon.configure({ apiKey: "0d524a9e-011f-4f8e-a972-ad3a71503346" });
 const style = {
   borderRadius: "10px",

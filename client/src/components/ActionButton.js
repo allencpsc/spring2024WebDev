@@ -15,6 +15,7 @@ export const ActionButton = (props) => {
   const attachEnergy = useStore((state) => state.attachEnergy);
   const benchArr = useStore((state) => state.player1.bench);
   const utilizePotion = useStore((state) => state.usePotion);
+  const attack = useStore((state) => state.attack);
 
   const backgroundColor = props.backgroundColor || "#3f51b";
   const updatedStyle = {
@@ -61,7 +62,7 @@ export const ActionButton = (props) => {
       attachEnergy(props.playerId, props.index, "active", "0");
     } else if (props.isAttack === true) {
       console.log("Attack name:" + props.textValue);
-      //TODO: attack api call
+      attack(props.playerId, props.textValue)
     } else {
       alert("I could call the API from here!");
     }

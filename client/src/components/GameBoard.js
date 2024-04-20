@@ -1,11 +1,11 @@
-import React, { memo } from "react";
+
 import { Bench } from "./Bench.js";
 import Active from "./Active.js";
 import { Hand } from "./Hand.js";
-import { useStore } from "../resources/store.js";
+import { useStore, state } from "../resources/store.js";
 import { TextBox } from "./TextBox.js";
 
-export const GameBoard = memo(function GameBoard() {
+export const GameBoard = function GameBoard() {
   const CPUTurn = useStore((state) => state.CPUTurn);
   const firstTurn = useStore((state) => state.firstTurn);
   const player1 = useStore((state) => state.player1);
@@ -101,4 +101,4 @@ export const GameBoard = memo(function GameBoard() {
       </div>
     </div>
   );
-});
+};
