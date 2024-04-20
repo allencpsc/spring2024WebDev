@@ -1,4 +1,3 @@
-import { CardSlot } from "./CardSlot";
 import React, { useEffect, useState } from "react";
 import { Card } from './Card'
 
@@ -23,15 +22,15 @@ export const Bench = ({cards, playerId}) => {
             {console.log(`playerId: ${playerId} Bench`)}
             <div style={style} className="Bench">
                 {console.log(cards)}
-                {cards.map((pokemon,index) => 
-                    
-                    <Card  
-                    id={pokemon.id+playerId+index+"bench"} 
+                {cards.map((pokemon,index) =>
+
+                    <Card
+                    id={pokemon.id+playerId+index+"bench"}
                     index={index}
-                    name = {pokemon.name} 
-                    url={pokemon.images?.large} 
+                    name = {pokemon.name}
+                    url={pokemon.images?.large}
                     flippedOver = {pokemon.flippedOver}
-                    supertype= {pokemon.supertype} 
+                    supertype= {pokemon.supertype}
                     location={"bench"}
                     playerId = {playerId}
                     currentHp={pokemon.hp}

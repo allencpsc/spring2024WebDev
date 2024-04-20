@@ -1,5 +1,5 @@
 import { Card } from "./Card";
-import { CardSlot } from "./CardSlot";
+
 const style = {
     height: '13.4rem',
     backgroundColor: 'rgb(256 230 34 / 90%)',
@@ -18,7 +18,7 @@ const Active = ({pokemon, playerId}) => {
     return (
     <div style={{...style}} className="position-relative">
         <div className="position-absolute top-100 start-100 title translate-middle-y">PLAYER {playerId} ACTIVE</div>
-        <div className="">{pokemon[0] && 
+        <div className="">{pokemon[0] &&
                         <Card
                         index={0}
                         name = {pokemon[0].name}
