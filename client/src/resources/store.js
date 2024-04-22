@@ -71,7 +71,7 @@ export const useStore = create((set) => ({
           console.log(response.data);
           set((state) => ({
             ...state,
-            text: "First turn in progress... Select your active and benched Pokémon!", 
+            text: "First turn in progress... Select your active and benched Pokémon!",
           }));
           const cardsWithEnergies = response.data.map((card) =>
             card.supertype === "Pokémon" ? { ...card, energies: [] } : card
@@ -317,7 +317,7 @@ export const useStore = create((set) => ({
   setText: async (text) => set((state) => ({ ...state, text })),
 
   CPUTurn: async () => {
-    if (useStore.getState.player1.active[0] !== null) {
+    //if (useStore.getState.player1.active[0] !== null) {
     set((state) => ({ ...state, text: "CPU's turn in progress..." }));
     try {
       axios.get(paths.root + "/cpu-turn").then(function (response) {
@@ -370,9 +370,9 @@ export const useStore = create((set) => ({
         });
       });
     } catch (error) {}
-  } else {
+  //} else {
     set((state) => ({ ...state, text: "You must select an active Pokemon to continue!" }));
-  }
+  //}
   },
 
   attack: async (playerId, attackName) => {
@@ -382,7 +382,7 @@ export const useStore = create((set) => ({
         state.text = "1";
       } else {
         state.text = "2"
-      }  
+      }
     });
   },
 

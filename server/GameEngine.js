@@ -16,12 +16,12 @@ import { useItemEffect } from './ItemEffects.js'
 
 let gameId = uuidv4()
 
-let currentGame = new Game(gameId, null, null, 0 , false, null)
+let currentGame = new Game(gameId, null, null, 0 , false, null, 0)
 
 export function initializeGame(){
     console.log(`Game has been started`)
-    var player1 = new Player(1234, new PlayerField(), new Turn(1234, 'draw', false))
-    var player2 = new Player(5678, new PlayerField(), new Turn(5678, 'draw', true))
+    var player1 = new Player(1234, new PlayerField(), new Turn(1234, 'draw', false), 0)
+    var player2 = new Player(5678, new PlayerField(), new Turn(5678, 'draw', true), 0)
     currentGame.setPlayer1(player1)
     currentGame.setPlayer2(player2)
     createLog(currentGame)
@@ -122,6 +122,14 @@ export function getAttackResultsPrompt(attackName){
     let returnArr = []
     returnArr = damagePhase(attackName, currentGame)
     currentGame.incrementTurnsElapsed()
+    if (returnArr[1] == true){
+        let currentPlayer = getActivePlayer()
+        let knockOutCount = currentPlayer.incrementKnockoutCount()
+        if (knockOutCount >= 3){
+            endCurrentGame()
+            return "Game Over"
+        }
+    }
     return returnArr
 }
 
@@ -210,6 +218,14 @@ export function getDrawnCard(){
     let currentPlayer = getActivePlayer()
     let cardDrawn = drawCard(currentPlayer)
     return cardDrawn
+}
+
+export function endCurrentGame(){
+    let currentPlayer = getActivePlayer()
+    currentGame.setIsGameOver(true)
+    currentGame.setWinner(currentPlayer)
+    updateLog(currentGame)
+    console.log("\nThe game is over!\n")
 }
 
 function initPlayerFields(player){

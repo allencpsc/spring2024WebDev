@@ -85,15 +85,15 @@ export function damagePhase(attackName, currentGame){
     }
     var calculatedHp = defenderPoke.hp - attack.damage
     defenderPoke.setCardHp(calculatedHp)
-    returnString = returnString.concat(`${attack.name} does ${attack.damage} damage!`)
-    returnString = returnString.concat(`${defenderPoke.name} now has ${calculatedHp} HP`)
+    // returnString = returnString.concat(`${attack.name} does ${attack.damage} damage!`)
+    // returnString = returnString.concat(`${defenderPoke.name} now has ${calculatedHp} HP`)
     if (calculatedHp <= '0'){
-        returnString = returnString.concat('...knockout!!!!')
+        //returnString = returnString.concat('...knockout!!!!')
         knockOut = true;
         returnArr[1] = knockOut
     }
     else {
-        returnString = returnString.concat('...no knockout!!!!')
+        //returnString = returnString.concat('...no knockout!!!!')
         knockOut = false
         returnArr[1] = knockOut
     }
