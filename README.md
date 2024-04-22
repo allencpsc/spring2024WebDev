@@ -1,9 +1,9 @@
-# Pokemon TCG Online
+# Pokémon TCG Online
 
-Pokemon TCG Online is a fan recreation of the Pokemon Trading Card Game.
+Pokémon TCG Online is a fan recreation of the Pokémon Trading Card Game.
 The application runs in-browser and is currently played locally against a computer.
 
-Pokemon TCG Online uses the [Pokemon TCG API](https://pokemontcg.io/) to retrieve cards.
+Pokémon TCG Online uses the [Pokémon TCG API](https://Pokemontcg.io/) to retrieve cards.
 
 ## Installation
 
@@ -31,7 +31,7 @@ cd ../client
 npm install
 ```
 
-Pokemon TCG Online uses the MERN stack:
+Pokémon TCG Online uses the MERN stack:
 - MongoDB tracks turns and player information.
 - Express.js manages API endpoints.
 - React manages the front end.
@@ -43,4 +43,5 @@ A few npm packages were integral to development:
 - Zustand was used to maintain and manage global state.
 
 
-*This program was created for the Web Development Projects class at Columbus State University.*
+*This program was created for the Web Development Projects class at Columbus State University.
+  Pokémon is owned by Nintendo, Creatures, Inc., and Game Freak. *
