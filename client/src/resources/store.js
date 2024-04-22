@@ -368,7 +368,13 @@ export const useStore = create((set) => ({
   
   attack: async (playerId, attackName) => {
     try {
-      axios.get(paths.root + "/attack").then(function (response) {
+      axios({
+        method: "post",
+        url: paths.root + "/attack",
+        data: {
+        } 
+        })
+        .then(function (response) {
         console.log(response);
       });
     } catch (error) {
