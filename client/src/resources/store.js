@@ -368,7 +368,13 @@ export const useStore = create((set) => ({
 
   attack: async (playerId, attackName) => {
     try {
-      axios.get(paths.root + "/attack").then(function (response) {
+      axios({
+        method: "post",
+        url: paths.root + "/attack",
+        data: {
+        }
+        })
+        .then(function (response) {
         console.log(response);
       });
     } catch (error) {
@@ -387,64 +393,6 @@ export const useStore = create((set) => ({
   //energies attach to active
   setText: async (text) => set((state) => ({ ...state, text })),
 
-  CPUTurn: async () => {
-    set((state) => ({ ...state, text: "CPU's turn in progress..." }));
-  },
-  //   try {
-  //     axios.get(paths.root + "/cpu-turn").then(function (response) {
-  //       set((state) => ({
-  //         ...state,
-  //         currentTurn: state.currentTurn + 1,
-  //         text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
-  //       }));
-  //       set((state) => ({
-  //         ...state,
-  //         player2: {
-  //           ...state.player2,
-  //           active: [
-  //             state.player2.hand.find(
-  //               (card) => card.name === response.data[0].name
-  //             ),
-  //           ],
-  //           hand: state.player2.hand.filter(
-  //             (card) => card.name !== response.data[0].name
-  //           ),
-  //         },
-  //       }));
-  //       try {
-  //         axios.get(paths.root + "/player2-bench").then(function (response) {
-  //           set((state) => ({
-  //             ...state,
-  //             player2: { ...state.player2, bench: response.data[1] },
-  //           }));
-  //         });
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //       console.log(response.data[2]);
-  //       set((state) => {
-  //         console.log(state.player1.active[0].hp);
-  //         return {
-  //           ...state,
-  //           player1: {
-  //             ...state.player1,
-  //             active: [
-  //               {
-  //                 ...state.player1.active[0],
-  //                 hp:
-  //                   Number(state.player1.active[0].hp) -
-  //                   response.data[2].damage,
-  //               },
-  //             ],
-  //           },
-  //         };
-  //       });
-  //     });
-  //   } catch (error) {}
-  // } else {
-  //   set((state) => ({ ...state, text: "You must select an active Pokemon to continue!" }));
-  // }
-  // },
 
   attack: async (playerId, attackName) => {
     set((state) => {
