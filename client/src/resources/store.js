@@ -31,17 +31,13 @@ export const useStore = create((set) => ({
 
   nextTurn: async () => {
     set((state) => {
-      state.currentTurn += 1;
-      console.log(state.currentTurn);
       if (state.currentTurn % 2 === 0) {
-        console.log("turn");
-        return {
-          ...state,
-          isCPUTurn: false,
-          text: "Your turn! You can switch your active Pokémon, attach energy, and use trainer cards. Attack or click Next Turn to end your turn.",
-        };
+        console.log("turn " + state.currentTurn);
+        console.log("player 1 deck: " + state.player1.deck)
+        state.isCPUTurn = false;
+        state.text = "Your turn! You can switch your active Pokémon, attach energy, and use trainer cards. Attack or click Next Turn to end your turn."; 
       } else {
-        return { ...state, isCPUTurn: true };
+        state.isCPUTurn = true;
       }
     });
   },
@@ -57,12 +53,13 @@ export const useStore = create((set) => ({
   },
 
   drawCard: async (playerId) => {
-    if (playerId === 1) {
-      console.log(useStore.getState.player1.deck);
-    } else {
-    }
+    set((state) => {
+      console.log(state.player1.deck)
+    })
   },
-
+  /* attack array has knockout bool - that can spawn an alert, prompt gameboard to clear active
+  / 3 knock
+  */
   firstTurn: async () => {
     try {
       axios
@@ -311,13 +308,25 @@ export const useStore = create((set) => ({
             }
         })) */
   },
+  
+    attack: async (playerId, attackName) => {
+    set((state) => {
+      if (playerId === 1) {
+        console.log(attackName)
+        state.text = `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(attackName).damage}!`;
+        state.player2.active[0].hp = Number(state.player2.active[0].hp) - state.player1.active[0].attacks.find(attackName).damage;
+      } else {
+        state.text = "2";
+      }  
+    });
+  },
+
 
   //bench swap with active independently
   //energies attach to active
   setText: async (text) => set((state) => ({ ...state, text })),
 
   CPUTurn: async () => {
-    if (useStore.getState.player1.active[0] !== null) {
     set((state) => ({ ...state, text: "CPU's turn in progress..." }));
     try {
       axios.get(paths.root + "/cpu-turn").then(function (response) {
@@ -370,21 +379,8 @@ export const useStore = create((set) => ({
         });
       });
     } catch (error) {}
-  } else {
-    set((state) => ({ ...state, text: "You must select an active Pokemon to continue!" }));
-  }
   },
 
-  attack: async (playerId, attackName) => {
-    set((state) => {
-      if (playerId === 1) {
-        console.log(attackName)
-        state.text = "1";
-      } else {
-        state.text = "2"
-      }  
-    });
-  },
 
   usePotion: async (index) => {
     console.log("use potion");
@@ -431,7 +427,7 @@ export const useStore = create((set) => ({
       },
       text: "Welcome to Pokemon TCG Online!",
       started: null,
-      attack: [],
+      attackArray: [],
       attachingEnergy: false,
       switchingCards: false,
       switchTarget: null,

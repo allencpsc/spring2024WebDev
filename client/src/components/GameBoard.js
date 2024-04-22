@@ -1,4 +1,3 @@
-
 import { Bench } from "./Bench.js";
 import Active from "./Active.js";
 import { Hand } from "./Hand.js";
