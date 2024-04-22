@@ -3,7 +3,7 @@
 Pokémon TCG Online is a fan recreation of the Pokémon Trading Card Game.
 The application runs in-browser and is currently played locally against a computer.
 
-Pokémon TCG Online uses the [Pokémon TCG API](https://Pokémontcg.io/) to retrieve cards.
+Pokémon TCG Online uses the [Pokémon TCG API](https://Pokemontcg.io/) to retrieve cards.
 
 ## Installation
 
