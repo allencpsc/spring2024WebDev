@@ -125,7 +125,7 @@ export const useStore = create((set) => ({
           console.log(response.data);
           set((state) => ({
             ...state,
-            text: "First turn in progress... Select your active and benched Pokémon!", 
+            text: "First turn in progress... Select your active and benched Pokémon!",
           }));
           const cardsWithEnergies = response.data.map((card) =>
             card.supertype === "Pokémon" ? { ...card, energies: [] } : card
@@ -365,7 +365,7 @@ export const useStore = create((set) => ({
             }
         })) */
   },
-  
+
   attack: async (playerId, attackName) => {
     try {
       axios({
@@ -378,13 +378,13 @@ export const useStore = create((set) => ({
         console.log(response);
       });
     } catch (error) {
-      
+
     }
     set((state) => ({
       ...state,
       text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage}!`,
       player2: {...state.player2, active:[{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}]}
-      
+
     }));
   },
 
@@ -395,9 +395,72 @@ export const useStore = create((set) => ({
 
   CPUTurn: async () => {
     set((state) => ({ ...state, text: "CPU's turn in progress..." }));
-    
+    try {
+      axios.get(paths.root + "/cpu-turn").then(function (response) {
+        set((state) => ({
+          ...state,
+          currentTurn: state.currentTurn + 1,
+          text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
+        }));
+        set((state) => ({
+          ...state,
+          player2: {
+            ...state.player2,
+            active: [
+              state.player2.hand.find(
+                (card) => card.name === response.data[0].name
+              ),
+            ],
+            hand: state.player2.hand.filter(
+              (card) => card.name !== response.data[0].name
+            ),
+          },
+        }));
+        try {
+          axios.get(paths.root + "/player2-bench").then(function (response) {
+            set((state) => ({
+              ...state,
+              player2: { ...state.player2, bench: response.data[1] },
+            }));
+          });
+        } catch (error) {
+          console.log(error);
+        }
+        console.log(response.data[2]);
+        set((state) => {
+          console.log(state.player1.active[0].hp);
+          return {
+            ...state,
+            player1: {
+              ...state.player1,
+              active: [
+                {
+                  ...state.player1.active[0],
+                  hp:
+                    Number(state.player1.active[0].hp) -
+                    response.data[2].damage,
+                },
+              ],
+            },
+          };
+        });
+      });
+    } catch (error) {}
+  } else {
+    set((state) => ({ ...state, text: "You must select an active Pokemon to continue!" }));
+  }
   },
 
+  attack: async (playerId, attackName) => {
+    set((state) => {
+      if (playerId === 1) {
+        console.log(attackName)
+        state.text = "1";
+      } else {
+        state.text = "2"
+      }
+    });
+  },
 
   usePotion: async (index) => {
     console.log("use potion");

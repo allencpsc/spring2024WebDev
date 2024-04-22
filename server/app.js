@@ -8,7 +8,8 @@ import { getDrawPhase, getTurnCommands, initializeGame, getTurnLoopCommands,
     getPlayer1Hand, getPlayer1Active, getPlayer2Hand, getPlayer2Active, getPlayer2Bench,
     getPlayer1Bench,
     usePotion,
-    getTheTurnsElapsed} from './GameEngine.js'
+    getTheTurnsElapsed,
+    endCurrentGame} from './GameEngine.js'
 import { runTurnZeroPlayerOne, runTurnZeroPlayerTwo } from './GameEngine.js'
 import { turnZeroActiveSlotPlayerOne, turnZeroActiveSlotPlayerTwo } from './GameEngine.js'
 import { runCpuHandler } from './GameEngine.js';
@@ -178,6 +179,11 @@ app.get('/get-turns-elapsed', (req,res) => {
 app.get('/draw-single-card', (req,res) => {
     cardDrawn = getDrawCard()
     res.send(cardDrawn)
+})
+
+app.get('/end-game', (req, res) => {
+    endCurrentGame()
+    res.send("The game is over")
 })
 
 
