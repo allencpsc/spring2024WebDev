@@ -125,7 +125,7 @@ export const useStore = create((set) => ({
           console.log(response.data);
           set((state) => ({
             ...state,
-            text: "First turn in progress... Select your active and benched Pokémon!",
+            text: "First turn in progress... Select your active and benched Pokémon!", 
           }));
           const cardsWithEnergies = response.data.map((card) =>
             card.supertype === "Pokémon" ? { ...card, energies: [] } : card
@@ -365,26 +365,20 @@ export const useStore = create((set) => ({
             }
         })) */
   },
-
+  
   attack: async (playerId, attackName) => {
-    try {
-      axios({
-        method: "post",
-        url: paths.root + "/attack",
-        data: {
-        } 
-        })
-        .then(function (response) {
+    /* try {
+      axios.get(paths.root + "/attack").then(function (response) {
         console.log(response);
       });
     } catch (error) {
-
-    }
+      
+    } */
     set((state) => ({
       ...state,
       text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage}!`,
       player2: {...state.player2, active:[{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}]}
-
+      
     }));
   },
 
@@ -393,17 +387,11 @@ export const useStore = create((set) => ({
   //energies attach to active
   setText: async (text) => set((state) => ({ ...state, text })),
 
-
-  attack: async (playerId, attackName) => {
-    set((state) => {
-      if (playerId === 1) {
-        console.log(attackName)
-        state.text = "1";
-      } else {
-        state.text = "2"
-      }
-    });
+  CPUTurn: async () => {
+    set((state) => ({ ...state, text: "CPU's turn in progress..." }));
+    
   },
+
 
   usePotion: async (index) => {
     console.log("use potion");
