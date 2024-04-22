@@ -422,25 +422,27 @@ export const useStore = create((set) => ({
   },
   
   attack: async (playerId, attackName) => {
-  /*try {
+  try {
       axios({
         method: "post",
-        url: paths.root + "/attack",
+        url: paths.root + "/attacker-options",
         data: {
+          command: attackName,
         } 
         })
         .then(function (response) {
         console.log(response);
+        set((state) => ({
+          ...state,
+          text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage} damage!`,
+          player2: {...state.player2, active:[{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}]}
+          
+        }));
       });
     } catch (error) {
       
-    } */
-    set((state) => ({
-      ...state,
-      text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage} damage!`,
-      player2: {...state.player2, active:[{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}]}
-      
-    }));
+    }
+    
   },
 
 

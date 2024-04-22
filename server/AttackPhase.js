@@ -66,21 +66,29 @@ export function damagePhase(attackName, currentGame){
     let returnString = ''
     returnArr[0] = returnString
     returnArr[1] = knockOut
+    console.log(currentGame.turnsElapsed)
     if (currentGame.turnsElapsed % 2 == 0){
         var attacker = currentGame.player1
+        console.log(attacker.playerField.active[0])
         var defender = currentGame.player2
     }
     else{
         var attacker = currentGame.player2
+        console.log(attacker.playerField.active[0])
         var defender = currentGame.player1
     }
     let attackerActive = attacker.playerField.active
     let defenderActive = defender.playerField.active
+    console.log("Attacker: " + attackerActive[0])
+    console.log("Defender: " + defenderActive)
     var defenderPoke = defenderActive[0]
     let attackerAttackOptions = attackerActive[0].attacks
     for (let i = 0; i < attackerAttackOptions.length; i++){
+        console.log(attackName)
+        console.log(attackerAttackOptions[i])
         if(attackName == attackerAttackOptions[i].name){
             var attack = attackerAttackOptions[i]
+            console.log("attack == " + attack)
         }
     }
     var calculatedHp = defenderPoke.hp - attack.damage
