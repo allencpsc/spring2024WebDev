@@ -2,6 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 import { paths } from "./const";
 //TODO: add state for initial load - bool, use to see if we need to start
+var currentTurn = 0;
 
 export const useStore = create((set) => ({
   player1: {
@@ -26,21 +27,77 @@ export const useStore = create((set) => ({
   attachingEnergy: false,
   switchingCards: false,
   switchTarget: null,
-  currentTurn: 0,
   isCPUTurn: false,
 
   nextTurn: async () => {
-    set((state) => {
-      if (state.currentTurn % 2 === 0) {
-        console.log("turn " + state.currentTurn);
-        console.log("player 1 deck: " + state.player1.deck)
-        state.isCPUTurn = false;
-        state.text = "Your turn! You can switch your active Pokémon, attach energy, and use trainer cards. Attack or click Next Turn to end your turn."; 
+    currentTurn += 1;
+    console.log(currentTurn);
+      if (currentTurn % 2 === 0) {
+        set((state) => (
+          {
+          ...state,
+          isCPUTurn: false,
+          text: "Your turn! You can switch your active Pokémon, attach energy, and use trainer cards. Attack or click Next Turn to end your turn."
+        }));
       } else {
-        state.isCPUTurn = true;
+        set((state) => ({
+          ...state,
+          isCPUTurn: true,
+          text: "CPU's turn!"
+        }));
+        try {
+          axios.get(paths.root + "/cpu-turn").then(function (response) {
+            set((state) => ({
+              ...state,
+              currentTurn: state.currentTurn + 1,
+              text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
+            }));
+            set((state) => ({
+              ...state,
+              player2: {
+                ...state.player2,
+                active: [
+                  state.player2.hand.find(
+                    (card) => card.name === response.data[0].name
+                  ),
+                ],
+                hand: state.player2.hand.filter(
+                  (card) => card.name !== response.data[0].name
+                ),
+              },
+            }));
+            try {
+              axios.get(paths.root + "/player2-bench").then(function (response) {
+                set((state) => ({
+                  ...state,
+                  player2: { ...state.player2, bench: response.data[1] },
+                }));
+              });
+            } catch (error) {
+              console.log(error);
+            }
+            console.log(response.data[2]);
+            set((state) => {
+              console.log(state.player1.active[0].hp);
+              return {
+                ...state,
+                player1: {
+                  ...state.player1,
+                  active: [
+                    {
+                      ...state.player1.active[0],
+                      hp:
+                        Number(state.player1.active[0].hp) -
+                        response.data[2].damage,
+                    },
+                  ],
+                },
+              };
+            });
+          });
+        } catch (error) {}
       }
-    });
-  },
+    },
 
   introduction: async () => {
     try {
@@ -309,16 +366,20 @@ export const useStore = create((set) => ({
         })) */
   },
   
-    attack: async (playerId, attackName) => {
-    set((state) => {
-      if (playerId === 1) {
-        console.log(attackName)
-        state.text = `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(attackName).damage}!`;
-        state.player2.active[0].hp = Number(state.player2.active[0].hp) - state.player1.active[0].attacks.find(attackName).damage;
-      } else {
-        state.text = "2";
-      }  
-    });
+  attack: async (playerId, attackName) => {
+    try {
+      axios.get(paths.root + "/attack").then(function (response) {
+        console.log(response);
+      });
+    } catch (error) {
+      
+    }
+    set((state) => ({
+      ...state,
+      text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage}!`,
+      player2: {...state.player2, active:[{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}]}
+      
+    }));
   },
 
 
@@ -328,57 +389,7 @@ export const useStore = create((set) => ({
 
   CPUTurn: async () => {
     set((state) => ({ ...state, text: "CPU's turn in progress..." }));
-    try {
-      axios.get(paths.root + "/cpu-turn").then(function (response) {
-        set((state) => ({
-          ...state,
-          currentTurn: state.currentTurn + 1,
-          text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
-        }));
-        set((state) => ({
-          ...state,
-          player2: {
-            ...state.player2,
-            active: [
-              state.player2.hand.find(
-                (card) => card.name === response.data[0].name
-              ),
-            ],
-            hand: state.player2.hand.filter(
-              (card) => card.name !== response.data[0].name
-            ),
-          },
-        }));
-        try {
-          axios.get(paths.root + "/player2-bench").then(function (response) {
-            set((state) => ({
-              ...state,
-              player2: { ...state.player2, bench: response.data[1] },
-            }));
-          });
-        } catch (error) {
-          console.log(error);
-        }
-        console.log(response.data[2]);
-        set((state) => {
-          console.log(state.player1.active[0].hp);
-          return {
-            ...state,
-            player1: {
-              ...state.player1,
-              active: [
-                {
-                  ...state.player1.active[0],
-                  hp:
-                    Number(state.player1.active[0].hp) -
-                    response.data[2].damage,
-                },
-              ],
-            },
-          };
-        });
-      });
-    } catch (error) {}
+    
   },
 
 
@@ -431,8 +442,8 @@ export const useStore = create((set) => ({
       attachingEnergy: false,
       switchingCards: false,
       switchTarget: null,
-      currentTurn: 0,
     }));
+    currentTurn = 0;
   },
 }));
 
