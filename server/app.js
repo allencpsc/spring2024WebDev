@@ -165,15 +165,22 @@ app.get('/player2-active', (req, res) => {
     res.send(player2Active)
 })
 
-app.get('use-item-card-potion', (req,res) => {
+app.get('/use-item-card-potion', (req,res) => {
     let newCardHp = usePotion()
     res.send(newCardHp)
 })
 
-app.get('get-turns-elapsed', (req,res) => {
+app.get('/get-turns-elapsed', (req,res) => {
     turnsElapsed = getTheTurnsElapsed()
     res.send(turnsElapsed)
 })
+
+app.get('/draw-single-card', (req,res) => {
+    cardDrawn = getDrawCard()
+    res.send(cardDrawn)
+})
+
+
 
 app.listen(port, () => {
     console.log(`Pokemon TCG app listening on port ${port}`)

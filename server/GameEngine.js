@@ -4,7 +4,7 @@ import Game from './Game.js'
 import Deck from './DeckCreate.js'
 import PlayerField from './PlayerField.js'
 import Turn from './PlayerTurn.js'
-import { turnLoop, drawPhase, turnLoopCommands, printHand } from './TurnLoop.js'
+import { turnLoop, drawPhase, turnLoopCommands, printHand, drawCard } from './TurnLoop.js'
 import { turnZeroPlayerOne, turnZeroPlayerTwo } from './TurnZero.js'
 import { initializeActiveSlot} from './TurnZero.js'
 import { damagePhase, getAttackString, getBenchPokes, forceSwap } from './AttackPhase.js'
@@ -204,6 +204,12 @@ export function usePotion(){
 
 export function getTheTurnsElapsed(){
     return currentGame.turnsElapsed
+}
+
+export function getDrawnCard(){
+    let currentPlayer = getActivePlayer()
+    let cardDrawn = drawCard(currentPlayer)
+    return cardDrawn
 }
 
 function initPlayerFields(player){

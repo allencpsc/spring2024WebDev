@@ -39,7 +39,7 @@ export function turnLoop(currentGame){
         return returnString
     }
 
-    function drawCard(player){
+   export function drawCard(player){
         let returnString = ""
         returnString = returnString.concat('Draw Phase...')
         let currPlayerDeck = player.playerField.deck.cardList
