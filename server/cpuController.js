@@ -18,6 +18,20 @@ export function cpuHandler(currentGame){
     return returnArr
 }
 
+export function cpuTurnTwo(currentGame){
+    let returnArr = []
+    let player2 = currentGame.player2
+    let player2active = player2.playerField.active
+    returnArr.push(null)
+    returnArr.push(player2.playerField.bench[0])
+    let attackReturnArray = useRandomAttack(player2active, currentGame)
+    if (attackReturnArray[1] == true){
+        console.log(returnArr)
+        returnArr.push(placeRandomCardtoActive(player2))
+    }
+    return returnArr
+}
+
 function placeRandomCardtoActive(player2){
     for(let eachCard of player2.playerField.hand){
         if (eachCard.supertype == 'Pokémon'){
@@ -51,4 +65,5 @@ function useRandomAttack(player2active, currentGame){
             return returnArr
         }
     }
+
 }
