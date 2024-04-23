@@ -119,9 +119,13 @@ export function getAttackStringPrompt(){
 }
 
 export function getAttackResultsPrompt(attackName){
-    let returnArr = []
-    returnArr = damagePhase(attackName, currentGame)
     currentGame.incrementTurnsElapsed()
+    let returnArr = []
+    console.log(`attack name: ${attackName}`)
+    let currentPlayer = getActivePlayer()
+    console.log(`player id: ${currentPlayer.playerID}`)
+    returnArr = damagePhase(attackName, currentGame)
+    //currentGame.incrementTurnsElapsed()
     if (returnArr[1] == true){
         let currentPlayer = getActivePlayer()
         let knockOutCount = currentPlayer.incrementKnockoutCount()
@@ -165,12 +169,14 @@ export function sendPlaceCardtoSlot(cardName, location, benchSlot){
 }
 
 export function runCpuHandler(){
+    //currentGame.incrementTurnsElapsed()
     let returnArr = cpuHandler(currentGame)
     updateLog(currentGame)
     return returnArr
 }
 
 export function runCpuTurnTwo(){
+    currentGame.incrementTurnsElapsed()
     let returnArr = cpuTurnTwo(currentGame)
     updateLog(currentGame)
     return returnArr
