@@ -32,7 +32,7 @@ export function cpuTurnTwo(currentGame){
     returnArr.push(player2.playerField.bench[0])
     let attackReturnArray = useRandomAttack(player2active, currentGame)
     if (attackReturnArray[1] == true){
-        console.log(returnArr)
+        
         returnArr[0] == placeRandomCardtoActive(player2)
     }
     returnArr.push(attackReturnArray[0])

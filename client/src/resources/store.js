@@ -49,6 +49,7 @@ export const useStore = create((set) => ({
           currentTurn += 1;
           try {
             axios.get(paths.root + "/cpu-turn-two").then(function (response) {
+              console.log("CPU turn 2" + response.data);
               if (response.data[0] !== null) {
                 set((state) => ({
                   ...state,
@@ -81,7 +82,7 @@ export const useStore = create((set) => ({
                 console.log(state.player1.active[0].hp);
                 return {
                   ...state,
-                  text: `CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
+                  text: `CPU's ${state.player2.active[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
                   player1: {
                     ...state.player1,
                     active: [

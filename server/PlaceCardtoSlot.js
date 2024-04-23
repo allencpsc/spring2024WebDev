@@ -46,6 +46,7 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
     function placePokeCardtoBench(cardChosen, activePlayer){
         let benchArr = activePlayer.playerField.getBench()
         let sizeBenchArr = benchArr.length
+        console.log("Bench array: " + sizeBenchArr)
         if (sizeBenchArr < 5){
             benchArr.push([cardChosen, []])
             console.log(`${cardChosen.name} has been placed on your bench`)
