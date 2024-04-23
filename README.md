@@ -43,5 +43,5 @@ A few npm packages were integral to development:
 - Zustand was used to maintain and manage global state.
 
 
-*This program was created for the Web Development Projects class at Columbus State University.
-  Pokémon is owned by Nintendo, Creatures, Inc., and Game Freak. *
+*This program was created for the Web Development Projects class at Columbus State University.*
+*Pokémon is owned by Nintendo, Creatures, Inc., and Game Freak.*
