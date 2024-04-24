@@ -176,9 +176,9 @@ export function runCpuHandler(){
 }
 
 export function runCpuTurnTwo(){
-    currentGame.incrementTurnsElapsed()
+    //currentGame.incrementTurnsElapsed()
     let returnArr = cpuTurnTwo(currentGame)
-    updateLog(currentGame)
+    //updateLog(currentGame)
     return returnArr
 }
 

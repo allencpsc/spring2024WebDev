@@ -1,11 +1,13 @@
 
 export function turnZeroPlayerOne(player1) {
-    let playerHandArr = initDrawPhaseRandomizer(player1)
+    //let playerHandArr = initDrawPhaseRandomizer(player1)
+    let playerHandArr = drawSevenCardsDemo(player1)
     return playerHandArr
 }
 
 export function turnZeroPlayerTwo(player2){
-    let playerHandArr = initDrawPhaseRandomizer(player2)
+    //let playerHandArr = initDrawPhaseRandomizer(player2)
+    let playerHandArr = drawSevenCardsDemo(player2)
     return playerHandArr
 }
 
@@ -28,6 +30,42 @@ function initDrawPhaseRandomizer(player){
         }
     currPlayerDeck.push((player.playerField.getHand()))
     }
+}
+
+function drawSevenCardsDemo(player){
+    //clone the dekc
+    //iterate over clone
+    //pop cards from clone deck as they are visited
+    //prob wont work
+    //try sets
+    let playerHand = player.playerField.hand
+    let currPlayerDeck = player.playerField.deck.cardList
+    let setDeck = new Set(currPlayerDeck)
+    for (let eachCard of setDeck){
+        if(playerHand.length == 7){
+            return player.playerField.getHand()
+        }
+        if(eachCard.name == "Bulbasaur"){
+            player.playerField.appendHand(eachCard)
+        }
+        if(eachCard.name == "Squirtle"){
+            player.playerField.appendHand(eachCard)
+        }
+        if(eachCard.name == "Charmander"){
+            player.playerField.appendHand(eachCard)
+        }
+        if(eachCard.name == "Pidgey"){
+            player.playerField.appendHand(eachCard)
+            player.playerField.appendHand(eachCard)
+        }
+        if(eachCard.name == "Fire Energy"){
+            player.playerField.appendHand(eachCard)
+        }
+        if(eachCard.name == "Potion"){
+            player.playerField.appendHand(eachCard)
+        }
+    }
+    //return player.playerField.getHand()
 }
 
 export function initializeActiveSlot(player, command){
