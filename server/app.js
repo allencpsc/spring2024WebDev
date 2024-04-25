@@ -173,12 +173,12 @@ app.get('/use-item-card-potion', (req,res) => {
 })
 
 app.get('/get-turns-elapsed', (req,res) => {
-    turnsElapsed = getTheTurnsElapsed()
+    let turnsElapsed = getTheTurnsElapsed()
     res.send(turnsElapsed)
 })
 
 app.get('/cpu-turn-two', (req,res) => {
-    skipPlayerTurn()
+    //skipPlayerTurn()
     let returnArr = runCpuTurnTwo()
     res.send(returnArr)
 })
@@ -192,8 +192,6 @@ app.get('/end-game', (req, res) => {
     endCurrentGame()
     res.send("The game is over")
 })
-
-
 
 app.listen(port, () => {
     console.log(`Pokemon TCG app listening on port ${port}`)

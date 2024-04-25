@@ -1,5 +1,3 @@
-import mongoose, { Schema } from "mongoose";
-import { v4 as uuidv4 } from 'uuid';
 import { MongoClient } from "mongodb"
 
 
@@ -19,6 +17,34 @@ export async function createLog(currentGame) {
   }
 
   export async function updateLog(currentGame) {
+    try{
+      const database = client.db('GameLogs');
+      const coll = database.collection('MatchResults');
+
+      const filter = { gameId: currentGame.gameId };
+
+      const options = { upsert: true };
+
+      const updateDoc = {
+        $set: {
+          turnsElapsed : currentGame.turnsElapsed,
+          iGameOver: currentGame.isGameOver,
+          winner: currentGame.winner
+        },
+      };
+
+      const result = await coll.updateOne(filter, updateDoc, options)
+
+      console.log(
+        `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+      );
+
+    } finally {
+      //await client.close()
+    }
+  }
+
+  export async function updateEndGameLog(currentGame) {
     try{
       const database = client.db('GameLogs');
       const coll = database.collection('MatchResults');
