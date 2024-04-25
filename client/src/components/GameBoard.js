@@ -24,15 +24,6 @@ export const GameBoard = function GameBoard() {
     }
   };
 
-  const runCPUTurn = async (e) => {
-    e.preventDefault();
-    try {
-      await CPUTurn();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="container-fluid">
       <div className="row">
@@ -65,7 +56,7 @@ export const GameBoard = function GameBoard() {
             <div className="col">
               <button onClick={introduction}>Begin</button>
               <button onClick={getStartHands}>Draw</button>
-              <button onClick={currentTurn % 2 === 0 ? runCPUTurn : nextTurn}>
+              <button onClick={nextTurn}>
                 Next Turn
               </button>
               <button onClick={reset}>Reset</button>

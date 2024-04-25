@@ -223,7 +223,7 @@ export function usePotion(){
 }
 
 export function getTheTurnsElapsed(){
-    return currentGame.turnsElapsed
+    return currentGame.getTurnsElapsed()
 }
 
 export function getDrawnCard(){

@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import axios from "axios";
 import { paths } from "./const";
-//TODO: add state for initial load - bool, use to see if we need to start
+
+
 var currentTurn = 0;
+var cpuTurn = false;
 
 export const useStore = create((set) => ({
   player1: {
@@ -24,15 +26,16 @@ export const useStore = create((set) => ({
   text: "Welcome to Pokemon TCG Online!",
   started: null,
   attackArray: [],
-  attachingEnergy: false,
-  switchingCards: false,
-  switchTarget: null,
-  isCPUTurn: false,
 
   nextTurn: async () => {
-    currentTurn += 1;
-    console.log(currentTurn);
-      if (currentTurn % 2 === 0) {
+    cpuTurn = !cpuTurn;
+   try {
+      axios.get(paths.root + "/get-turns-elapsed").then(function (response) {
+      });
+    } catch (error) {
+      console.log(error);
+    }
+      if (!cpuTurn) {
         set((state) => (
           {
           ...state,
@@ -46,10 +49,8 @@ export const useStore = create((set) => ({
           text: "CPU's turn!"
         }));
         if ( currentTurn > 1 ) {
-          currentTurn += 1;
           try {
             axios.get(paths.root + "/cpu-turn-two").then(function (response) {
-              console.log("CPU turn 2" + response.data);
               if (response.data[0] !== null) {
                 set((state) => ({
                   ...state,
@@ -77,9 +78,7 @@ export const useStore = create((set) => ({
               } catch (error) {
                 console.log(error);
               }
-              console.log(response.data[2]);
               set((state) => {
-                console.log(state.player1.active[0].hp);
                 return {
                   ...state,
                   text: `CPU's ${state.player2.active[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
@@ -104,7 +103,6 @@ export const useStore = create((set) => ({
             axios.get(paths.root + "/cpu-turn").then(function (response) {
               set((state) => ({
                 ...state,
-                currentTurn: state.currentTurn + 1,
                 text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
               }));
               set((state) => ({
@@ -131,9 +129,7 @@ export const useStore = create((set) => ({
               } catch (error) {
                 console.log(error);
               }
-              console.log(response.data[2]);
               set((state) => {
-                console.log(state.player1.active[0].hp);
                 return {
                   ...state,
                   player1: {
@@ -152,7 +148,8 @@ export const useStore = create((set) => ({
             });
           } catch (error) {}
         }
-    }
+      }
+
     },
 
   introduction: async () => {
@@ -178,7 +175,6 @@ export const useStore = create((set) => ({
       axios
         .get(paths.root + "/turn-zero/player1")
         .then(function (response) {
-          console.log(response.data);
           set((state) => ({
             ...state,
             text: "First turn in progress... Select your active and benched Pokémon!", 
@@ -206,16 +202,21 @@ export const useStore = create((set) => ({
           console.log(error);
         });
     } catch (error) {
-      throw new Error(error.message);
+      console.log(error);
     }
   },
 
   moveToBench: async (playerId, index) => {
-    console.log("Here's the moveToBench function.");
-    console.log(playerId);
-    console.log(index);
     set((state) => {
-      if (playerId === 1) {
+        axios
+              .post(paths.root + "/place-card", {
+               
+                  cardName: state.player1.hand[index].name,
+                  location: "Bench",
+                  benchSlot: state.player1.bench.length,
+              })
+              .then(function (response) {
+              });
         return {
           ...state,
           player1: {
@@ -224,30 +225,22 @@ export const useStore = create((set) => ({
             hand: state.player1.hand.filter((card, i) => i !== index),
           },
         };
-      } else {
-        return {
-          ...state,
-          player2: {
-            ...state.player2,
-            bench: [...state.player2.bench, state.player2.hand[index]],
-            hand: state.player2.hand.filter((card, i) => i !== index),
-          },
-        };
-      }
     });
   },
 
   makeActive: async (playerId, location, index) => {
-    console.log("Here's the makeActive function");
-
     set((state) => {
-      if (playerId === 1) {
         if (location === "hand") {
           try {
             axios
-              .get(paths.root + "/turn-zero/player1")
+              .post(paths.root + "/place-card", {
+               
+                  cardName: state.player1.hand[index].name,
+                  location: "Active",
+                  benchSlot: 0,
+                
+              })
               .then(function (response) {
-                console.log(response);
               });
           } catch (error) {
             console.log(error);
@@ -261,13 +254,26 @@ export const useStore = create((set) => ({
             },
           };
         } else if (location === "bench") {
-          console.log("makeactivebench");
+          try{
+            axios
+              .post(paths.root + "/place-card", {
+               
+                  cardName: state.player1.hand[index].name,
+                  location: "Active",
+                  benchSlot: index,
+                
+              })
+              .then(function (response) {
+              });
+          } catch (error) {
+            console.log(error);
+          }
           return {
             ...state,
             player1: {
               ...state.player1,
               active: [state.player1.bench[index]],
-              bench: state.player1.bench.filter((card, i) => i !== index),
+              bench: [state.player1.bench.filter((card, i) => i !== index), state.player1.active[0]],
             },
           };
         }
@@ -279,64 +285,13 @@ export const useStore = create((set) => ({
             bench: state.player1.bench.filter((card, i) => i !== index),
           },
         };
-      } else if (playerId === 2) {
-        if (location === "hand") {
-          console.log("makeactive hand");
-          return {
-            ...state,
-            player2: {
-              ...state.player2,
-              active: [state.player2.hand[index]],
-              hand: state.player2.hand.filter((card, i) => i !== index),
-            },
-          };
-        } else if (location === "bench") {
-          console.log("makeactive bench");
-          return {
-            ...state,
-            player2: {
-              ...state.player2,
-              active: [state.player2.bench[index]],
-              bench: state.player2.bench.filter((card, i) => i !== index),
-            },
-          };
-        }
-        return {
-          ...state,
-          player2: {
-            ...state.player2,
-            active: [state.player2.bench[index]],
-            bench: state.player2.bench.filter((card, i) => i !== index),
-          },
-        };
-      }
     });
   },
-
   attachEnergy: async (
     playerId,
-    energyIndexInHand,
-    pokemonLocation,
-    pokemonIndexInLocation
+    energyIndexInHand
   ) => {
-    console.log("Here's the attachEnergy function");
-    console.log(
-      playerId +
-        " " +
-        energyIndexInHand +
-        " " +
-        pokemonLocation +
-        " " +
-        pokemonIndexInLocation
-    );
-    // Set state to attachingEnergy = true
-    // Listener in Card maybe to check if attachingEnergy is true, if so, onClick will change to attach energy ?
-    // When attachingEnergy=true, click on target card to attach energy
     set((state) => {
-      state.attachingEnergy = true;
-      if (playerId === 1) {
-        if (pokemonLocation === "active") {
-          console.log("attachEnergy active");
           return {
             ...state,
             player1: {
@@ -353,76 +308,14 @@ export const useStore = create((set) => ({
                   : card
               ),
               hand: state.player1.hand.filter(
-                (card, i) => i !== energyIndexInHand
+                (i) => i !== energyIndexInHand
               ),
             },
-          };
-        } else if (pokemonLocation === "bench") {
-          return {
-            ...state,
-            player1: {
-              ...state.player1,
-              active: [state.player1.bench[pokemonIndexInLocation]],
-              bench: state.player1.bench.filter(
-                (card, i) => i !== pokemonIndexInLocation
-              ),
-            },
-          };
-        }
-        return {
-          ...state,
-          player1: {
-            ...state.player1,
-            active: [state.player1.bench[pokemonIndexInLocation]],
-            bench: state.player1.bench.filter(
-              (card, i) => i !== pokemonIndexInLocation
-            ),
-          },
-        };
-      }
+          };      
     });
   },
-
-  selectSwitchCard: async (playerId, card2Location, card2LocationIndex) => {
-    console.log("Here's the selectSwitchCard function");
-    set((state) => ({
-      ...state,
-      switchTarget: { playerId, card2Location, card2LocationIndex },
-    }));
-  },
-
-  switchCard: async (
-    playerId,
-    card1Location,
-    card1LocationIndex,
-    card2Location,
-    card2LocationIndex
-  ) => {
-    console.log("Here's the switchCard function");
-    set((state) => ({
-      ...state,
-      text: "Switching cards... Select the card you want to switch with.",
-      switchingCards: true,
-    }));
-    /* if(playerId === 1) {
-            if(card1Location === "active" && card2Location === "bench") {
-                return {...state, player1: {...state.player1, active: [state.player1.bench[card2LocationIndex]], bench: state.player1.bench.map((card, i) => i === card2LocationIndex ? state.player1.active[0] : card)}}
-            }
-            else if(card1Location === "bench" && card2Location === "active") {
-                return {...state, player1: {...state.player1, active: [state.player1.bench[card1LocationIndex]], bench: state.player1.bench.map((card, i) => i === card1LocationIndex ? state.player1.active[0] : card)}}
-            }
-        }
-        else if(playerId === 2) {
-            if(card1Location === "active" && card2Location === "bench") {
-                return {...state, player2: {...state.player2, active: [state.player2.bench[card2LocationIndex]], bench: state.player2.bench.map((card, i) => i === card2LocationIndex ? state.player2.active[0] : card)}}
-            }
-            else if(card1Location === "bench" && card2Location === "active") {
-                return {...state, player2: {...state.player2, active: [state.player2.bench[card1LocationIndex]], bench: state.player2.bench.map((card, i) => i === card1LocationIndex ? state.player2.active[0] : card)}}
-            }
-        })) */
-  },
   
-  attack: async (playerId, attackName) => {
+  attack: async (attackName) => {
   try {
       axios({
         method: "post",
@@ -432,7 +325,6 @@ export const useStore = create((set) => ({
         } 
         })
         .then(function (response) {
-        console.log(response);
         set((state) => ({
           ...state,
           text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage} damage!`,
@@ -441,26 +333,20 @@ export const useStore = create((set) => ({
         }));
       });
     } catch (error) {
-      
+      console.log(error);
     }
-    
   },
 
 
-  //bench swap with active independently
-  //energies attach to active
   setText: async (text) => set((state) => ({ ...state, text })),
 
   CPUTurn: async () => {
     set((state) => ({ ...state, text: "CPU's turn in progress..." }));
-    
   },
 
 
   usePotion: async (index) => {
-    console.log("use potion");
     set((state) => {
-      console.log(state.player1.active[0].hp);
       return {
         ...state,
         player1: {
@@ -475,7 +361,7 @@ export const useStore = create((set) => ({
                   : Number(state.player1.active[0].hp) + 20,
             },
           ],
-          hand: state.player1.hand.filter((card, i) => i !== index),
+          hand: state.player1.hand.filter((i) => i !== index),
         },
       };
     });
@@ -503,12 +389,7 @@ export const useStore = create((set) => ({
       text: "Welcome to Pokemon TCG Online!",
       started: null,
       attackArray: [],
-      attachingEnergy: false,
-      switchingCards: false,
-      switchTarget: null,
     }));
     currentTurn = 0;
   },
 }));
-
-//TODO: API endpoint to return current game state?

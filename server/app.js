@@ -174,7 +174,7 @@ app.get('/use-item-card-potion', (req,res) => {
 
 app.get('/get-turns-elapsed', (req,res) => {
     let turnsElapsed = getTheTurnsElapsed()
-    res.send(turnsElapsed)
+    res.send(String(turnsElapsed))
 })
 
 app.get('/cpu-turn-two', (req,res) => {

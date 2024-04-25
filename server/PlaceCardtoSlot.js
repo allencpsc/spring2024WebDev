@@ -67,7 +67,6 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
             activeSlot[0] = cardChosen
             benchArr.push(buffCard)
             console.log(`Added ${cardChosen.name} to the active slot`)
-            console.log(`${buffCard.name} has been placed on the bench`)
         }
         else{
             console.log("Sorry your bench is full!")

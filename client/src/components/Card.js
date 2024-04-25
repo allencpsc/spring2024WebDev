@@ -35,6 +35,17 @@ export const Card = function Card(props) {
     color = "success";
   }
 
+  var showHp = false;
+
+  if (props.supertype === "Pokémon") {
+    if(props.playerId === 1 && (props.location === "active" || props.location === "bench")) {
+      showHp = true;
+    }
+    else if(props.playerId === 2 && props.location === "active") {
+      showHp = true;
+    }
+  }
+
   return (
     <div style={{ ...style }} data-testid={`box`}>
       <img
@@ -47,23 +58,13 @@ export const Card = function Card(props) {
         style={{ borderRadius: "inherit" }}
         onClick={handleShow}
       ></img>
-
-      {props.supertype === "Pokémon" && props.playerId === 1 && (
+      {showHp&& (
         <ProgressBar
           now={progressHp}
           variant={color}
           label={`${props.currentHp}`}
         />
       )}
-      {props.supertype === "Pokémon" &&
-        props.playerId === 2 &&
-        props.location === "active" && (
-          <ProgressBar
-            now={progressHp}
-            variant={color}
-            label={`${props.currentHp}`}
-          />
-        )}
       <div>
         {props.supertype === "Pokémon" &&
           props.energies &&
