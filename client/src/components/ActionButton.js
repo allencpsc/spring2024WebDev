@@ -26,45 +26,16 @@ export const ActionButton = (props) => {
   const handleClick = () => {
     if (props.textValue === "Place on Bench") {
       moveToBench(props.playerId, props.index);
-      axios
-        .post(paths.root + "/place-card", {
-          cardName: props.name,
-          location: "Bench",
-          benchSlot: benchArr.length,
-        })
-        .then(function (response) {
-          console.log("Backend api call successful - placed active");
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+     
     } else if (props.textValue === "Make Active") {
       makeActive(props.playerId, props.location, props.index);
-      //need to eventually change to have playerId tell what endpoint to go to
-      axios
-        .post(paths.root + "/turn-zero/player1", {
-          command: props.name,
-        })
-        .then(function (response) {
-          // handle success
-          console.log("Backend api call successful - place active");
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        });
+      
     } else if (props.textValue === "Use") {
-      console.log("Using trainer card");
       utilizePotion(props.index);
     } else if (props.textValue === "Attach") {
-      console.log(props.playerId);
-      console.log("Attaching energy from MyButton");
       attachEnergy(props.playerId, props.index, "active", "0");
     } else if (props.isAttack === true) {
-      console.log("Attack name:" + props.textValue);
       attack(props.playerId, props.textValue)
-    } else {
-      alert("I could call the API from here!");
     }
     props.handleClose();
   };
