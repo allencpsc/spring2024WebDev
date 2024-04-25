@@ -35,7 +35,7 @@ export const ActionButton = (props) => {
     } else if (props.textValue === "Attach") {
       attachEnergy(props.playerId, props.index, "active", "0");
     } else if (props.isAttack === true) {
-      attack(props.playerId, props.textValue)
+      attack(props.textValue)
     }
     props.handleClose();
   };
