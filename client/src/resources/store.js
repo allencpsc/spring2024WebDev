@@ -51,10 +51,9 @@ export const useStore = create((set) => ({
             ...state,
             player1: {
               ...state.player1,
-              hand: state.player1.hand.push(response.data)
+              hand: [...state.player1.hand, response.data]
             }
           }));
-          
         });
       }
         catch (error) {
