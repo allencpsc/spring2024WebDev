@@ -106,14 +106,18 @@ export const useStore = create((set) => ({
             });
           }
         });
-        set((state) => {
+/*         set((state) => {
           if (state.player1.active[0].hp <= 0) {
             return {
               ...state,
               text: state.text + ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
             };
           }
-        });
+          else
+          {
+            return state
+          }
+        }); */
             
           } catch (error) {
           } 
@@ -356,13 +360,11 @@ export const useStore = create((set) => ({
         .then(function (response) {
         set((state) => {
           console.log(state.player2.active[0])
-          const temp = {
+          return {
           ...state,
           text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage} damage!`,
           player2: {...state.player2, active:[{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}]}
           }
-          console.log(temp)
-          return temp;
         });
         set((state) => {
           if (state.player1.active[0].hp <= 0) {
@@ -370,6 +372,10 @@ export const useStore = create((set) => ({
               ...state,
               text: state.text + ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
             };
+          }
+          else
+          {
+            return state
           }
         });
       });
