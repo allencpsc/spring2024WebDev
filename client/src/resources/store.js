@@ -28,13 +28,14 @@ export const useStore = create((set) => ({
   attackArray: [],
 
   nextTurn: async () => {
-    cpuTurn = !cpuTurn;
+    
    try {
-      axios.get(paths.root + "/get-turns-elapsed").then(function (response) {
+      axios.get(paths.root + "/get-player").then(function (response) {
+        console.log(response.data)
       });
     } catch (error) {
       console.log(error);
-    }
+    } 
       if (!cpuTurn) {
         set((state) => (
           {
@@ -48,9 +49,11 @@ export const useStore = create((set) => ({
           isCPUTurn: true,
           text: "CPU's turn!"
         }));
+
         if ( currentTurn > 1 ) {
           try {
             axios.get(paths.root + "/cpu-turn-two").then(function (response) {
+              console.log(response.data)
               if (response.data[0] !== null) {
                 set((state) => ({
                   ...state,
@@ -68,16 +71,22 @@ export const useStore = create((set) => ({
                   },
                 }));
               }
-              try {
-                axios.get(paths.root + "/player2-bench").then(function (response) {
-                  set((state) => ({
-                    ...state,
-                    player2: { ...state.player2, bench: response.data[1] },
-                  }));
-                });
-              } catch (error) {
-                console.log(error);
-              }
+              if(response.data[1] !== null){
+                set((state) => ({
+                  ...state,
+                  text: `CPU has placed ${response.data[1].name} in the bench slot!`,
+                  player2: {
+                    ...state.player2,
+                    bench: [ state.player2.bench,
+                      state.player2.hand.find(
+                        (card) => card.name === response.data[1].name
+                      ),
+                    ],
+                    hand: state.player2.hand.filter(
+                    (card) => card.name !== response.data[1].name
+                    ),
+                  },
+                }));
               set((state) => {
                 return {
                   ...state,
@@ -94,9 +103,10 @@ export const useStore = create((set) => ({
                     ],
                   },
                 };
-              });
             });
-          } catch (error) {
+            }
+          });
+        } catch (error) {
           } 
       }else{
           try {
@@ -105,12 +115,14 @@ export const useStore = create((set) => ({
                 ...state,
                 text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
               }));
-              set((state) => ({
+              set((state) => {
+                console.log(state.player2.active.length)
+                const temp = {
                 ...state,
                 player2: {
                   ...state.player2,
                   active: [
-                    state.player2.hand.find(
+                    state.player2.active.length >= 1 ? state.player2.active : state.player2.hand.find(
                       (card) => card.name === response.data[0].name
                     ),
                   ],
@@ -118,13 +130,19 @@ export const useStore = create((set) => ({
                     (card) => card.name !== response.data[0].name
                   ),
                 },
-              }));
+              };
+              console.log(temp);
+              return temp;
+              });
               try {
                 axios.get(paths.root + "/player2-bench").then(function (response) {
-                  set((state) => ({
+                  set((state) => {
+                    console.log(state.player2);
+                    return {
                     ...state,
                     player2: { ...state.player2, bench: response.data[1] },
-                  }));
+                    };
+                  });
                 });
               } catch (error) {
                 console.log(error);
@@ -149,7 +167,8 @@ export const useStore = create((set) => ({
           } catch (error) {}
         }
       }
-
+      cpuTurn = !cpuTurn;
+      currentTurn++;
     },
 
   introduction: async () => {
@@ -325,12 +344,16 @@ export const useStore = create((set) => ({
         } 
         })
         .then(function (response) {
-        set((state) => ({
+        set((state) => {
+          console.log(state.player2.active[0])
+          const temp = {
           ...state,
           text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage} damage!`,
           player2: {...state.player2, active:[{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}]}
-          
-        }));
+          }
+          console.log(temp)
+          return temp;
+        });
       });
     } catch (error) {
       console.log(error);

@@ -1,5 +1,6 @@
 import React from "react";
 import { ActionButton } from "./ActionButton";
+import { AttackButtons } from "./AttackButtons";
 
 export const CardButtons = ({
   supertype,
@@ -8,6 +9,7 @@ export const CardButtons = ({
   playerId,
   index,
   handleClose,
+  attacks,
 }) => {
   if (supertype === "Pokémon" && location === "hand") {
     return (
@@ -41,30 +43,14 @@ export const CardButtons = ({
           index={index}
           handleClose={handleClose}
         />
-        <ActionButton
-          className="Button"
-          textValue="Switch"
-          name={name}
-          playerId={playerId}
-          index={index}
-          handleClose={handleClose}
-        />
       </div>
     );
   } else if (supertype === "Pokémon" && location === "active") {
     return (
       <div>
-        <ActionButton
-          className="Button"
-          textValue="Retreat"
-          handleClose={handleClose}
-        />
-        <ActionButton
-          className="Button"
-          textValue="Switch"
-          name={name}
-          playerId={playerId}
-          index={index}
+        <AttackButtons
+          attacks={attacks}
+          location={location}
           handleClose={handleClose}
         />
       </div>

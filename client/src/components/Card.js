@@ -22,7 +22,7 @@ export const Card = function Card(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
   const progressHp =
     props.currentHp && props.maxHp
       ? (Number(props.currentHp) / Number(props.maxHp)) * 100
@@ -105,11 +105,7 @@ export const Card = function Card(props) {
                   className="h-75 d-inline modalImg"
                 ></img>
                 <div className="d-flex justify-content-between">
-                  <AttackButtons
-                    attacks={props.attacks}
-                    location={props.location}
-                    handleClose={handleClose}
-                  />
+
                 </div>
               </Col>
             </Row>

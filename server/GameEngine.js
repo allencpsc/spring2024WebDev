@@ -171,7 +171,7 @@ export function sendPlaceCardtoSlot(cardName, location, benchSlot){
 export function runCpuHandler(){
     //currentGame.incrementTurnsElapsed()
     let returnArr = cpuHandler(currentGame)
-    updateLog(currentGame)
+    //updateLog(currentGame)
     return returnArr
 }
 

@@ -22,6 +22,7 @@ export const Bench = ({ cards, playerId }) => {
           <Card
             id={pokemon.id + playerId + index + "bench"}
             index={index}
+            key={index}
             name={pokemon.name}
             url={pokemon.images?.large}
             flippedOver={pokemon.flippedOver}
