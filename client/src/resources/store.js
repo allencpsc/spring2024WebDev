@@ -226,33 +226,7 @@ export const useStore = create((set) => ({
           } catch (error) {}
         }
       }
-     /* set((state) => {
-        if (state.player1.active !== null && state.player1.active[0].hp <= 0) {
-          return {
-            ...state,
-            text: `Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
-            player1: {
-              ...state.player1,
-              active: [],
-              knockouts: state.player1.knockouts + 1,
-            }
-          };
-        }
-        /* else if (state.player2.active[0] !== undefined && state.player2.active[0].hp <= 0) {
-          alert(` Player 2's ${state.player2.active[0].name} has fainted! Click Next Turn to continue.`)
-          return {
-            ...state,
-            player2: {
-              ...state.player2,
-              active: [],
-              knockouts: state.player2.knockouts + 1,
-            }
-          }
-        } 
-        else {
-          return state
-        }
-      }); */
+     
       cpuTurn = !cpuTurn;
       currentTurn++;
     },
@@ -447,18 +421,6 @@ export const useStore = create((set) => ({
             newActiveCard = [null];
             mustSwitch = true;
           } else {
-/*           if (response.data[1] === true) {
-            try {
-              axios.get(paths.root + "/swap-cpu-pokemon").then(function (response) {
-                console.log(response)
-                newActiveCard = [response.data];
-                console.log(newActiveCard);
-              });
-            } catch (error) {
-              console.log(error)
-            }
-          } 
-          */
             newActiveCard = ( [{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}])
           
         }
