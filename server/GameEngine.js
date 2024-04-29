@@ -4,15 +4,16 @@ import Game from './Game.js'
 import Deck from './DeckCreate.js'
 import PlayerField from './PlayerField.js'
 import Turn from './PlayerTurn.js'
-import { turnLoop, drawPhase, turnLoopCommands, printHand, drawCard } from './TurnLoop.js'
+import { turnLoop, drawPhase, turnLoopCommands, printHand, drawCard} from './TurnLoop.js'
 import { turnZeroPlayerOne, turnZeroPlayerTwo } from './TurnZero.js'
 import { initializeActiveSlot} from './TurnZero.js'
 import { damagePhase, getAttackString, getBenchPokes, forceSwap } from './AttackPhase.js'
 import { placeCardtoSlot } from './PlaceCardtoSlot.js'
 import { v4 as uuidv4 } from 'uuid';
 import { createLog, updateEndGameLog, updateLog } from './DatabaseManager.js'
-import { cpuHandler, cpuTurnTwo } from './cpuController.js'
+import { cpuHandler, cpuTurnTwo, forceSwapCpu } from './cpuController.js'
 import { useItemEffect } from './ItemEffects.js'
+
 
 let gameId = uuidv4()
 
@@ -139,7 +140,7 @@ export function getAttackResultsPrompt(attackName){
 
 export function getForceSwapCpu(){
     let cpuPlayer = currentGame.player2
-    newCPUPoke = forceSwapCpu(currentGame)
+    let newCPUPoke = forceSwapCpu(currentGame)
     return newCPUPoke
 }
 

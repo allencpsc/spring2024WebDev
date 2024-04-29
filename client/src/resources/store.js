@@ -5,7 +5,7 @@ import { paths } from "./const";
 
 var currentTurn = 0;
 var cpuTurn = false;
-
+var mustSwitch=false;
 export const useStore = create((set) => ({
   player1: {
     hand: [],
@@ -14,6 +14,7 @@ export const useStore = create((set) => ({
     prize: [],
     discard: [],
     deck: [],
+    knockouts: 0,
   },
   player2: {
     hand: [],
@@ -22,20 +23,13 @@ export const useStore = create((set) => ({
     prize: [],
     discard: [],
     deck: [],
+    knockouts: 0,
   },
   text: "Welcome to Pokemon TCG Online!",
   started: null,
   attackArray: [],
 
   nextTurn: async () => {
-    
-   try {
-      axios.get(paths.root + "/get-player").then(function (response) {
-        console.log(response.data)
-      });
-    } catch (error) {
-      console.log(error);
-    } 
       if (!cpuTurn) {
         set((state) => (
           {
@@ -46,7 +40,6 @@ export const useStore = create((set) => ({
           try{
           axios.get(paths.root + "/draw-single-card")
           .then(function (response) {
-          console.log(response.data)
           set((state) => ( {
             ...state,
             player1: {
@@ -59,7 +52,7 @@ export const useStore = create((set) => ({
         catch (error) {
           console.log(error);
         }
-        
+
       } else {
         set((state) => ({
           ...state,
@@ -68,9 +61,44 @@ export const useStore = create((set) => ({
         }));
 
         if ( currentTurn > 1 ) {
+          if (mustSwitch) {
+            try {
+              axios.get(paths.root+ '/swap-cpu-pokemon').then(function (response) {
+                set((state) => ({
+                  ...state,
+                  player2: {
+                    ...state.player2,
+                    active: [response.data]
+                  }
+                }));
+              });
+            } catch (error) {
+              console.log(error)
+            }
+          }
+          
+/*           set((state) => {
+            if (state.player2.active[0] === null) {
+              console.log("CPU has no active Pokemon")
+              var newActiveCard;
+              try{
+                axios.get(paths.root + "/swap-cpu-pokemon").then(function (response) {
+                  newActiveCard = [response.data];
+                });
+              }
+               catch (error) {
+                console.log(error)
+              }
+              return {
+                ...state,
+                player2: { ...state.player2, active: newActiveCard }
+              }
+          } else {
+          return {state};
+          }
+          }) */
           try {
             axios.get(paths.root + "/cpu-turn-two").then(function (response) {
-              console.log(response.data)
               if (response.data[0] !== null) {
                 set((state) => ({
                   ...state,
@@ -123,21 +151,26 @@ export const useStore = create((set) => ({
             });
           }
         });
-set((state) => {
+        set((state) => {
           if (state.player1.active[0].hp <= 0) {
             return {
               ...state,
               text: state.text + ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
+              player1: {
+                ...state.player1,
+                active: [],
+                knockouts: state.player1.knockouts + 1,
+              }
             };
           }
           else
           {
             return state
           }
-        }); 
-            
+        });
+
           } catch (error) {
-          } 
+          }
       }else{
           try {
             axios.get(paths.root + "/cpu-turn").then(function (response) {
@@ -146,8 +179,7 @@ set((state) => {
                 text: `CPU has placed ${response.data[0].name} in the active slot and ${response.data[1].name} in the bench. CPU's ${response.data[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
               }));
               set((state) => {
-                console.log(state.player2.active.length)
-                const temp = {
+                return {
                 ...state,
                 player2: {
                   ...state.player2,
@@ -161,14 +193,10 @@ set((state) => {
                   ),
                 },
               };
-              console.log(temp);
-              return temp;
               });
               try {
                 axios.get(paths.root + "/player2-bench").then(function (response) {
                   set((state) => {
-                    console.log(state.player2);
-                    console.log(response.data);
                     return {
                     ...state,
                     player2: { ...state.player2, bench: response.data },
@@ -198,6 +226,33 @@ set((state) => {
           } catch (error) {}
         }
       }
+     /* set((state) => {
+        if (state.player1.active !== null && state.player1.active[0].hp <= 0) {
+          return {
+            ...state,
+            text: `Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
+            player1: {
+              ...state.player1,
+              active: [],
+              knockouts: state.player1.knockouts + 1,
+            }
+          };
+        }
+        /* else if (state.player2.active[0] !== undefined && state.player2.active[0].hp <= 0) {
+          alert(` Player 2's ${state.player2.active[0].name} has fainted! Click Next Turn to continue.`)
+          return {
+            ...state,
+            player2: {
+              ...state.player2,
+              active: [],
+              knockouts: state.player2.knockouts + 1,
+            }
+          }
+        } 
+        else {
+          return state
+        }
+      }); */
       cpuTurn = !cpuTurn;
       currentTurn++;
     },
@@ -216,7 +271,6 @@ set((state) => {
     try{
       axios.get(paths.root + "/draw-single-card")
       .then(function (response) {
-      console.log(response.data)
       set((state) => {
         state.player1.hand = state.player1.hand.push(response.data);
       })
@@ -225,7 +279,7 @@ set((state) => {
     catch (error) {
       console.log(error);
     }
-    
+
   },
   /* attack array has knockout bool - that can spawn an alert, prompt gameboard to clear active
   / 3 knock
@@ -237,7 +291,7 @@ set((state) => {
         .then(function (response) {
           set((state) => ({
             ...state,
-            text: "First turn in progress... Select your active and benched Pokémon!", 
+            text: "First turn in progress... Select your active and benched Pokémon!",
           }));
           const cardsWithEnergies = response.data.map((card) =>
             card.supertype === "Pokémon" ? { ...card, energies: [] } : card
@@ -270,7 +324,7 @@ set((state) => {
     set((state) => {
         axios
               .post(paths.root + "/place-card", {
-               
+
                   cardName: state.player1.hand[index].name,
                   location: "Bench",
                   benchSlot: state.player1.bench.length,
@@ -294,11 +348,11 @@ set((state) => {
           try {
             axios
               .post(paths.root + "/place-card", {
-               
+
                   cardName: state.player1.hand[index].name,
                   location: "Active",
                   benchSlot: 0,
-                
+
               })
               .then(function (response) {
               });
@@ -317,11 +371,11 @@ set((state) => {
           try{
             axios
               .post(paths.root + "/place-card", {
-               
+
                   cardName: state.player1.hand[index].name,
                   location: "Active",
                   benchSlot: index,
-                
+
               })
               .then(function (response) {
               });
@@ -372,10 +426,10 @@ set((state) => {
                 (i) => i !== energyIndexInHand
               ),
             },
-          };      
+          };
     });
   },
-  
+
   attack: async (attackName) => {
   try {
       axios({
@@ -383,27 +437,35 @@ set((state) => {
         url: paths.root + "/attacker-options",
         data: {
           command: attackName,
-        } 
+        }
         })
         .then(function (response) {
         set((state) => {
-          console.log(state.player2.active[0])
+          var attack = state.player1.active[0].attacks.find(({name}) => name === attackName)
+          var newActiveCard;
+          if (response.data[1] === true) {
+            newActiveCard = [null];
+            mustSwitch = true;
+          } else {
+/*           if (response.data[1] === true) {
+            try {
+              axios.get(paths.root + "/swap-cpu-pokemon").then(function (response) {
+                console.log(response)
+                newActiveCard = [response.data];
+                console.log(newActiveCard);
+              });
+            } catch (error) {
+              console.log(error)
+            }
+          } 
+          */
+            newActiveCard = ( [{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}])
+          
+        }
           return {
           ...state,
-          text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage} damage!`,
-          player2: {...state.player2, active:[{...state.player2.active[0], hp: state.player2.active[0].hp - state.player1.active[0].attacks.find(({name}) => name === attackName).damage}]}
-          }
-        });
-        set((state) => {
-          if (state.player1.active[0].hp <= 0) {
-            return {
-              ...state,
-              text: state.text + ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
-            };
-          }
-          else
-          {
-            return state
+          text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage} damage!` + (response.data[1] ? `Player 2's ${state.player2.active[0].name} has fainted! Click Next Turn to continue.` : ""),
+          player2: {...state.player2, active: newActiveCard}
           }
         });
       });

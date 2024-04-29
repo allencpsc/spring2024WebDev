@@ -41,12 +41,15 @@ export function cpuTurnTwo(currentGame){
 
 export function forceSwapCpu(currentGame){
     let player2 = currentGame.player2
+    console.log("player2 cpucontroller " + player2)
     let player2hand = player2.playerField.hand
-    for (eachCard in player2hand){
+    console.log("p2hand cpucontroller " + player2hand)
+    for (let eachCard of player2hand){
+        console.log(eachCard)
         if(eachCard.name == "Pidgey"){
             placeCardtoSlot(player2, eachCard.name, "Active", 0)
-        }
-        return eachCard
+            return eachCard
+        }   
     }
 }
 
