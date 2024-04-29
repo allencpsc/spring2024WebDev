@@ -26,10 +26,8 @@ export const ActionButton = (props) => {
   const handleClick = () => {
     if (props.textValue === "Place on Bench") {
       moveToBench(props.playerId, props.index);
-     
     } else if (props.textValue === "Make Active") {
       makeActive(props.playerId, props.location, props.index);
-      
     } else if (props.textValue === "Use") {
       utilizePotion(props.index);
     } else if (props.textValue === "Attach") {

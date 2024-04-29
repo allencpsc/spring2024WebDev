@@ -21,6 +21,7 @@ export const Hand = ({ cards, flippedOver, playerId }) => {
           cards.map((pokemon, index) => (
             <Card
               index={index}
+              key={index}
               id={pokemon.id + playerId + index + "hand"}
               name={pokemon.name}
               url={pokemon.images?.large}
