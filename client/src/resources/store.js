@@ -42,7 +42,25 @@ export const useStore = create((set) => ({
           ...state,
           isCPUTurn: false,
           text: "Your turn! You can switch your active Pokémon, attach energy, and use trainer cards. Attack or click Next Turn to end your turn."
-        }));
+          }));
+          try{
+          axios.get(paths.root + "/draw-single-card")
+          .then(function (response) {
+          console.log(response.data)
+          set((state) => ( {
+            ...state,
+            player1: {
+              ...state.player1,
+              hand: state.player1.hand.push(response.data)
+            }
+          }));
+          
+        });
+      }
+        catch (error) {
+          console.log(error);
+        }
+        
       } else {
         set((state) => ({
           ...state,
@@ -72,7 +90,7 @@ export const useStore = create((set) => ({
                 }));
               }
               if(response.data[1] !== null){
-                set((state) => ({
+/*                 set((state) => ({
                   ...state,
                   text: `CPU has placed ${response.data[1].name} in the bench slot!`,
                   player2: {
@@ -86,7 +104,7 @@ export const useStore = create((set) => ({
                     (card) => card.name !== response.data[1].name
                     ),
                   },
-                }));
+                })); */
               set((state) => {
                 return {
                   ...state,
@@ -106,7 +124,7 @@ export const useStore = create((set) => ({
             });
           }
         });
-/*         set((state) => {
+set((state) => {
           if (state.player1.active[0].hp <= 0) {
             return {
               ...state,
@@ -117,7 +135,7 @@ export const useStore = create((set) => ({
           {
             return state
           }
-        }); */
+        }); 
             
           } catch (error) {
           } 
@@ -151,9 +169,10 @@ export const useStore = create((set) => ({
                 axios.get(paths.root + "/player2-bench").then(function (response) {
                   set((state) => {
                     console.log(state.player2);
+                    console.log(response.data);
                     return {
                     ...state,
-                    player2: { ...state.player2, bench: response.data[1] },
+                    player2: { ...state.player2, bench: response.data },
                     };
                   });
                 });
@@ -195,9 +214,19 @@ export const useStore = create((set) => ({
   },
 
   drawCard: async (playerId) => {
-    set((state) => {
-      console.log(state.player1.deck)
-    })
+    try{
+      axios.get(paths.root + "/draw-single-card")
+      .then(function (response) {
+      console.log(response.data)
+      set((state) => {
+        state.player1.hand = state.player1.hand.push(response.data);
+      })
+    });
+  }
+    catch (error) {
+      console.log(error);
+    }
+    
   },
   /* attack array has knockout bool - that can spawn an alert, prompt gameboard to clear active
   / 3 knock

@@ -14,11 +14,13 @@ export const GameBoard = function GameBoard() {
   const nextTurn = useStore((state) => state.nextTurn);
   const currentTurn = useStore((state) => state.currentTurn);
   const reset = useStore((state) => state.reset);
+  var started = false;
 
   const getStartHands = async (e) => {
     e.preventDefault();
     try {
       await firstTurn();
+      started = true;
     } catch (error) {
       console.log(error);
     }
