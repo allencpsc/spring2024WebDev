@@ -137,6 +137,12 @@ export function getAttackResultsPrompt(attackName){
     return returnArr
 }
 
+export function getForceSwapCpu(){
+    let cpuPlayer = currentGame.player2
+    newCPUPoke = forceSwapCpu(currentGame)
+    return newCPUPoke
+}
+
 export function getPlayerHand(){
     let returnString = ''
     let player = getActivePlayer()
@@ -226,7 +232,7 @@ export function getTheTurnsElapsed(){
     return currentGame.getTurnsElapsed()
 }
 
-export function getDrawnCard(){
+export function getDrawCard(){
     let currentPlayer = getActivePlayer()
     let cardDrawn = drawCard(currentPlayer)
     return cardDrawn

@@ -40,17 +40,12 @@ export function turnLoop(currentGame){
     }
 
    export function drawCard(player){
-        let returnString = ""
-        returnString = returnString.concat('Draw Phase...')
         let currPlayerDeck = player.playerField.deck.cardList
         let randomNum = Math.floor(Math.random() * (currPlayerDeck.length -1))
         let randCardFromDeck = currPlayerDeck[randomNum]
         player.playerField.appendHand(currPlayerDeck[randomNum])
         currPlayerDeck.splice(randomNum, 1)
-        let randCardName = randCardFromDeck.name
-        returnString = returnString.concat(`You added this to your hand: ${randCardName}!`)
-        returnString = returnString.concat(`...Deck size is ${currPlayerDeck.length}`)
-        return returnString
+        return randCardFromDeck
     }
 
     export function printHand(player){

@@ -184,9 +184,16 @@ app.get('/cpu-turn-two', (req,res) => {
 })
 
 app.get('/draw-single-card', (req,res) => {
-    cardDrawn = getDrawCard()
+    let cardDrawn = getDrawCard()
     res.send(cardDrawn)
 })
+
+app.get('/swap-cpu-pokemon', (req,res) => {
+    let newCPUPoke = getForceSwapCpu()
+    res.send(newCPUPoke)
+})
+
+
 
 app.get('/end-game', (req, res) => {
     endCurrentGame()

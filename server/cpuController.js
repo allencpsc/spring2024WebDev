@@ -32,11 +32,22 @@ export function cpuTurnTwo(currentGame){
     returnArr.push(player2.playerField.bench[0])
     let attackReturnArray = useRandomAttack(player2active, currentGame)
     if (attackReturnArray[1] == true){
-        
+
         returnArr[0] == placeRandomCardtoActive(player2)
     }
     returnArr.push(attackReturnArray[0])
     return returnArr
+}
+
+export function forceSwapCpu(currentGame){
+    let player2 = currentGame.player2
+    let player2hand = player2.playerField.hand
+    for (eachCard in player2hand){
+        if(eachCard.name == "Pidgey"){
+            placeCardtoSlot(player2, eachCard.name, "Active", 0)
+        }
+        return eachCard
+    }
 }
 
 function placeRandomCardtoActive(player2){
