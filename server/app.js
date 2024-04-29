@@ -6,7 +6,7 @@ import { getDrawPhase, getTurnCommands, initializeGame, getTurnLoopCommands,
     getAttackStringPrompt, getAttackResultsPrompt, getForceSwapPrompt, skipPlayerTurn,
     getPlayerHand, sendPlaceCardtoSlot, performForceSwap, getActivePlayer,
     getPlayer1Hand, getPlayer1Active, getPlayer2Hand, getPlayer2Active, getPlayer2Bench,
-    getPlayer1Bench,
+    getPlayer1Bench, getDrawnCard,
     usePotion,
     getTheTurnsElapsed,
     endCurrentGame,
@@ -184,7 +184,7 @@ app.get('/cpu-turn-two', (req,res) => {
 })
 
 app.get('/draw-single-card', (req,res) => {
-    let cardDrawn = getDrawCard()
+    let cardDrawn = getDrawnCard()
     res.send(cardDrawn)
 })
 
