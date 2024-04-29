@@ -104,9 +104,18 @@ export const useStore = create((set) => ({
                   },
                 };
             });
-            }
-          });
-        } catch (error) {
+          }
+        });
+        set((state) => {
+          if (state.player1.active[0].hp <= 0) {
+            return {
+              ...state,
+              text: state.text + ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
+            };
+          }
+        });
+            
+          } catch (error) {
           } 
       }else{
           try {
@@ -306,6 +315,7 @@ export const useStore = create((set) => ({
         };
     });
   },
+
   attachEnergy: async (
     playerId,
     energyIndexInHand
@@ -353,6 +363,14 @@ export const useStore = create((set) => ({
           }
           console.log(temp)
           return temp;
+        });
+        set((state) => {
+          if (state.player1.active[0].hp <= 0) {
+            return {
+              ...state,
+              text: state.text + ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
+            };
+          }
         });
       });
     } catch (error) {
