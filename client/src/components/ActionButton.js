@@ -34,8 +34,13 @@ export const ActionButton = (props) => {
     }
     props.handleClose();
   };
+  var cleanedText = String(props.textValue).split(" ")
+  cleanedText.forEach((word, index) => {
+    word.trim();
+  });
+  const id = cleanedText.join("").toLowerCase() + String(props.playerId);
   return (
-    <Button className="flex-fill actionButton" onClick={handleClick} style={updatedStyle} id={props.textValue+props.playerId}>
+    <Button className="flex-fill actionButton" onClick={handleClick} style={updatedStyle} id={id}>
       {props.textValue}
     </Button>
   );

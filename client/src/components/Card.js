@@ -46,7 +46,7 @@ export const Card = function Card(props) {
   }
 
   return (
-    <div style={{ ...style }} id={props.name+props.playerId}>
+    <div style={{ ...style }} id={props.name+String(props.playerId)} className="pokeCard">
       <img
         src={
           props.flippedOver === true

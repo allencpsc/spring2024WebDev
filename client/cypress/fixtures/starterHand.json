@@ -1,0 +1,203 @@
+[
+    {
+      "id": "base1-63",
+      "name": "Squirtle",
+      "supertype": "Pokémon",
+      "hp": "40",
+      "maxHp": "40",
+      "attacks": [
+        {
+          "name": "Bubble",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+        },
+        {
+          "name": "Withdraw",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Flip a coin. If heads, prevent all damage done to Squirtle during your opponent's next turn. (Any other effects of attacks still happen.)"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": [
+        "Colorless"
+      ],
+      "images": {
+        "small": "https://images.pokemontcg.io/base1/63.png",
+        "large": "https://images.pokemontcg.io/base1/63_hires.png"
+      },
+      "energies": []
+    },
+    {
+      "id": "base1-57",
+      "name": "Pidgey",
+      "supertype": "Pokémon",
+      "hp": "40",
+      "maxHp": "40",
+      "attacks": [
+        {
+          "name": "Whirlwind",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "10",
+          "text": "If your opponent has any Benched Pokémon, he or she chooses 1 of them and switches it with the Defending Pokémon. (Do the damage before switching the Pokémon.)"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": [
+        "Colorless"
+      ],
+      "images": {
+        "small": "https://images.pokemontcg.io/base1/57.png",
+        "large": "https://images.pokemontcg.io/base1/57_hires.png"
+      },
+      "energies": []
+    },
+    {
+      "id": "base1-57",
+      "name": "Pidgey",
+      "supertype": "Pokémon",
+      "hp": "40",
+      "maxHp": "40",
+      "attacks": [
+        {
+          "name": "Whirlwind",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "10",
+          "text": "If your opponent has any Benched Pokémon, he or she chooses 1 of them and switches it with the Defending Pokémon. (Do the damage before switching the Pokémon.)"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": [
+        "Colorless"
+      ],
+      "images": {
+        "small": "https://images.pokemontcg.io/base1/57.png",
+        "large": "https://images.pokemontcg.io/base1/57_hires.png"
+      },
+      "energies": []
+    },
+    {
+      "id": "base1-44",
+      "name": "Bulbasaur",
+      "supertype": "Pokémon",
+      "hp": "40",
+      "maxHp": "40",
+      "attacks": [
+        {
+          "name": "Leech Seed",
+          "cost": [
+            "Grass",
+            "Grass"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": "Unless all damage from this attack is prevented, you may remove 1 damage counter from Bulbasaur."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": [
+        "Colorless"
+      ],
+      "images": {
+        "small": "https://images.pokemontcg.io/base1/44.png",
+        "large": "https://images.pokemontcg.io/base1/44_hires.png"
+      },
+      "energies": []
+    },
+    {
+      "id": "base1-94",
+      "name": "Potion",
+      "supertype": "Trainer",
+      "images": {
+        "small": "https://images.pokemontcg.io/base1/94.png",
+        "large": "https://images.pokemontcg.io/base1/94_hires.png"
+      }
+    },
+    {
+      "id": "base1-98",
+      "name": "Fire Energy",
+      "supertype": "Energy",
+      "images": {
+        "small": "https://images.pokemontcg.io/base1/98.png",
+        "large": "https://images.pokemontcg.io/base1/98_hires.png"
+      }
+    },
+    {
+      "id": "base1-46",
+      "name": "Charmander",
+      "supertype": "Pokémon",
+      "hp": "50",
+      "maxHp": "50",
+      "attacks": [
+        {
+          "name": "Scratch",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        },
+        {
+          "name": "Ember",
+          "cost": [
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": "Discard 1 Fire Energy card attached to Charmander in order to use this attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": [
+        "Colorless"
+      ],
+      "images": {
+        "small": "https://images.pokemontcg.io/base1/46.png",
+        "large": "https://images.pokemontcg.io/base1/46_hires.png"
+      },
+      "energies": []
+    }
+  ]

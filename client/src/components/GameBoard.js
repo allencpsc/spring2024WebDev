@@ -72,8 +72,8 @@ export const GameBoard = function GameBoard() {
           <div className="row">
             <TextBox text={text} />
             <div className="col">
-              <Button onClick={getStartHands}>Draw</Button>
-              <Button onClick={nextTurn}>
+              <Button onClick={getStartHands} id="start">Draw</Button>
+              <Button onClick={nextTurn} id="nextTurn">
                 Next Turn
               </Button>
               <Button onClick={reset}>Reset</Button>
