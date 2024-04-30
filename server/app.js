@@ -102,7 +102,7 @@ app.post('/attacker-options', (req, res) => {
     let promptArr = getAttackResultsPrompt(req.body.command)
     let gamePrompt = promptArr[0]
     let knockoutBool = promptArr[1]
-    res.send(promptArr)  
+    res.send(promptArr)
 })
 
 app.post('/force-swap', (req, res) => {
