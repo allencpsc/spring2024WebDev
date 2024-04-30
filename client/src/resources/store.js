@@ -27,6 +27,8 @@ export const useStore = create((set) => ({
   text: "Welcome to Pokemon TCG Online! Click Draw to start the game. Get three knockouts to win!",
   started: null,
   attackArray: [],
+  winner: false,
+  winnerName: "",
 
   nextTurn: async () => {
     if (!cpuTurn) {
@@ -132,28 +134,29 @@ export const useStore = create((set) => ({
                 },
               };
             });
+            set((state) => {
+              if (state.player1.active[0].hp <= 0) {
+                return {
+                  ...state,
+                  text:
+                    state.text +
+                    ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
+                  player1: {
+                    ...state.player1,
+                    discard: [...state.player1.discard, state.player1.active[0]],
+                    active: [],
+                  },
+                  player2: {
+                    ...state.player2,
+                    knockouts: state.player2.knockouts + 1,
+                  },
+                };
+              } else {
+                return state;
+              }
+            });
           });
-          set((state) => {
-            if (state.player1.active[0].hp <= 0) {
-              return {
-                ...state,
-                text:
-                  state.text +
-                  ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
-                player1: {
-                  ...state.player1,
-                  discard: [...state.player1.discard, state.player1.active[0]],
-                  active: [],
-                },
-                player2: {
-                  ...state.player2,
-                  knockouts: state.player2.knockouts + 1,
-                },
-              };
-            } else {
-              return state;
-            }
-          });
+          
         } catch (error) {}
       } else {
         try {
@@ -220,11 +223,15 @@ export const useStore = create((set) => ({
         return {
           ...state,
           text: "Congratulations! You won the game!",
+          winner: true,
+          winnerName: "Player 1"
         };
       } else if (state.player2.knockouts === 3) {
         return {
           ...state,
           text: "CPU wins! Better luck next time!",
+          winner: true,
+          winnerName: "CPU",
         };
       } else {
         return state;
@@ -307,7 +314,9 @@ export const useStore = create((set) => ({
               location: "Active",
               benchSlot: 0,
             })
-            .then(function (response) {});
+            .then(function (response) {
+              console.log(response);
+            });
         } catch (error) {
           console.log(error);
         }
@@ -450,8 +459,8 @@ export const useStore = create((set) => ({
                   : Number(state.player1.active[0].hp) + 20,
             },
           ],
-          discard: [...state.player1.discard, state.player1.hand[index]],
           hand: state.player1.hand.filter((i) => i !== index),
+          discard: [...state.player1.discard, state.player1.hand[index]],
         },
       };
     });
@@ -481,6 +490,8 @@ export const useStore = create((set) => ({
       text: "Welcome to Pokemon TCG Online! Click Draw to start the game. Get three knockouts to win!",
       started: null,
       attackArray: [],
+      winner: false,
+      winnerName: "",
     }));
     currentTurn = 0;
   },

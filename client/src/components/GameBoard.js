@@ -7,6 +7,8 @@ import { KnockoutCounter } from "./KnockoutCounter.js";
 import { Button } from "react-bootstrap";
 import Discard from "./Discard.js";
 import { Deck } from "./Deck.js";
+import { useState } from "react";
+import { WinModal } from "./WinModal.js";
 
 export const GameBoard = function GameBoard() {
   const CPUTurn = useStore((state) => state.CPUTurn);
@@ -19,6 +21,8 @@ export const GameBoard = function GameBoard() {
   const currentTurn = useStore((state) => state.currentTurn);
   const reset = useStore((state) => state.reset);
   var started = false;
+  const winner = useStore((state) => state.winner);
+  const winnerName = useStore((state) => state.winnerName);
 
   const getStartHands = async (e) => {
     e.preventDefault();
@@ -31,6 +35,8 @@ export const GameBoard = function GameBoard() {
   };
 
   return (
+    <div>
+    {winner && <WinModal winnerName={winnerName}/>}
     <div className="container-fluid">
       <div className="row">
         <div className="col"></div>
@@ -44,8 +50,8 @@ export const GameBoard = function GameBoard() {
       <div className="row">
         <div className="col">
           <div className="player2KOs">
-            <KnockoutCounter knockouts={player2.knockouts} />  
-          </div> 
+            <KnockoutCounter knockouts={player2.knockouts} />
+          </div>
         </div>
         <div className="col-6 g-1">
           <div className="opponent-bench">
@@ -97,8 +103,8 @@ export const GameBoard = function GameBoard() {
         </div>
         <div className="col-3">
           <div className="player1KOs">
-            <KnockoutCounter knockouts={player1.knockouts} />  
-          </div> 
+            <KnockoutCounter knockouts={player1.knockouts} />
+          </div>
         </div>
       </div>
       <div className="row">
@@ -109,9 +115,10 @@ export const GameBoard = function GameBoard() {
           </div>
         </div>
         <div className="col">
-          
+
         </div>
       </div>
+    </div>
     </div>
   );
 };
