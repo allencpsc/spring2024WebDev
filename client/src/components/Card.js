@@ -46,7 +46,7 @@ export const Card = function Card(props) {
   }
 
   return (
-    <div style={{ ...style }} data-testid={`box`}>
+    <div style={{ ...style }} id={props.name+props.playerId}>
       <img
         src={
           props.flippedOver === true

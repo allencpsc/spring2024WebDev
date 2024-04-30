@@ -16,7 +16,7 @@ const style = {
 
 export const Deck = ({ cards, playerId }) => {
     return (
-        <div className="Deck position-relative" style={style}>
+        <div className="Deck position-relative" style={style} id={"deck" + playerId}>
             <div className="position-absolute bottom-0 translate-middle-y mx-3">
                 PLAYER {playerId} DECK
             </div>

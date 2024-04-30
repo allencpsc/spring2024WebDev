@@ -4,7 +4,7 @@ const style = {
     textAlign: "center",
 }
 
-export const KnockoutCounter = ({ knockouts }) => {
+export const KnockoutCounter = ({ knockouts, playerId }) => {
     var text = "";
     if (knockouts === 1) {
         text = "🟩 ⬛ ⬛"
@@ -18,7 +18,7 @@ export const KnockoutCounter = ({ knockouts }) => {
         text = "⬛ ⬛ ⬛"
     }
     return (
-        <div className="KnockoutCounter" style={style}>
+        <div className="KnockoutCounter" style={style} id={"knockouts"+playerId}>
         <h1>Knockouts:</h1>
         <h2>{text}</h2>
         </div>

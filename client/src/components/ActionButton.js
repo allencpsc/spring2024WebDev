@@ -35,7 +35,7 @@ export const ActionButton = (props) => {
     props.handleClose();
   };
   return (
-    <Button className="flex-fill actionButton" onClick={handleClick} style={updatedStyle}>
+    <Button className="flex-fill actionButton" onClick={handleClick} style={updatedStyle} id={props.textValue+props.playerId}>
       {props.textValue}
     </Button>
   );

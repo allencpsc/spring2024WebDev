@@ -16,7 +16,7 @@ const style = {
 export const Hand = ({ cards, flippedOver, playerId }) => {
   return (
     <React.Fragment>
-      <div className="Hand" style={style}>
+      <div id={"hand"+playerId} style={style}>
         {cards &&
           cards.map((pokemon, index) => (
             <Card

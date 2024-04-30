@@ -12,5 +12,5 @@ const style = {
 };
 
 export const TextBox = ({ text }) => {
-  return <div style={style}>{text}</div>;
+  return <div style={style} id="textbox">{text}</div>;
 };

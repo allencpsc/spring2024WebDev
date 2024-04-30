@@ -16,10 +16,11 @@ const style = {
 };
 
 export const Bench = ({ cards, playerId }) => {
+  const id = "bench"+playerId;
   return (
     <React.Fragment>
       
-      <div style={style} className="Bench position-relative">
+      <div style={style} className="Bench position-relative" id={id}>
         
         {cards.map((pokemon, index) => (
           <Card

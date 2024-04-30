@@ -23,7 +23,7 @@ export default function Discard({ cards, playerId }) {
 
     return (
         <React.Fragment>
-            <div className="Discard position-relative" style={style}>
+            <div className="Discard position-relative" style={style} id={"discard" + playerId}>
                 <div className="position-absolute bottom-0 translate-middle-y mx-3">
                     PLAYER {playerId} DISCARD
                 </div>

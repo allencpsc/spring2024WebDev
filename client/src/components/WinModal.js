@@ -21,7 +21,7 @@ export const WinModal = function WinModal({winnerName}) {
 
   return (
     <div style={style}>
-        <div className="WinModal">
+        <div className="WinModal" id="WinModal">
             <Container>
             <div className="row"></div>
             <div className="row">

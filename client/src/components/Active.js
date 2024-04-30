@@ -19,7 +19,7 @@ const Active = ({ pokemon, playerId }) => {
       <div className="position-absolute top-100 start-100 title translate-middle-y mx-3">
         PLAYER {playerId} ACTIVE
       </div>
-      <div className="">
+      <div id={"active" + playerId}>
         {pokemon[0] && (
           <Card
             index={0}

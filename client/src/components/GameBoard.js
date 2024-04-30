@@ -50,7 +50,7 @@ export const GameBoard = function GameBoard() {
       <div className="row">
         <div className="col">
           <div className="player2KOs">
-            <KnockoutCounter knockouts={player2.knockouts} />
+            <KnockoutCounter knockouts={player2.knockouts} playerId={2} />
           </div>
         </div>
         <div className="col-6 g-1">
@@ -103,7 +103,7 @@ export const GameBoard = function GameBoard() {
         </div>
         <div className="col-3">
           <div className="player1KOs">
-            <KnockoutCounter knockouts={player1.knockouts} />
+            <KnockoutCounter knockouts={player1.knockouts} playerId={1}/>
           </div>
         </div>
       </div>
