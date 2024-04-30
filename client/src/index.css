@@ -32,8 +32,8 @@ code {
 }
 
 .opponent-hand {
-  display: flex;
-  flex-wrap: nowrap;
+  overflow: hidden;
+  transform: translate(0px, -8vh);
 }
 .opponent-bench {
   transform: translate(0px, -8vh);

@@ -8,7 +8,7 @@ const style = {
   justifyItems: "space-between",
   color: "white",
   overflow: "scroll",
-  display: "block",
+  display: "flex",
   alignItems: "center",
   justifyContent: "center",
 };
