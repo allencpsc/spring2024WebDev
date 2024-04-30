@@ -2,22 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Card } from "./Card";
 
 const style = {
-  height: "12.4rem",
-  width: "auto",
-  minHeight: "12.4rem",
+  height: "12.5rem",
   minWidth: "640px",
-  margin: "1rem",
-  padding: "1rem",
+  minHeight: "12.4rem",
+  width: "auto",
+  margin: "0rem 0rem 0rem 2rem",
+  padding: "0.5rem",
   backgroundColor: "rgb(11 100 200 / 100%)",
   borderRadius: "15px",
   justifyItems: "space-between",
   color: "white",
+  border: "5px solid #e8d224"
 };
 
 export const Bench = ({ cards, playerId }) => {
   return (
     <React.Fragment>
-      <div style={style} className="Bench">
+      
+      <div style={style} className="Bench position-relative">
+        
         {cards.map((pokemon, index) => (
           <Card
             id={pokemon.id + playerId + index + "bench"}
@@ -35,7 +38,10 @@ export const Bench = ({ cards, playerId }) => {
             attacks={pokemon.attacks}
           />
         ))}
-      </div>
+          <div className="position-absolute bottom-0 start-100 mx-2">
+            PLAYER {playerId} BENCH
+          </div>
+        </div>
     </React.Fragment>
   );
 };

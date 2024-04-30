@@ -115,7 +115,7 @@ export const useStore = create((set) => ({
               set((state) => {
                 return {
                   ...state,
-                  text: `CPU's ${state.player2.active[0].name} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
+                  text: `CPU's ${(state.player2.active[0] === null ? response.data[0].name : state.player2.active[0].name)} used ${response.data[2].name} for ${response.data[2].damage} damage! Click Next Turn to continue.`,
                   player1: {
                     ...state.player1,
                     active: [
@@ -138,6 +138,7 @@ export const useStore = create((set) => ({
               text: state.text + ` Player 1's ${state.player1.active[0].name} has fainted! Click Next Turn to continue.`,
               player1: {
                 ...state.player1,
+                discard: [...state.player1.discard, state.player1.active[0]],
                 active: [],
               },
               player2: {
@@ -211,6 +212,22 @@ export const useStore = create((set) => ({
           } catch (error) {}
         }
       }
+      set((state) => {
+        if (state.player1.knockouts === 3) {
+          return {
+            ...state,
+            text: "Congratulations! You won the game!",
+          };
+        } else if (state.player2.knockouts === 3) {
+          return {
+            ...state,
+            text: "CPU wins! Better luck next time!",
+          };          
+        }
+        else {
+          return state
+        }
+      });
       cpuTurn = !cpuTurn;
       currentTurn++;
     },
@@ -382,7 +399,7 @@ export const useStore = create((set) => ({
           return {
           ...state,
           text: `Player 1 used ${attackName} on ${state.player2.active[0].name} for ${state.player1.active[0].attacks.find(({name}) => name === attackName).damage} damage!` + (response.data[1] ? ` Player 2's ${state.player2.active[0].name} has fainted! Click Next Turn to continue.` : ""),
-          player2: {...state.player2, active: newActiveCard},
+          player2: {...state.player2, active: newActiveCard, discard: (response.data[1] ? [...state.player2.discard, state.player2.active[0]] : state.player2.discard)},
           player1: {...state.player1, knockouts: (response.data[1] ? Number(state.player1.knockouts) + 1 : state.player1.knockouts)}
           }
         });
@@ -410,6 +427,7 @@ export const useStore = create((set) => ({
                   : Number(state.player1.active[0].hp) + 20,
             },
           ],
+          discard: [...state.player1.discard, state.player1.hand[index]],
           hand: state.player1.hand.filter((i) => i !== index),
         },
       };

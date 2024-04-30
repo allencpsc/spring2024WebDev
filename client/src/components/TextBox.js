@@ -8,8 +8,9 @@ const style = {
   borderRadius: "15px",
   padding: "10px",
   fontFamily: "Arial",
+  overflow: "scroll",
 };
-//TODO: Pick a better font to match Bangers
+
 export const TextBox = ({ text }) => {
   return <div style={style}>{text}</div>;
 };

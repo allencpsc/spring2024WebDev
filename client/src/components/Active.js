@@ -11,11 +11,12 @@ const style = {
   fontSize: "1rem",
   lineHeight: "normal",
   borderRadius: "15px",
+  border: "5px solid #0b64c8",
 };
 const Active = ({ pokemon, playerId }) => {
   return (
     <div style={{ ...style }} className="position-relative">
-      <div className="position-absolute top-100 start-100 title translate-middle-y">
+      <div className="position-absolute top-100 start-100 title translate-middle-y mx-3">
         PLAYER {playerId} ACTIVE
       </div>
       <div className="">

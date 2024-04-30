@@ -34,7 +34,6 @@ code {
 .opponent-hand {
   display: flex;
   flex-wrap: nowrap;
-  line-content: center;
 }
 .opponent-bench {
   transform: translate(0px, -8vh);
@@ -48,28 +47,16 @@ code {
 }
 
 .btn {
-  font-size: xx-large;
+  font-size: x-large;
   align-self: center;
 }
-.myButton {
+.actionButton {
   height: fit-content;
   width: fit-content;
   font-size: xx-large;
   align-self: center;
 }
 
-.start-button {
-  background-color: rgb(0 0 0 / 0%);
-  border: none;
-}
-.start-button:hover {
-  background-color: rgb(0 0 0 / 0%);
-  border: none;
-}
-.start-button:active {
-  background-color: rgb(0 0 0 / 0%) !important;
-  border: none;
-}
 .cardModal {
   overflow: scroll;
   align-content: center;
@@ -78,30 +65,6 @@ code {
 .modal-body {
   width: 40vw;
   align-items: center;
-}
-
-.start-button-text {
-  font-size: 10rem;
-  margin: 100px;
-  color: #ffcc00;
-  text-decoration-line: none;
-  -webkit-text-stroke: 5px #0072bb;
-}
-
-.start-button-text:hover {
-  font-size: 10rem;
-  color: #ffd634;
-  text-decoration-line: none;
-  transform: translate(100px 0px 0px 0px);
-  -webkit-text-stroke: 5px #0072bb;
-}
-
-.start-button-text:active {
-  font-size: 10rem;
-  color: #f9c804;
-  text-decoration-line: none;
-  transform: translate(500px 50px);
-  -webkit-text-stroke: 5px #0072bb;
 }
 
 .modalImg {
