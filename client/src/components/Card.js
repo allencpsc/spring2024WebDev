@@ -8,7 +8,6 @@ import pokemon from "pokemontcgsdk";
 import { CardButtons } from "./CardButtons";
 import { EnergyIcons } from "./EnergyIcons";
 import { AttackButtons } from "./AttackButtons";
-pokemon.configure({ apiKey: "0d524a9e-011f-4f8e-a972-ad3a71503346" });
 const style = {
   borderRadius: "10px",
   marginRight: "0.5rem",
@@ -26,7 +25,7 @@ export const Card = function Card(props) {
   const progressHp =
     props.currentHp && props.maxHp
       ? (Number(props.currentHp) / Number(props.maxHp)) * 100
-      : 100;
+      : 0;
   var color;
 
   if (progressHp <= 50) {
@@ -80,7 +79,7 @@ export const Card = function Card(props) {
             <Row>
               <Col>
                 <div className="d-grid gap-1">
-                  {props.flippedOver === true ? null : (
+                  {props.playerId !== 1 ? null : (
                     <div>
                       <CardButtons
                         supertype={props.supertype}

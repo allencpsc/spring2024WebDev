@@ -6,9 +6,9 @@ import { getDrawPhase, getTurnCommands, initializeGame, getTurnLoopCommands,
     getAttackStringPrompt, getAttackResultsPrompt, getForceSwapPrompt, skipPlayerTurn,
     getPlayerHand, sendPlaceCardtoSlot, performForceSwap, getActivePlayer,
     getPlayer1Hand, getPlayer1Active, getPlayer2Hand, getPlayer2Active, getPlayer2Bench,
-    getPlayer1Bench,
+    getPlayer1Bench, getDrawnCard,
     usePotion,
-    getTheTurnsElapsed,
+    getTheTurnsElapsed, getForceSwapCpu,
     endCurrentGame,
     runCpuTurnTwo} from './GameEngine.js'
 import { runTurnZeroPlayerOne, runTurnZeroPlayerTwo } from './GameEngine.js'
@@ -100,16 +100,9 @@ app.post('/turn-loop-commands', (req, res) => {
 
 app.post('/attacker-options', (req, res) => {
     let promptArr = getAttackResultsPrompt(req.body.command)
-    // let gamePrompt = promptArr[0]
-    // let knockoutBool = promptArr[1]
-    // if (knockoutBool == false){
-    //     res.render('attack-results.ejs', {"gamePrompt": gamePrompt} )
-    // }
-    // else{
-    //     let gamePrompt = getForceSwapPrompt()
-    //     res.render('force-swap.ejs', {"gamePrompt": gamePrompt})
-    // }
-    return promptArr
+    let gamePrompt = promptArr[0]
+    let knockoutBool = promptArr[1]
+    res.send(promptArr)
 })
 
 app.post('/force-swap', (req, res) => {

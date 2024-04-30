@@ -3,6 +3,10 @@ import Active from "./Active.js";
 import { Hand } from "./Hand.js";
 import { useStore, state } from "../resources/store.js";
 import { TextBox } from "./TextBox.js";
+import { KnockoutCounter } from "./KnockoutCounter.js";
+import { Button } from "react-bootstrap";
+import Discard from "./Discard.js";
+import { Deck } from "./Deck.js";
 
 export const GameBoard = function GameBoard() {
   const CPUTurn = useStore((state) => state.CPUTurn);
@@ -14,11 +18,13 @@ export const GameBoard = function GameBoard() {
   const nextTurn = useStore((state) => state.nextTurn);
   const currentTurn = useStore((state) => state.currentTurn);
   const reset = useStore((state) => state.reset);
+  var started = false;
 
   const getStartHands = async (e) => {
     e.preventDefault();
     try {
       await firstTurn();
+      started = true;
     } catch (error) {
       console.log(error);
     }
@@ -37,29 +43,34 @@ export const GameBoard = function GameBoard() {
       </div>
       <div className="row">
         <div className="col">
-          <div id="opponent-prize"></div>
+          <div className="player2KOs">
+            <KnockoutCounter knockouts={player2.knockouts} />  
+          </div> 
         </div>
-        <div className="col-6">
+        <div className="col-6 g-1">
           <div className="opponent-bench">
             <Bench cards={player2.bench} playerId={2} />
           </div>
         </div>
-        <div className="col">
-          <div id="opponent-prize"></div>
+        <div className="col-1"></div>
+        <div className="col-1">
+          <Discard cards={player2.discard} playerId={2} />
         </div>
+        <div className="col-1">
+          <Deck cards={player2.deck} playerId={2} />
+          </div>
       </div>
-      <div className="row actives">
+      <div className="row actives g-1">
         <div className="col-1"></div>
         <div className="col-2">
           <div className="row">
             <TextBox text={text} />
             <div className="col">
-              <button onClick={introduction}>Begin</button>
-              <button onClick={getStartHands}>Draw</button>
-              <button onClick={nextTurn}>
+              <Button onClick={getStartHands}>Draw</Button>
+              <Button onClick={nextTurn}>
                 Next Turn
-              </button>
-              <button onClick={reset}>Reset</button>
+              </Button>
+              <Button onClick={reset}>Reset</Button>
             </div>
           </div>
         </div>
@@ -73,12 +84,22 @@ export const GameBoard = function GameBoard() {
         </div>
         <div className="col-2"></div>
       </div>
-      <div className="row">
-        <div className="col"></div>
+      <div className="row g-1">
+        <div className="col-1"></div>
+        <div className="col-1">
+          <Discard cards={player1.discard} playerId={1} />
+        </div>
+        <div className="col-1">
+          <Deck cards={player1.deck} playerId={1} />
+        </div>
         <div className="col-6">
           <Bench cards={player1.bench} playerId={1} />
         </div>
-        <div className="col"></div>
+        <div className="col-3">
+          <div className="player1KOs">
+            <KnockoutCounter knockouts={player1.knockouts} />  
+          </div> 
+        </div>
       </div>
       <div className="row">
         <div className="col"></div>
@@ -87,7 +108,9 @@ export const GameBoard = function GameBoard() {
             <Hand cards={player1.hand} flippedOver={false} playerId={1} />
           </div>
         </div>
-        <div className="col"></div>
+        <div className="col">
+          
+        </div>
       </div>
     </div>
   );

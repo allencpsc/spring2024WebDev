@@ -79,29 +79,20 @@ export function damagePhase(attackName, currentGame){
     }
     let attackerActive = attacker.playerField.active
     let defenderActive = defender.playerField.active
-    // console.log("Attacker: " + attackerActive[0])
-    // console.log("Defender: " + defenderActive)
     var defenderPoke = defenderActive[0]
     let attackerAttackOptions = attackerActive[0].attacks
     for (let i = 0; i < attackerAttackOptions.length; i++){
-        // console.log(attackName)
-        // console.log(attackerAttackOptions[i])
         if(attackName == attackerAttackOptions[i].name){
             var attack = attackerAttackOptions[i]
-            //console.log("attack == " + attack)
         }
     }
     var calculatedHp = defenderPoke.hp - attack.damage
     defenderPoke.setCardHp(calculatedHp)
-    // returnString = returnString.concat(`${attack.name} does ${attack.damage} damage!`)
-    // returnString = returnString.concat(`${defenderPoke.name} now has ${calculatedHp} HP`)
     if (calculatedHp <= '0'){
-        //returnString = returnString.concat('...knockout!!!!')
         knockOut = true;
         returnArr[1] = knockOut
     }
     else {
-        //returnString = returnString.concat('...no knockout!!!!')
         knockOut = false
         returnArr[1] = knockOut
     }

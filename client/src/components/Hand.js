@@ -4,11 +4,11 @@ const style = {
   minHeight: "12.4rem",
   maxHeight: "12.4rem",
   minWidth: "640px",
-  margin: "1rem",
+  margin: "0 auto 0 auto",
   justifyItems: "space-between",
   color: "white",
   overflow: "scroll",
-  display: "flex",
+  display: "block",
   alignItems: "center",
   justifyContent: "center",
 };
