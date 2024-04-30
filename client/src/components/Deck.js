@@ -1,8 +1,9 @@
 import React from "react";
+import { Card } from "./Card";
 
 const style = {
     height: "13.4rem",
-    backgroundColor: "#1a203d",
+    backgroundColor: "#3a4b9f",
     borderRadius: "15px",
     color: "white",
     width: "10rem",
@@ -19,11 +20,7 @@ export const Deck = ({ cards, playerId }) => {
             <div className="position-absolute bottom-0 translate-middle-y mx-3">
                 PLAYER {playerId} DECK
             </div>
-            {cards[0] &&
-                <div className="card">
-                    <img src={cards[0].images?.large} alt={cards[0].name} />
-                </div>
-            }
+                <Card flippedOver={true}/>
         </div>
     );
 }

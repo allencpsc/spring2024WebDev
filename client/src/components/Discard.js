@@ -4,7 +4,7 @@ import { Card } from "./Card";
 import { Modal } from "react-bootstrap";
 const style = {
     height: "13.4rem",
-    backgroundColor: "#1a203d",
+    backgroundColor: "#3a4b9f",
     borderRadius: "15px",
     color: "white",
     width: "10rem",
