@@ -100,15 +100,16 @@ app.post('/turn-loop-commands', (req, res) => {
 
 app.post('/attacker-options', (req, res) => {
     let promptArr = getAttackResultsPrompt(req.body.command)
-    let gamePrompt = promptArr[0]
-    let knockoutBool = promptArr[1]
-    if (knockoutBool == false){
-        res.render('attack-results.ejs', {"gamePrompt": gamePrompt} )
-    }
-    else{
-        let gamePrompt = getForceSwapPrompt()
-        res.render('force-swap.ejs', {"gamePrompt": gamePrompt})
-    }
+    // let gamePrompt = promptArr[0]
+    // let knockoutBool = promptArr[1]
+    // if (knockoutBool == false){
+    //     res.render('attack-results.ejs', {"gamePrompt": gamePrompt} )
+    // }
+    // else{
+    //     let gamePrompt = getForceSwapPrompt()
+    //     res.render('force-swap.ejs', {"gamePrompt": gamePrompt})
+    // }
+    return promptArr
 })
 
 app.post('/force-swap', (req, res) => {
@@ -184,7 +185,7 @@ app.get('/cpu-turn-two', (req,res) => {
 })
 
 app.get('/draw-single-card', (req,res) => {
-    let cardDrawn = getDrawCard()
+    let cardDrawn = getDrawnCard()
     res.send(cardDrawn)
 })
 

@@ -232,7 +232,7 @@ export function getTheTurnsElapsed(){
     return currentGame.getTurnsElapsed()
 }
 
-export function getDrawCard(){
+export function getDrawnCard(){
     let currentPlayer = getActivePlayer()
     let cardDrawn = drawCard(currentPlayer)
     return cardDrawn
