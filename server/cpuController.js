@@ -19,7 +19,7 @@ export function cpuHandler(currentGame){
 }
 
 export function cpuTurnTwo(currentGame){
-    console.log('cpu turn two ---------')
+    //console.log('cpu turn two ---------')
     currentGame.incrementTurnsElapsed()
     let returnArr = []
     let player2 = currentGame.player2
@@ -39,11 +39,12 @@ export function forceSwapCpu(currentGame){
     let player2 = currentGame.player2
     let player2hand = player2.playerField.hand
     for (let eachCard of player2hand){
-        console.log(eachCard)
-        if(eachCard.name == "Pidgey"){
-            placeCardtoSlot(player2, eachCard.name, "Active", 0)
+        //console.log(eachCard)
+        if(eachCard.name == "Pidgey" && eachCard.hp > 0){
+            currentGame.player2.playerField.setActive([eachCard, 0])
             return eachCard
-        }   
+        }
+
     }
 }
 
@@ -71,12 +72,12 @@ function useRandomAttack(player2active, currentGame){
     let attacksAvailable = player2active[0].attacks
     console.log(`attacks available: ${attacksAvailable}`)
     for (let attack of attacksAvailable){
-        console.log(`attack damage: ${attack.damage}`)
+        //console.log(`attack damage: ${attack.damage}`)
         if (attack.damage > 0){
             let selectedAttack = attack
-            console.log(`selected attack name: ${selectedAttack.name}`)
+            //console.log(`selected attack name: ${selectedAttack.name}`)
             let returnArr = damagePhase(selectedAttack.name, currentGame)
-            console.log(`return arr for random attack: ${returnArr[0]}, ${returnArr[1]}`)
+            //console.log(`return arr for random attack: ${returnArr[0]}, ${returnArr[1]}`)
             return returnArr
         }
     }
