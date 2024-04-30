@@ -44,6 +44,11 @@ export function forceSwapCpu(currentGame){
             currentGame.player2.playerField.setActive([eachCard, 0])
             return eachCard
         }
+        else if(eachCard.name == "Charmander"){
+            eachCard.setCardHp(50)
+            currentGame.player2.playerField.setActive([eachCard, 0])
+            return eachCard
+        }
 
     }
 }

@@ -46,13 +46,13 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
     function placePokeCardtoBench(cardChosen, activePlayer){
         let benchArr = activePlayer.playerField.getBench()
         let sizeBenchArr = benchArr.length
-        console.log("Bench array: " + sizeBenchArr)
+        //console.log("Bench array: " + sizeBenchArr)
         if (sizeBenchArr < 5){
             benchArr.push([cardChosen, []])
-            console.log(`${cardChosen.name} has been placed on your bench`)
+            //console.log(`${cardChosen.name} has been placed on your bench`)
         }
         else{
-            console.log("Sorry your bench is full!")
+            //console.log("Sorry your bench is full!")
             benchArr.pop()
             benchArr.push([cardChosen, []])
         }
@@ -66,10 +66,10 @@ export function placeCardtoSlot(activePlayer, cardName, location, benchSlot){
             let buffCard = activeSlot[0]
             activeSlot[0] = cardChosen
             benchArr.push(buffCard)
-            console.log(`Added ${cardChosen.name} to the active slot`)
+            //console.log(`Added ${cardChosen.name} to the active slot`)
         }
         else{
-            console.log("Sorry your bench is full!")
+            //console.log("Sorry your bench is full!")
             benchArr.pop()
             benchArr.push([cardChosen, []])
         }

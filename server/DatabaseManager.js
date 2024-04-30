@@ -9,6 +9,7 @@ export async function createLog(currentGame) {
     try {
       const database = client.db('GameLogs');
       const coll = database.collection('MatchResults');
+      //await coll.deleteMany({iGameOver : false})
       await coll.insertOne({ gameId: currentGame.gameId, turnsElapsed : currentGame.turnsElapsed,
                                 iGameOver: currentGame.isGameOver, winner: currentGame.winner });
     } finally {
