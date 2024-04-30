@@ -7,7 +7,7 @@ export const AttackButtons = ({ location, attacks, handleClose }) => {
   if (location === "active") {
     return (
       <React.Fragment>
-        <div className="justify-content-around">
+        <div className="attackButtons justify-content-around">
           {attacks.map((attack, index) => {
             var backgroundColor;
             switch (attack.cost[0]) {

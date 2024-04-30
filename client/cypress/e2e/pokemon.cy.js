@@ -27,8 +27,9 @@ describe('pokemon app displays right', () => {
 
     it('sets active pokemon', () => {
       cy.get('#start').click()
-      cy.get('#hand1').find('.pokeCard').first().click()
+      cy.get('#hand1').find('.pokeCard').last().click()
       cy.get('#makeactive1').click()
+      cy.get('#healthactive01').invoke('text').should('equal', '50')
     })
 
     it('sets bench pokemon', () => {
@@ -36,4 +37,18 @@ describe('pokemon app displays right', () => {
       cy.get('#hand1').find('.pokeCard').first().click()
       cy.get('#placeonbench1').click()
     })
+    
+    it('attacks', () => {
+      cy.get('#start').click()
+      cy.get('#hand1').find('.pokeCard').last().click()
+      cy.get('#makeactive1').click()
+      cy.get('#nextTurn').click()
+      cy.get('#nextTurn').click()
+      cy.get('#active1').find('.pokeCard').click()
+      console.log(cy.get('.attackButtons').first())
+      cy.get('.attackButtons').children().first().click()
+      cy.get('#healthactive01').invoke('text').should('equal', '40')
+      cy.get('#healthactive02').invoke('text').should('equal', '30')
+    })
+
   })

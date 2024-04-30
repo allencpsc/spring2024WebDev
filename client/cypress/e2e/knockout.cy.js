@@ -1,0 +1,25 @@
+describe('cpu knockout works', () => {
+    beforeEach(() => {
+      cy.visit('localhost:3001/')
+      cy.viewport(1920, 1080)
+    })
+
+      it('displays knockouts', () => {
+        cy.get('#start').click()
+        cy.get('#hand1').find('.pokeCard').last().click()
+        cy.get('#makeactive1').click()
+        cy.get('#nextTurn').click()
+        cy.get('#nextTurn').click()
+        cy.get('#active1').find('.pokeCard').click()
+        cy.get('.attackButtons').children().last().click()
+        cy.get('#healthactive01').invoke('text').should('equal', '40')
+        cy.get('#healthactive02').invoke('text').should('equal', '10')
+        cy.get('#nextTurn').click()
+        cy.get('#nextTurn').click()
+        cy.get('#active1').find('.pokeCard').click()
+        cy.get('.attackButtons').children().last().click()
+        cy.get('#healthactive01').invoke('text').should('equal', '30')
+        cy.get('#active2').should('be.empty')
+        cy.get('#knockouts1').invoke('text').should('equal', 'Knockouts:🟩 ⬛ ⬛')
+      })
+    })

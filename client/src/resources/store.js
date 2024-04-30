@@ -157,7 +157,9 @@ export const useStore = create((set) => ({
             });
           });
           
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       } else {
         try {
           axios.get(paths.root + "/cpu-turn").then(function (response) {
@@ -215,7 +217,9 @@ export const useStore = create((set) => ({
               };
             });
           });
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
     set((state) => {
@@ -315,7 +319,6 @@ export const useStore = create((set) => ({
               benchSlot: 0,
             })
             .then(function (response) {
-              console.log(response);
             });
         } catch (error) {
           console.log(error);

@@ -58,7 +58,7 @@ export const CardButtons = ({
   } else if (supertype === "Trainer" && location === "hand") {
     return (
       <div>
-        <ActionButton textValue="Use" index={index} handleClose={handleClose} />
+        <ActionButton textValue="Use" index={index} playerId={playerId} handleClose={handleClose} />
       </div>
     );
   } else if (supertype === "Energy" && location === "hand") {

@@ -44,9 +44,14 @@ export const Card = function Card(props) {
       showHp = true;
     }
   }
+  var cleanedText = String(props.name).split(" ")
+  cleanedText.forEach((word, index) => {
+    word.trim();
+  });
+  const id = cleanedText.join("").toLowerCase() + String(props.playerId);
 
   return (
-    <div style={{ ...style }} id={props.name+String(props.playerId)} className="pokeCard">
+    <div style={{ ...style }} id={id} className="pokeCard">
       <img
         src={
           props.flippedOver === true
@@ -62,9 +67,10 @@ export const Card = function Card(props) {
           now={progressHp}
           variant={color}
           label={`${props.currentHp}`}
+          id={"health" + props.location +props.index + props.playerId}
         />
       )}
-      <div>
+      <div id={id+"energies"}>
         {props.supertype === "Pokémon" &&
           props.energies &&
           props.energies.length > 0 && (
