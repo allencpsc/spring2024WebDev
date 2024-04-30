@@ -3,6 +3,7 @@ import Active from "./Active.js";
 import { Hand } from "./Hand.js";
 import { useStore, state } from "../resources/store.js";
 import { TextBox } from "./TextBox.js";
+import { KnockoutCounter } from "./KnockoutCounter.js";
 
 export const GameBoard = function GameBoard() {
   const CPUTurn = useStore((state) => state.CPUTurn);
@@ -47,7 +48,9 @@ export const GameBoard = function GameBoard() {
           </div>
         </div>
         <div className="col">
-          <div id="opponent-prize"></div>
+        <div className="player2KOs">
+            <KnockoutCounter knockouts={player2.knockouts} />  
+          </div> 
         </div>
       </div>
       <div className="row actives">
@@ -56,7 +59,6 @@ export const GameBoard = function GameBoard() {
           <div className="row">
             <TextBox text={text} />
             <div className="col">
-              <button onClick={introduction}>Begin</button>
               <button onClick={getStartHands}>Draw</button>
               <button onClick={nextTurn}>
                 Next Turn
@@ -80,7 +82,11 @@ export const GameBoard = function GameBoard() {
         <div className="col-6">
           <Bench cards={player1.bench} playerId={1} />
         </div>
-        <div className="col"></div>
+        <div className="col">
+          <div className="player1KOs">
+            <KnockoutCounter knockouts={player1.knockouts} />  
+          </div> 
+        </div>
       </div>
       <div className="row">
         <div className="col"></div>
@@ -89,7 +95,9 @@ export const GameBoard = function GameBoard() {
             <Hand cards={player1.hand} flippedOver={false} playerId={1} />
           </div>
         </div>
-        <div className="col"></div>
+        <div className="col">
+          
+        </div>
       </div>
     </div>
   );
