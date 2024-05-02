@@ -1,9 +1,7 @@
 import React from "react";
 import { ActionButton } from "./ActionButton";
-import { useStore } from "../resources/store.js";
 
-export const AttackButtons = ({ location, attacks, handleClose }) => {
-  const attack = useStore((state) => state.attack);
+export const AttackButtons = ({ location, attacks, handleClose, playerId }) => {
   if (location === "active") {
     return (
       <React.Fragment>
@@ -27,6 +25,7 @@ export const AttackButtons = ({ location, attacks, handleClose }) => {
             return (
               <ActionButton
                 textValue={attack.name}
+                playerId={playerId}
                 key={index}
                 isAttack={true}
                 backgroundColor={backgroundColor}

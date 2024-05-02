@@ -404,6 +404,9 @@ export const useStore = create((set) => ({
 
   attack: async (attackName) => {
     try {
+      axios.get(paths.root + "/player1-active").then(function (response) {
+        console.log(response.data);
+      });
       axios({
         method: "post",
         url: paths.root + "/attacker-options",

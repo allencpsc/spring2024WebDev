@@ -51,6 +51,7 @@ export const CardButtons = ({
     return (
       <div>
         <AttackButtons
+          playerId={playerId}
           attacks={attacks}
           location={location}
           handleClose={handleClose}
