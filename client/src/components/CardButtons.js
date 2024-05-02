@@ -11,7 +11,6 @@ export const CardButtons = ({
   handleClose,
   attacks,
 }) => {
-  console.log(`location: ${location}, name: ${name}, playerId: ${playerId}, index: ${index}`)
   if (supertype === "Pokémon" && location === "hand") {
     return (
       <div>

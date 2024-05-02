@@ -95,22 +95,6 @@ export const useStore = create((set) => ({
                 },
               }));
             }
-            /*          if(response.data[1] !== null){ 
-                 set((state) => ({
-                  ...state,
-                  text: `CPU has placed ${response.data[1].name} in the bench slot!`,
-                  player2: {
-                    ...state.player2,
-                    bench: [ state.player2.bench,
-                      state.player2.hand.find(
-                        (card) => card.name === response.data[1].name
-                      ),
-                    ],
-                    hand: state.player2.hand.filter(
-                    (card) => card.name !== response.data[1].name
-                    ),
-                  },
-                })); */
             set((state) => {
               return {
                 ...state,
@@ -155,6 +139,21 @@ export const useStore = create((set) => ({
                 return state;
               }
             });
+            try {
+              axios
+                .get(paths.root + "/player2-bench")
+                .then(function (response) {
+                  console.log(response.data)
+                  set((state) => {
+                    return {
+                      ...state,
+                      player2: { ...state.player2, bench: response.data },
+                    };
+                  });
+                });
+            } catch (error) {
+              console.log(error);
+            }
           });
           
         } catch (error) {
@@ -289,7 +288,6 @@ export const useStore = create((set) => ({
   },
 
   moveToBench: async (playerId, location, index) => {
-    console.log(`Moving to bench from ${location}`)
     set((state) => {
       if (location === "hand") {
         axios
@@ -299,6 +297,7 @@ export const useStore = create((set) => ({
           benchSlot: state.player1.bench.length,
         })
         .then(function (response) {});
+        
       return {
         ...state,
         player1: {
@@ -369,10 +368,7 @@ export const useStore = create((set) => ({
           player1: {
             ...state.player1,
             active: [state.player1.bench[index]],
-            bench: [
-              state.player1.bench.filter((card, i) => i !== index),
-              (state.player1.active[0] == null ? [] : state.player1.active[0]),
-            ],
+            bench: state.player1.bench.filter((card, i) => i !== index),
           },
         };
       }
@@ -405,7 +401,6 @@ export const useStore = create((set) => ({
   attack: async (attackName) => {
     try {
       axios.get(paths.root + "/player1-active").then(function (response) {
-        console.log(response.data);
       });
       axios({
         method: "post",

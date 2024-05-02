@@ -16,7 +16,7 @@ describe('cards move corectly', () => {
         cy.get('#hand1').find('.pokeCard').first().click()
         cy.get('#placeonbench1').click()
       })
-  
+
       it('sets active from bench', () => {
         cy.get('#start').click()
         cy.get('#hand1').find('.pokeCard').first().click()
@@ -26,6 +26,7 @@ describe('cards move corectly', () => {
         cy.get('#healthactive01').invoke('text').should('equal', '40')
       })
   
+      
       it('moves active to bench', () => {
         cy.get('#start').click()
         cy.get('#hand1').find('.pokeCard').first().click()
@@ -44,4 +45,16 @@ describe('cards move corectly', () => {
         cy.get('#makeactive1').click()
         cy.get('#bench1').find('.pokeCard').should('have.length', 1)
       })
+      
+      it('sets active from bench with 2 on bench', () => {
+        cy.get('#start').click()
+        cy.get('#hand1').find('.pokeCard').first().click()
+        cy.get('#placeonbench1').click()
+        cy.get('#hand1').find('.pokeCard').first().click()
+        cy.get('#placeonbench1').click()
+        cy.get('#bench1').find('.pokeCard').first().click()
+        cy.get('#makeactive1').click()
+        cy.get('#bench1').find('.pokeCard').should('have.length', 1)
+      })
+  
     })

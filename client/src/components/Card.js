@@ -49,7 +49,6 @@ export const Card = function Card(props) {
     word.trim();
   });
   const id = cleanedText.join("").toLowerCase() + String(props.playerId);
-  console.log(`location: ${props.location}, name: ${props.name}, playerId: ${props.playerId}, index: ${props.index}`)
   return (
     <div style={{ ...style }} id={id} className="pokeCard">
       <img
