@@ -11,6 +11,7 @@ export const CardButtons = ({
   handleClose,
   attacks,
 }) => {
+  console.log(`location: ${location}, name: ${name}, playerId: ${playerId}, index: ${index}`)
   if (supertype === "Pokémon" && location === "hand") {
     return (
       <div>
@@ -19,6 +20,7 @@ export const CardButtons = ({
           textValue="Place on Bench"
           name={name}
           playerId={playerId}
+          location={location}
           index={index}
           handleClose={handleClose}
         />
@@ -51,6 +53,15 @@ export const CardButtons = ({
         <AttackButtons
           attacks={attacks}
           location={location}
+          handleClose={handleClose}
+        />
+        <ActionButton
+          className="Button"
+          textValue="Retreat to Bench"
+          name={name}
+          playerId={playerId}
+          location={location}
+          index={index}
           handleClose={handleClose}
         />
       </div>

@@ -25,6 +25,12 @@ describe('pokemon app displays right', () => {
       cy.get('#hand2').find('.pokeCard').should('have.length', 7)
     })
 
+    it('opens and closes card modal', () => {
+      cy.get('#start').click()
+      cy.get('#hand1').find('.pokeCard').first().click()
+      cy.get('.btn-close').click()
+    })
+
     it('sets active pokemon', () => {
       cy.get('#start').click()
       cy.get('#hand1').find('.pokeCard').last().click()
@@ -36,6 +42,34 @@ describe('pokemon app displays right', () => {
       cy.get('#start').click()
       cy.get('#hand1').find('.pokeCard').first().click()
       cy.get('#placeonbench1').click()
+    })
+
+    it('sets active from bench', () => {
+      cy.get('#start').click()
+      cy.get('#hand1').find('.pokeCard').first().click()
+      cy.get('#placeonbench1').click()
+      cy.get('#bench1').find('.pokeCard').first().click()
+      cy.get('#makeactive1').click()
+      cy.get('#healthactive01').invoke('text').should('equal', '40')
+    })
+
+    it('moves active to bench', () => {
+      cy.get('#start').click()
+      cy.get('#hand1').find('.pokeCard').first().click()
+      cy.get('#makeactive1').click()
+      cy.get('#active1').find('.pokeCard').click()
+      cy.get('#retreattobench1').click()
+      cy.get('#bench1').find('.pokeCard').should('have.length', 1)
+    })
+
+
+    it('switches in active from bench', () => {
+      cy.get('#start').click()
+      cy.get('#hand1').find('.pokeCard').first().click()
+      cy.get('#placeonbench1').click()
+      cy.get('#hand1').find('.pokeCard').first().click()
+      cy.get('#makeactive1').click()
+      cy.get('#bench1').find('.pokeCard').should('have.length', 1)
     })
     
     it('attacks', () => {

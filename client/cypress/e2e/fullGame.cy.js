@@ -23,6 +23,9 @@ describe('player active knockout works', () => {
         cy.get('#bulbasaur1').click()
         cy.get('#makeactive1').click()
 
+        cy.get('#active1').find('.pokeCard').click()
+        cy.get('.attackButtons').children().first().click()
+
         for (let i = 0; i < 4; i++) {
             cy.get('#nextTurn').click()
             cy.get('#nextTurn').click()

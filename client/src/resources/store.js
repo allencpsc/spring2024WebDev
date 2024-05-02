@@ -288,9 +288,11 @@ export const useStore = create((set) => ({
     }
   },
 
-  moveToBench: async (playerId, index) => {
+  moveToBench: async (playerId, location, index) => {
+    console.log(`Moving to bench from ${location}`)
     set((state) => {
-      axios
+      if (location === "hand") {
+        axios
         .post(paths.root + "/place-card", {
           cardName: state.player1.hand[index].name,
           location: "Bench",
@@ -305,6 +307,25 @@ export const useStore = create((set) => ({
           hand: state.player1.hand.filter((card, i) => i !== index),
         },
       };
+      } else if (location === "active") {
+        console.log("Moving active to bench")
+        axios
+        .post(paths.root + "/place-card", {
+          cardName: state.player1.active[0].name,
+          location: "Bench",
+          benchSlot: state.player1.bench.length,
+        })
+        .then(function (response) {});
+      return {
+        ...state,
+        player1: {
+          ...state.player1,
+          bench: [...state.player1.bench, state.player1.active[0]],
+          active: [],
+        },
+      };
+      }
+      
     });
   },
 
@@ -336,7 +357,7 @@ export const useStore = create((set) => ({
           axios
             .post(paths.root + "/place-card", {
               cardName: state.player1.hand[index].name,
-              location: "Active",
+              location: "Bench",
               benchSlot: index,
             })
             .then(function (response) {});
@@ -350,7 +371,7 @@ export const useStore = create((set) => ({
             active: [state.player1.bench[index]],
             bench: [
               state.player1.bench.filter((card, i) => i !== index),
-              state.player1.active[0],
+              (state.player1.active[0] == null ? [] : state.player1.active[0]),
             ],
           },
         };

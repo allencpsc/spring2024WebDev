@@ -21,8 +21,8 @@ export const ActionButton = (props) => {
   };
 
   const handleClick = () => {
-    if (props.textValue === "Place on Bench") {
-      moveToBench(props.playerId, props.index);
+    if (props.textValue === "Place on Bench" || props.textValue === "Retreat to Bench") {
+      moveToBench(props.playerId, props.location, props.index);
     } else if (props.textValue === "Make Active") {
       makeActive(props.playerId, props.location, props.index);
     } else if (props.textValue === "Use") {
